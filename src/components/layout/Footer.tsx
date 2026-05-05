@@ -13,7 +13,6 @@ import { Mail, MapPin, ArrowUpRight } from 'lucide-react'
 const footerNav = [
   { label: 'Home',      href: '/' },
   { label: 'Services',  href: '/services' },
-  { label: 'Portfolio', href: '/portfolio' },
   { label: 'About',     href: '/about' },
   { label: 'Contact',   href: '/contact' },
 ]

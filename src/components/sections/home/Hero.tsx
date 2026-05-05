@@ -152,7 +152,7 @@ export default function Hero() {
             Start a Project
           </Link>
 
-          <Link href="/portfolio" style={{
+          <Link href="/services" style={{
             backgroundColor: 'transparent',
             color:           '#ffffff',
             fontFamily:      'var(--font-body)',
