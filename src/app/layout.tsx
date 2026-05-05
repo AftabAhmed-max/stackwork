@@ -29,6 +29,9 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'Stackwork — Digital Solutions',
   description: 'Web design, app development, analytics and more for businesses across India and the Gulf.',
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 /* ---- Viewport — fixes real mobile rendering ---- */

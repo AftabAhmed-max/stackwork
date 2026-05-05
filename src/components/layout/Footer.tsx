@@ -192,13 +192,13 @@ export default function Footer() {
 
           {/* Email */}
           <a
-            href="mailto:hello@stackworkhq.com"
+            href="mailto:stackworkhq@gmail.com"
             style={{ ...linkStyle, display: 'flex', alignItems: 'center', gap: '8px' }}
             onMouseEnter={e => (e.currentTarget.style.color = '#FF6B35')}
             onMouseLeave={e => (e.currentTarget.style.color = '#888888')}
           >
             <Mail size={14} />
-            hello@stackworkhq.com
+            stackworkhq@gmail.com
           </a>
 
           {/* Locations */}
