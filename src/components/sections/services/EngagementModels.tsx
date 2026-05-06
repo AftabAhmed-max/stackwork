@@ -15,7 +15,7 @@ const models = [
     color:    '#FF6B35',
     desc:     'A defined scope, fixed timeline, and clear deliverables. Best for websites, apps, and dashboards with a clear brief.',
     features: ['Fixed quote upfront', 'Defined milestones', 'Full handover on completion', '30-day post-launch support'],
-    cta:      'Let's Build Together',
+    cta:      "Let's Build Together",
   },
   {
     icon:     RefreshCw,
