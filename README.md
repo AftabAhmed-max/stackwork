@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stackwork — Digital Solutions
 
-## Getting Started
+> Web design, app development, analytics and more for businesses across India and the Gulf.
 
-First, run the development server:
+🌐 **Live Site:** [stackwork.netlify.app](https://stackwork.netlify.app/)
+
+---
+
+## About
+
+Stackwork is a full service digital agency portfolio website built to showcase services including web development, mobile apps, data analytics, business setup, and maintenance retainer plans. The website targets small and medium businesses across India and Gulf countries.
+
+---
+
+## Pages
+
+- **Home** — Hero, pain points, services overview, why choose us
+- **Services** — Full breakdown of all six service pillars
+- **About** — Agency story and values
+- **Contact** — Inquiry form and contact details
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Next.js 14 | Framework |
+| Tailwind CSS v4 | Styling |
+| Framer Motion | Animations |
+| Netlify | Deployment |
+
+---
+
+## Running Locally
 
 ```bash
+git clone https://github.com/AftabAhmed-max/stackwork.git
+cd stackwork
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Built By
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Aftab Ahmed** — [Stackwork](https://stackwork.netlify.app/)
