@@ -26,46 +26,126 @@ const webSlides = [
 
 function WebMockup() {
   const [active, setActive] = useState(0)
-  const [fading, setFading] = useState(false)
-  const ref = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [loaded, setLoaded] = useState([false, false, false])
 
-  useEffect(() => {
-    ref.current = setInterval(() => {
-      setFading(true)
-      setTimeout(() => { setActive(p => (p + 1) % webSlides.length); setFading(false) }, 300)
-    }, 2800)
-    return () => { if (ref.current) clearInterval(ref.current) }
-  }, [])
+  const sites = [
+    { label: 'Restaurant Website', url: 'https://ember-ash-zeta.vercel.app/', color: '#1a1a2e' },
+    { label: 'Real Estate Portal',  url: null, color: '#0d2137' },
+    { label: 'E-Commerce Store',    url: null, color: '#1a0d2e' },
+  ]
 
-  const slide = webSlides[active]
+  const site = sites[active]
 
   return (
     <div>
       <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+        {/* Browser bar */}
         <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <div style={{ display: 'flex', gap: '5px' }}>
             {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
           </div>
-          <div style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)', opacity: fading ? 0 : 1, transition: 'opacity 0.3s ease' }}>
-            stackworkhq.com/projects
+          <div style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.5)' }}>
+            {site.url || 'Coming Soon'}
           </div>
+          {site.url && (
+            <a
+              href={site.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontFamily:      'var(--font-body)',
+                fontSize:        '10px',
+                color:           '#FF6B35',
+                textDecoration:  'none',
+                border:          '1px solid rgba(255,107,53,0.3)',
+                borderRadius:    '4px',
+                padding:         '2px 8px',
+                whiteSpace:      'nowrap',
+              }}
+            >
+              Visit Site ↗
+            </a>
+          )}
         </div>
-        <div style={{ height: '260px', backgroundColor: slide.color, padding: '24px', opacity: fading ? 0 : 1, transition: 'opacity 0.3s ease', position: 'relative' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
-            <div style={{ width: '70px', height: '9px', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '4px' }} />
-            <div style={{ display: 'flex', gap: '10px' }}>
-              {[45,45,45].map((w,i) => <div key={i} style={{ width: w, height: '9px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '4px' }} />)}
+
+        {/* Screen */}
+        <div style={{ height: '320px', position: 'relative', backgroundColor: site.color, overflow: 'hidden' }}>
+          {site.url ? (
+            <>
+              {/* Loading skeleton while iframe loads */}
+              {!loaded[active] && (
+                <div style={{
+                  position:        'absolute',
+                  inset:           0,
+                  backgroundColor: site.color,
+                  display:         'flex',
+                  alignItems:      'center',
+                  justifyContent:  'center',
+                  zIndex:          2,
+                }}>
+                  <div style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>
+                    Loading preview...
+                  </div>
+                </div>
+              )}
+              <iframe
+                src={site.url}
+                style={{
+                  width:           '170%',
+                  height:          '170%',
+                  border:          'none',
+                  transform:       'scale(0.588)',
+                  transformOrigin: 'top left',
+                  pointerEvents:   'none',
+                  opacity:         loaded[active] ? 1 : 0,
+                  transition:      'opacity 0.4s ease',
+                }}
+                onLoad={() => {
+                  const updated = [...loaded]
+                  updated[active] = true
+                  setLoaded(updated)
+                }}
+                title={site.label}
+                sandbox="allow-scripts allow-same-origin"
+              />
+            </>
+          ) : (
+            /* Placeholder for coming soon slots */
+            <div style={{ height: '100%', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ width: '65%', height: '14px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '6px', marginBottom: '12px' }} />
+              <div style={{ width: '45%', height: '10px', backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: '4px', marginBottom: '24px' }} />
+              <div style={{ width: '120px', height: '36px', backgroundColor: 'rgba(255,107,53,0.3)', borderRadius: '6px' }} />
+              <div style={{
+                position:   'absolute',
+                bottom:     '16px',
+                right:      '16px',
+                fontFamily: 'var(--font-body)',
+                fontSize:   '11px',
+                color:      'rgba(255,255,255,0.2)',
+              }}>
+                {site.label} — Coming Soon
+              </div>
             </div>
-          </div>
-          <div style={{ width: '65%', height: '16px', backgroundColor: 'rgba(255,255,255,0.25)', borderRadius: '6px', marginBottom: '12px' }} />
-          <div style={{ width: '45%', height: '10px', backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: '4px', marginBottom: '24px' }} />
-          <div style={{ width: '120px', height: '38px', backgroundColor: slide.accent, borderRadius: '6px', opacity: 0.9 }} />
-          <div style={{ position: 'absolute', bottom: '12px', right: '16px', fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.25)' }}>{slide.label}</div>
+          )}
         </div>
       </div>
+
+      {/* Dots */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '14px' }}>
-        {webSlides.map((_, i) => (
-          <div key={i} onClick={() => setActive(i)} style={{ width: active === i ? '22px' : '6px', height: '6px', borderRadius: '3px', backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)', cursor: 'pointer', transition: 'all 0.3s ease' }} />
+        {sites.map((s, i) => (
+          <div
+            key={i}
+            onClick={() => setActive(i)}
+            title={s.label}
+            style={{
+              width:           active === i ? '22px' : '6px',
+              height:          '6px',
+              borderRadius:    '3px',
+              backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)',
+              cursor:          'pointer',
+              transition:      'all 0.3s ease',
+            }}
+          />
         ))}
       </div>
     </div>
