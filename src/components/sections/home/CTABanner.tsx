@@ -86,7 +86,7 @@ export default function CTABanner() {
           onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#e55a28')}
           onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#FF6B35')}
         >
-          Start a Project <ArrowRight size={16} />
+          Let's Build Together <ArrowRight size={16} />
         </Link>
 
       </div>

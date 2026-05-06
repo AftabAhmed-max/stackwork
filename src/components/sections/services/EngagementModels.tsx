@@ -15,7 +15,7 @@ const models = [
     color:    '#FF6B35',
     desc:     'A defined scope, fixed timeline, and clear deliverables. Best for websites, apps, and dashboards with a clear brief.',
     features: ['Fixed quote upfront', 'Defined milestones', 'Full handover on completion', '30-day post-launch support'],
-    cta:      'Start a Project',
+    cta:      'Let's Build Together',
   },
   {
     icon:     RefreshCw,
@@ -24,7 +24,7 @@ const models = [
     color:    '#00D4FF',
     desc:     'Ongoing support, updates, and development hours each month. Best for businesses that need a consistent digital partner.',
     features: ['Priority support', 'Monthly hours bank', 'Regular updates & backups', 'Performance monitoring'],
-    cta:      'Get a Quote',
+    cta:      'Get a Free Quote',
     highlight: true,
   },
   {
@@ -93,7 +93,7 @@ export default function EngagementModels() {
                 {model.highlight && (
                   <div style={{
                     position:        'absolute',
-                    top:             '-12px',
+                    top:             '-3px',
                     left:            '50%',
                     transform:       'translateX(-50%)',
                     backgroundColor: '#00D4FF',

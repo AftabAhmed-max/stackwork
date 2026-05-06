@@ -149,26 +149,36 @@ export default function Hero() {
             onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#e55a28')}
             onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#FF6B35')}
           >
-            Start a Project
+            Let's Build Together
           </Link>
 
-          <Link href="/services" style={{
-            backgroundColor: 'transparent',
-            color:           '#ffffff',
-            fontFamily:      'var(--font-body)',
-            fontWeight:      500,
-            fontSize:        '16px',
-            padding:         '14px 32px',
-            borderRadius:    '6px',
-            textDecoration:  'none',
-            border:          '1px solid rgba(58,95,138,0.8)',
-            transition:      'border-color 0.2s ease, opacity 0.5s ease 0.25s, transform 0.5s ease 0.25s',
-            opacity:         ctaVisible ? 1 : 0,
-            transform:       ctaVisible ? 'translateY(0)' : 'translateY(16px)',
-            display:         'inline-block',
-          }}
-            onMouseEnter={e => (e.currentTarget.style.borderColor = '#3A5F8A')}
-            onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(58,95,138,0.8)')}
+          <Link
+            href="/services"
+            style={{
+              backgroundColor: 'transparent',
+              color:           '#ffffff',
+              fontFamily:      'var(--font-body)',
+              fontWeight:      500,
+              fontSize:        '16px',
+              padding:         '14px 32px',
+              borderRadius:    '6px',
+              textDecoration:  'none',
+              border:          '1px solid rgba(58,95,138,0.8)',
+              transition:      'all 0.2s ease',
+              display:         'inline-block',
+              opacity:         ctaVisible ? 1 : 0,
+              transform:       ctaVisible ? 'translateY(0)' : 'translateY(16px)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'
+              e.currentTarget.style.transform = 'scale(1.04)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = 'transparent'
+              e.currentTarget.style.borderColor = 'rgba(58,95,138,0.8)'
+              e.currentTarget.style.transform = ctaVisible ? 'translateY(0)' : 'translateY(16px)'
+            }}
           >
             See Our Work
           </Link>

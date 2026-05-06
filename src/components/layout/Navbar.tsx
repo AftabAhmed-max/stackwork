@@ -101,7 +101,7 @@ export default function Navbar() {
             padding: '11px 26px', borderRadius: '6px', textDecoration: 'none',
             alignItems: 'center',
           }}>
-            Start a Project
+            Let's Build Together
           </Link>
 
           {/* Mobile hamburger */}
@@ -163,7 +163,7 @@ export default function Navbar() {
             padding: '15px 24px', borderRadius: '6px',
             textDecoration: 'none', textAlign: 'center',
           }}>
-            Start a Project
+            Let's Build Together
           </Link>
 
           <p style={{ marginTop: 'auto', paddingTop: '32px', fontFamily: 'var(--font-body)', fontSize: '13px', color: '#888888', textAlign: 'center' }}>

@@ -140,7 +140,7 @@ export default function FounderSection() {
               lineHeight: 1.8,
               marginBottom: '16px',
             }}>
-              I am a Data & Reporting Professional and Full-Stack Developer with a BSc from the University of Mumbai. My career has taken me from Talent500 in Bengaluru to Kuwait Oil Company — working with enterprise-grade systems and understanding what real business data looks like at scale.
+              I started Stackwork because I kept seeing the same problem — businesses with real potential, held back by bad websites, missing digital tools, and no visibility into their own data. I build the things that fix that.
             </p>
 
             <p style={{
@@ -149,13 +149,13 @@ export default function FounderSection() {
               color:      'rgba(255,255,255,0.65)',
               lineHeight: 1.8,
             }}>
-              Stackwork was born from a simple observation — small and medium businesses across India and the Gulf have the same ambitions as large enterprises, but rarely get the same quality of digital work. I started Stackwork to change that. Every project we take on is treated with the same rigour I applied at the enterprise level, delivered at a scale that makes sense for growing businesses.
+              My background spans enterprise data systems at Kuwait Oil Company and product work at Talent500 in Bengaluru. That experience taught me what good digital infrastructure actually looks like — and how rarely small businesses get access to it. Stackwork exists to change that.
             </p>
           </div>
 
           {/* Credentials */}
           <div style={{ display: 'flex', flexWrap: 'wrap' as const, gap: '10px' }}>
-            <Badge text="BSc — University of Mumbai"   color="#FF6B35" />
+            <Badge text="BSc CS — University of Mumbai"   color="#FF6B35" />
             <Badge text="Talent500, Bengaluru"          color="#00D4FF" />
             <Badge text="Kuwait Oil Company"            color="#C9A84C" />
             <Badge text="Data & Reporting Professional" color="#8B5CF6" />
@@ -172,8 +172,8 @@ export default function FounderSection() {
           }}>
             {[
               { value: '6+',   label: 'Years Experience' },
-              { value: '6',    label: 'Services Offered'  },
-              { value: '2',    label: 'Countries Worked'  },
+              { value: '5',    label: 'Services Offered'  },
+              { value: '24h',    label: 'Response Time'  },
             ].map((stat) => (
               <div key={stat.label} className="card-animated" style={{
                 backgroundColor: 'rgba(13,27,62,0.6)',

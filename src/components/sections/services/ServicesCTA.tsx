@@ -66,13 +66,36 @@ export default function ServicesCTA() {
             Book Free Consultation <ArrowRight size={16} />
           </Link>
 
-          <a href="https://wa.me/919697980079" target="_blank" rel="noreferrer" style={{
-            display:         'inline-flex', alignItems: 'center', gap: '10px',
-            backgroundColor: 'transparent', color: '#ffffff',
-            fontFamily:      'var(--font-body)', fontWeight: 500, fontSize: '16px',
-            padding:         '15px 36px', borderRadius: '6px', textDecoration: 'none',
-            border:          '1px solid rgba(58,95,138,0.6)',
-          }}>
+          <a href="https://wa.me/919697980079"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display:         'inline-flex',
+              alignItems:      'center',
+              justifyContent:  'center',
+              gap:             '10px',
+              backgroundColor: 'transparent',
+              color:           '#ffffff',
+              fontFamily:      'var(--font-body)',
+              fontWeight:      500,
+              fontSize:        '16px',
+              padding:         '15px 36px',
+              borderRadius:    '6px',
+              textDecoration:  'none',
+              border:          '1px solid rgba(58,95,138,0.6)',
+              transition:      'all 0.2s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'
+              e.currentTarget.style.transform = 'scale(1.04)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = 'transparent'
+              e.currentTarget.style.borderColor = 'rgba(58,95,138,0.6)'
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
+          >
             <MessageSquare size={16} /> WhatsApp Us
           </a>
         </div>

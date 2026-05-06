@@ -10,7 +10,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import {
   Globe, Smartphone, BarChart2,
-  Building2, Wrench, MessageSquare, ArrowRight,
+  Building2, Wrench, ArrowRight,
 } from 'lucide-react'
 
 /* ============================================
@@ -372,7 +372,6 @@ const services = [
   { icon: BarChart2,     title: 'Data Analytics & BI Dashboards', description: 'Automated reports and live dashboards that turn your business data into clear decisions.',                       mockup: <AnalyticsMockup /> },
   { icon: Building2,     title: 'Business Setup',                 description: 'Domain, hosting, and Google Workspace email — everything configured and ready to go.',                           mockup: <SetupMockup /> },
   { icon: Wrench,        title: 'Maintenance & Retainer Plans',   description: 'Monthly support so your digital products stay fast, secure, and up to date.',                                    mockup: <MaintenanceMockup /> },
-  { icon: MessageSquare, title: 'Digital Consultation',           description: 'Tech audits and digital roadmaps to help you make the right decisions from the start.',                          mockup: <ConsultationMockup /> },
 ]
 
 /* ============================================

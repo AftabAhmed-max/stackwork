@@ -17,7 +17,6 @@ const services = [
   'Data Analytics & BI Dashboards',
   'Business Setup',
   'Maintenance & Retainer Plans',
-  'Digital Consultation',
   'Not sure yet',
 ]
 
@@ -49,13 +48,14 @@ export default function ContactForm() {
   const [status,   setStatus]   = useState<'idle'|'sending'|'success'|'error'>('idle')
 
   const [form, setForm] = useState({
-    from_name:     '',
-    business_name: '',
-    country:       '',
-    reply_to:      '',
-    service:       '',
-    budget:        '',
-    message:       '',
+    from_name:            '',
+    business_name:        '',
+    country:              '',
+    reply_to:             '',
+    service:              '',
+    budget:               '',
+    business_description: '',
+    message:              '',
   })
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function ContactForm() {
   }
 
   const handleSubmit = async () => {
-    if (!form.from_name || !form.reply_to || !form.message) {
+    if (!form.from_name || !form.reply_to || !form.business_description || !form.message) {
       setStatus('error')
       return
     }
@@ -85,7 +85,7 @@ export default function ContactForm() {
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       )
       setStatus('success')
-      setForm({ from_name: '', business_name: '', country: '', reply_to: '', service: '', budget: '', message: '' })
+      setForm({ from_name: '', business_name: '', country: '', reply_to: '', service: '', budget: '', business_description: '', message: '' })
       setTimeout(() => setStatus('idle'), 5000)
     } catch {
       setStatus('error')
@@ -113,7 +113,7 @@ export default function ContactForm() {
             color:        '#ffffff',
             marginBottom: '8px',
           }}>
-            Start a Project
+            Let's Build Together
           </h2>
 
           {/* Row 1 — Name + Business */}
@@ -126,7 +126,7 @@ export default function ContactForm() {
                 name="from_name"
                 value={form.from_name}
                 onChange={handleChange}
-                placeholder="Aftab Ahmed"
+                placeholder="John Doe"
                 style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = '#FF6B35')}
                 onBlur={e  => (e.target.style.borderColor = 'rgba(255,255,255,0.1)')}
@@ -222,17 +222,36 @@ export default function ContactForm() {
           </div>
 
           {/* Row 5 — Message */}
+          {/* Business description field */}
           <div>
             <label style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'rgba(255,255,255,0.5)', display: 'block', marginBottom: '6px' }}>
-              Tell Us About Your Project *
+              Tell Us About Your Business *
+              <span style={{ color: 'rgba(255,255,255,0.3)', fontWeight: 400, marginLeft: '8px' }}>What does your business do?</span>
+            </label>
+            <textarea
+              name="business_description"
+              value={(form as any).business_description || ''}
+              onChange={handleChange}
+              placeholder="e.g. We run a chain of 3 restaurants in Dubai and need a website with online ordering and table reservations..."
+              rows={2}
+              style={{ ...inputStyle, resize: 'none', minHeight: '70px' }}
+              onFocus={e => (e.target.style.borderColor = '#FF6B35')}
+              onBlur={e  => (e.target.style.borderColor = 'rgba(255,255,255,0.1)')}
+            />
+          </div>
+
+          {/* Project details field */}
+          <div>
+            <label style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'rgba(255,255,255,0.5)', display: 'block', marginBottom: '6px' }}>
+              What Do You Need From Us? *
             </label>
             <textarea
               name="message"
               value={form.message}
               onChange={handleChange}
-              placeholder="Describe your business, what you need, and any specific requirements..."
-              rows={5}
-              style={{ ...inputStyle, resize: 'vertical', minHeight: '120px' }}
+              placeholder="Describe what you're looking to build or fix, any specific requirements, timeline expectations..."
+              rows={4}
+              style={{ ...inputStyle, resize: 'vertical', minHeight: '100px' }}
               onFocus={e => (e.target.style.borderColor = '#FF6B35')}
               onBlur={e  => (e.target.style.borderColor = 'rgba(255,255,255,0.1)')}
             />

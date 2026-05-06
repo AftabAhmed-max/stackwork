@@ -24,7 +24,6 @@ const footerServices = [
   'Data Analytics & BI Dashboards',
   'Business Setup',
   'Maintenance & Retainer Plans',
-  'Digital Consultation',
 ]
 
 /* ---- Reusable link style ---- */
@@ -229,7 +228,7 @@ export default function Footer() {
             onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#e55a28')}
             onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#FF6B35')}
           >
-            Start a Project <ArrowUpRight size={14} />
+            Let's Build Together <ArrowUpRight size={14} />
           </Link>
         </div>
 

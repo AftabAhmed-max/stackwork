@@ -1,9 +1,9 @@
 /* ============================================
    SERVICES SHOWCASE
-   - Sticky scroll — each service pins while
-     content and mockup animate in
-   - Left: text content
-   - Right: animated mockup
+   - Vertically stacked, text top mockup below
+   - Each service centered
+   - Alternating accent colors
+   - Real content per service
    ============================================ */
 'use client'
 
@@ -11,11 +11,11 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import {
   Globe, Smartphone, BarChart2,
-  Building2, Wrench, MessageSquare, ArrowRight,
+  Building2, Wrench, ArrowRight,
 } from 'lucide-react'
 
 /* ============================================
-   MOCKUP COMPONENTS (reused from home)
+   MOCKUP COMPONENTS
    ============================================ */
 
 const webSlides = [
@@ -40,7 +40,7 @@ function WebMockup() {
   const slide = webSlides[active]
 
   return (
-    <div style={{ width: '100%' }}>
+    <div>
       <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
         <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <div style={{ display: 'flex', gap: '5px' }}>
@@ -50,22 +50,22 @@ function WebMockup() {
             stackworkhq.com/projects
           </div>
         </div>
-        <div style={{ height: '220px', backgroundColor: slide.color, padding: '20px', opacity: fading ? 0 : 1, transition: 'opacity 0.3s ease', position: 'relative' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <div style={{ width: '60px', height: '8px', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '4px' }} />
-            <div style={{ display: 'flex', gap: '8px' }}>
-              {[40,40,40].map((w,i) => <div key={i} style={{ width: w, height: '8px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '4px' }} />)}
+        <div style={{ height: '260px', backgroundColor: slide.color, padding: '24px', opacity: fading ? 0 : 1, transition: 'opacity 0.3s ease', position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
+            <div style={{ width: '70px', height: '9px', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '4px' }} />
+            <div style={{ display: 'flex', gap: '10px' }}>
+              {[45,45,45].map((w,i) => <div key={i} style={{ width: w, height: '9px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '4px' }} />)}
             </div>
           </div>
-          <div style={{ width: '65%', height: '14px', backgroundColor: 'rgba(255,255,255,0.25)', borderRadius: '6px', marginBottom: '10px' }} />
-          <div style={{ width: '45%', height: '10px', backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: '4px', marginBottom: '20px' }} />
-          <div style={{ width: '100px', height: '32px', backgroundColor: slide.accent, borderRadius: '6px', opacity: 0.9 }} />
-          <div style={{ position: 'absolute', bottom: '10px', right: '14px', fontSize: '10px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.25)' }}>{slide.label}</div>
+          <div style={{ width: '65%', height: '16px', backgroundColor: 'rgba(255,255,255,0.25)', borderRadius: '6px', marginBottom: '12px' }} />
+          <div style={{ width: '45%', height: '10px', backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: '4px', marginBottom: '24px' }} />
+          <div style={{ width: '120px', height: '38px', backgroundColor: slide.accent, borderRadius: '6px', opacity: 0.9 }} />
+          <div style={{ position: 'absolute', bottom: '12px', right: '16px', fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.25)' }}>{slide.label}</div>
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '12px' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '14px' }}>
         {webSlides.map((_, i) => (
-          <div key={i} onClick={() => setActive(i)} style={{ width: active === i ? '20px' : '6px', height: '6px', borderRadius: '3px', backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)', cursor: 'pointer', transition: 'all 0.3s ease' }} />
+          <div key={i} onClick={() => setActive(i)} style={{ width: active === i ? '22px' : '6px', height: '6px', borderRadius: '3px', backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)', cursor: 'pointer', transition: 'all 0.3s ease' }} />
         ))}
       </div>
     </div>
@@ -75,9 +75,9 @@ function WebMockup() {
 function AppMockup() {
   const [active, setActive] = useState(0)
   const slides = [
-    { bars: [60,80,45,90,55], color: '#FF6B35' },
-    { bars: [75,50,85,40,70], color: '#3A5F8A' },
-    { bars: [40,90,60,75,50], color: '#C9A84C' },
+    { label: 'Booking System',  bars: [60,80,45,90,55], color: '#FF6B35' },
+    { label: 'Client Portal',   bars: [75,50,85,40,70], color: '#3A5F8A' },
+    { label: 'Custom Web Tool', bars: [40,90,60,75,50], color: '#C9A84C' },
   ]
 
   useEffect(() => {
@@ -88,31 +88,38 @@ function AppMockup() {
   const slide = slides[active]
 
   return (
-    <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-      <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)' }}>App Preview</div>
-        <div style={{ display: 'flex', gap: '5px' }}>
-          {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
+    <div>
+      <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div style={{ fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.4)' }}>{slide.label}</div>
+          <div style={{ display: 'flex', gap: '5px' }}>
+            {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
+          </div>
+        </div>
+        <div style={{ height: '260px', backgroundColor: '#0d1117', padding: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ width: '90px', height: '9px', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '4px' }} />
+            <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: slide.color, opacity: 0.8, transition: 'background-color 0.4s ease' }} />
+          </div>
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+            {[1,2,3].map(i => (
+              <div key={i} style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '10px', padding: '10px', border: `1px solid ${slide.color}30` }}>
+                <div style={{ width: '100%', height: '7px', backgroundColor: slide.color, borderRadius: '3px', opacity: 0.6, marginBottom: '6px', transition: 'background-color 0.4s ease' }} />
+                <div style={{ width: '60%', height: '5px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '3px' }} />
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '6px', height: '80px' }}>
+            {slide.bars.map((h, i) => (
+              <div key={i} style={{ flex: 1, height: `${h}%`, backgroundColor: slide.color, borderRadius: '4px 4px 0 0', opacity: 0.7, transition: 'all 0.4s ease' }} />
+            ))}
+          </div>
         </div>
       </div>
-      <div style={{ height: '220px', backgroundColor: '#0d1117', padding: '16px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-          <div style={{ width: '80px', height: '8px', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '4px' }} />
-          <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: slide.color, opacity: 0.8, transition: 'background-color 0.4s ease' }} />
-        </div>
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-          {[1,2,3].map(i => (
-            <div key={i} style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '8px', padding: '8px', border: `1px solid ${slide.color}30` }}>
-              <div style={{ width: '100%', height: '6px', backgroundColor: slide.color, borderRadius: '3px', opacity: 0.6, marginBottom: '5px', transition: 'background-color 0.4s ease' }} />
-              <div style={{ width: '60%', height: '5px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '3px' }} />
-            </div>
-          ))}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '5px', height: '60px' }}>
-          {slide.bars.map((h, i) => (
-            <div key={i} style={{ flex: 1, height: `${h}%`, backgroundColor: slide.color, borderRadius: '4px 4px 0 0', opacity: 0.7, transition: 'all 0.4s ease' }} />
-          ))}
-        </div>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '14px' }}>
+        {slides.map((_, i) => (
+          <div key={i} onClick={() => setActive(i)} style={{ width: active === i ? '22px' : '6px', height: '6px', borderRadius: '3px', backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)', cursor: 'pointer', transition: 'all 0.3s ease' }} />
+        ))}
       </div>
     </div>
   )
@@ -122,8 +129,8 @@ function AnalyticsMockup() {
   const [active, setActive] = useState(0)
   const slides = [
     { label: 'Sales Dashboard',   line: [30,45,35,60,50,75,65,80], color: '#2C6E49' },
-    { label: 'Operations Report', line: [50,40,65,45,70,55,80,60], color: '#3A5F8A' },
-    { label: 'BI Dashboard',      line: [20,55,40,70,45,85,60,90], color: '#C9A84C' },
+    { label: 'HR Analytics',      line: [50,40,65,45,70,55,80,60], color: '#3A5F8A' },
+    { label: 'Operations BI',     line: [20,55,40,70,45,85,60,90], color: '#C9A84C' },
   ]
 
   useEffect(() => {
@@ -133,37 +140,44 @@ function AnalyticsMockup() {
 
   const slide = slides[active]
   const max   = Math.max(...slide.line)
-  const points = slide.line.map((v, i) => `${(i / (slide.line.length - 1)) * 260},${70 - (v / max) * 60}`).join(' ')
+  const points = slide.line.map((v, i) => `${(i / (slide.line.length - 1)) * 500},${120 - (v / max) * 100}`).join(' ')
 
   return (
-    <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-      <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ display: 'flex', gap: '5px' }}>
-          {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
+    <div>
+      <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div style={{ display: 'flex', gap: '5px' }}>
+            {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
+          </div>
+          <div style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)' }}>
+            {slide.label}
+          </div>
         </div>
-        <div style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '4px', padding: '4px 10px', fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)' }}>
-          {slide.label}
+        <div style={{ height: '260px', backgroundColor: '#0d1117', padding: '20px' }}>
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
+            {['Revenue','Users','Growth'].map(k => (
+              <div key={k} style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '10px', borderLeft: `3px solid ${slide.color}` }}>
+                <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', marginBottom: '5px' }}>{k}</div>
+                <div style={{ width: '70%', height: '8px', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: '3px' }} />
+              </div>
+            ))}
+          </div>
+          <svg viewBox="0 0 500 130" style={{ width: '100%', height: '130px' }}>
+            <defs>
+              <linearGradient id={`ag${active}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={slide.color} stopOpacity="0.4" />
+                <stop offset="100%" stopColor={slide.color} stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <polyline points={points} fill="none" stroke={slide.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <polygon points={`0,120 ${points} 500,120`} fill={`url(#ag${active})`} />
+          </svg>
         </div>
       </div>
-      <div style={{ height: '220px', backgroundColor: '#0d1117', padding: '16px' }}>
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '14px' }}>
-          {['Revenue','Users','Orders'].map(k => (
-            <div key={k} style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '8px', borderLeft: `2px solid ${slide.color}` }}>
-              <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', marginBottom: '4px' }}>{k}</div>
-              <div style={{ width: '70%', height: '7px', backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: '3px' }} />
-            </div>
-          ))}
-        </div>
-        <svg viewBox="0 0 260 74" style={{ width: '100%', height: '90px' }}>
-          <defs>
-            <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={slide.color} stopOpacity="0.3" />
-              <stop offset="100%" stopColor={slide.color} stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <polyline points={points} fill="none" stroke={slide.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          <polygon points={`0,70 ${points} 260,70`} fill="url(#ag)" />
-        </svg>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '14px' }}>
+        {slides.map((_, i) => (
+          <div key={i} onClick={() => setActive(i)} style={{ width: active === i ? '22px' : '6px', height: '6px', borderRadius: '3px', backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)', cursor: 'pointer', transition: 'all 0.3s ease' }} />
+        ))}
       </div>
     </div>
   )
@@ -173,14 +187,16 @@ function SetupMockup() {
   const [step, setStep] = useState(0)
 
   useEffect(() => {
-    const t = setInterval(() => setStep(p => (p + 1) % 3), 2000)
+    const t = setInterval(() => setStep(p => p < 4 ? p + 1 : 0), 1800)
     return () => clearInterval(t)
   }, [])
 
   const steps = [
-    { label: 'Domain Registered',     done: true      },
-    { label: 'Hosting Configured',    done: step >= 1  },
-    { label: 'Google Workspace Live', done: step >= 2  },
+    { label: 'Domain Registered',      color: '#FF6B35' },
+    { label: 'Hosting Configured',     color: '#00D4FF' },
+    { label: 'SSL Certificate Active', color: '#2C6E49' },
+    { label: 'Google Workspace Live',  color: '#C9A84C' },
+    { label: 'Business Email Ready',   color: '#8B5CF6' },
   ]
 
   return (
@@ -191,38 +207,41 @@ function SetupMockup() {
         </div>
         <div style={{ fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)' }}>Business Setup Progress</div>
       </div>
-      <div style={{ height: '220px', backgroundColor: '#0d1117', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '18px' }}>
+      <div style={{ height: '260px', backgroundColor: '#0d1117', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '16px' }}>
         {steps.map((s, i) => (
           <div key={s.label} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{
-              width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0,
-              backgroundColor: s.done ? '#2C6E49' : 'rgba(255,255,255,0.08)',
-              border: s.done ? 'none' : '1px solid rgba(255,255,255,0.15)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.4s ease',
+              width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
+              backgroundColor: i <= step ? s.color : 'rgba(255,255,255,0.06)',
+              border: `1px solid ${i <= step ? s.color : 'rgba(255,255,255,0.1)'}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.4s ease',
+              boxShadow: i <= step ? `0 0 10px ${s.color}50` : 'none',
             }}>
-              {s.done && <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#fff' }} />}
+              {i <= step && <span style={{ fontSize: '12px', color: '#fff' }}>✓</span>}
             </div>
-            <div style={{ flex: 1, height: '7px', backgroundColor: s.done ? 'rgba(44,110,73,0.5)' : 'rgba(255,255,255,0.08)', borderRadius: '4px', transition: 'all 0.4s ease' }} />
-            <div style={{ fontSize: '10px', fontFamily: 'var(--font-body)', color: s.done ? '#2C6E49' : 'rgba(255,255,255,0.2)', whiteSpace: 'nowrap', transition: 'color 0.4s ease' }}>
-              {s.done ? '✓ Done' : '...'}
+            <div style={{ flex: 1 }}>
+              <div style={{ height: '6px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: i <= step ? '100%' : '0%', backgroundColor: s.color, borderRadius: '3px', transition: 'width 0.5s ease' }} />
+              </div>
             </div>
+            <span style={{ fontSize: '10px', fontFamily: 'var(--font-body)', color: i <= step ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.2)', whiteSpace: 'nowrap', minWidth: '160px', transition: 'color 0.4s ease' }}>
+              {s.label}
+            </span>
           </div>
         ))}
-        <div style={{ marginTop: '8px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '4px', height: '5px', overflow: 'hidden' }}>
-          <div style={{ height: '100%', width: `${((step + 1) / 3) * 100}%`, backgroundColor: '#2C6E49', borderRadius: '4px', transition: 'width 0.5s ease' }} />
-        </div>
       </div>
     </div>
   )
 }
 
 function MaintenanceMockup() {
-  const [tick, setTick]   = useState(0)
-  const [bars, setBars]   = useState<{up:boolean;height:number}[]>([])
+  const [tick, setTick]     = useState(0)
+  const [bars, setBars]     = useState<{up:boolean;height:number}[]>([])
   const [uptime, setUptime] = useState(99.98)
 
   useEffect(() => {
-    setBars(Array.from({ length: 28 }, () => ({ up: Math.random() > 0.04, height: 50 + Math.random() * 50 })))
+    setBars(Array.from({ length: 30 }, () => ({ up: Math.random() > 0.04, height: 50 + Math.random() * 50 })))
   }, [])
 
   useEffect(() => {
@@ -236,69 +255,23 @@ function MaintenanceMockup() {
         <div style={{ display: 'flex', gap: '5px' }}>
           {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
         </div>
-        <div style={{ flex: 1, fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)' }}>System Status</div>
+        <div style={{ flex: 1, fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)' }}>System Status — All Operational</div>
         <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#28C840', boxShadow: `0 0 ${tick % 2 === 0 ? 4 : 8}px #28C840`, transition: 'box-shadow 0.5s ease' }} />
       </div>
-      <div style={{ height: '220px', backgroundColor: '#0d1117', padding: '16px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+      <div style={{ height: '260px', backgroundColor: '#0d1117', padding: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
           <span style={{ fontFamily: 'monospace', fontSize: '11px', color: 'rgba(255,255,255,0.35)' }}>30-day uptime</span>
-          <span style={{ fontFamily: 'monospace', fontSize: '11px', color: '#FF6B35' }}>{uptime.toFixed(2)}%</span>
+          <span style={{ fontFamily: 'monospace', fontSize: '11px', color: '#FF6B35', fontWeight: 700 }}>{uptime.toFixed(2)}%</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '50px', marginBottom: '14px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '60px', marginBottom: '20px' }}>
           {bars.map((b, i) => (
             <div key={i} style={{ flex: 1, height: `${b.height}%`, backgroundColor: b.up ? '#2C6E49' : '#FF5F57', borderRadius: '2px 2px 0 0', opacity: 0.8 }} />
           ))}
         </div>
-        {['Website','SSL Cert','Backups'].map(s => (
-          <div key={s} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+        {['Website Performance','SSL Certificate','Daily Backups','Security Scan','Content Updates'].map((s, i) => (
+          <div key={s} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
             <span style={{ fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.5)' }}>{s}</span>
-            <span style={{ fontSize: '10px', color: '#2C6E49', fontFamily: 'var(--font-body)' }}>Operational</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function ConsultationMockup() {
-  const [active, setActive] = useState(0)
-  const phases = [
-    { label: 'Tech Audit',   color: '#FF6B35' },
-    { label: 'Gap Analysis', color: '#C9A84C' },
-    { label: 'Roadmap',      color: '#3A5F8A' },
-    { label: 'Execution',    color: '#2C6E49' },
-  ]
-
-  useEffect(() => {
-    const t = setInterval(() => setActive(p => (p + 1) % 4), 1600)
-    return () => clearInterval(t)
-  }, [])
-
-  return (
-    <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-      <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ display: 'flex', gap: '5px' }}>
-          {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
-        </div>
-        <div style={{ fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.3)' }}>Digital Roadmap</div>
-      </div>
-      <div style={{ height: '220px', backgroundColor: '#0d1117', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '14px' }}>
-        {phases.map((phase, i) => (
-          <div key={phase.label} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              width: '24px', height: '24px', borderRadius: '50%', flexShrink: 0,
-              backgroundColor: i <= active ? phase.color : 'rgba(255,255,255,0.06)',
-              border: `1px solid ${i <= active ? phase.color : 'rgba(255,255,255,0.1)'}`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.4s ease',
-            }}>
-              <span style={{ fontSize: '9px', color: i <= active ? '#fff' : 'rgba(255,255,255,0.3)', fontFamily: 'monospace' }}>{i + 1}</span>
-            </div>
-            <div style={{ flex: 1, height: '5px', backgroundColor: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: i <= active ? '100%' : '0%', backgroundColor: phase.color, borderRadius: '3px', transition: 'width 0.5s ease' }} />
-            </div>
-            <span style={{ fontSize: '10px', fontFamily: 'var(--font-body)', color: i <= active ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.2)', whiteSpace: 'nowrap', transition: 'color 0.4s ease', minWidth: '80px' }}>
-              {phase.label}
-            </span>
+            <span style={{ fontSize: '10px', color: '#2C6E49', fontFamily: 'var(--font-body)' }}>✓ Active</span>
           </div>
         ))}
       </div>
@@ -307,7 +280,7 @@ function ConsultationMockup() {
 }
 
 /* ============================================
-   SERVICE DATA
+   SERVICE DATA — 5 services, no consultation
    ============================================ */
 const services = [
   {
@@ -315,59 +288,100 @@ const services = [
     title:    'Web Design & Development',
     tagline:  'Your digital storefront, built to convert',
     color:    '#FF6B35',
-    includes: ['Business websites & landing pages', 'E-commerce stores', 'Portfolio sites', 'Mobile-responsive design', 'SEO foundation built-in', 'CMS integration'],
-    ideal:    'Restaurants, retail brands, clinics, coaches, real estate agencies',
-    mockup:   <WebMockup />,
+    number:   '01',
+    includes: [
+      'Business websites & landing pages',
+      'E-commerce stores',
+      'Portfolio & personal brand sites',
+      'Mobile-responsive across all devices',
+      'SEO foundation built-in',
+      'Fast loading & performance optimised',
+      'CMS integration for easy content updates',
+      'Post-launch support included',
+    ],
+    ideal: 'Restaurants, retail brands, clinics, coaches, real estate agencies, logistics companies',
+    mockup: <WebMockup />,
   },
   {
     icon:     Smartphone,
     title:    'Mobile & Web App Development',
     tagline:  'Custom tools that run your operations',
     color:    '#00D4FF',
-    includes: ['Custom web applications', 'Booking & appointment systems', 'CRM & client portals', 'Internal business tools', 'API integrations', 'Admin dashboards'],
-    ideal:    'Service businesses, logistics companies, healthcare providers',
-    mockup:   <AppMockup />,
+    number:   '02',
+    includes: [
+      'Custom web applications',
+      'Booking & appointment systems',
+      'Client portals & CRM tools',
+      'Internal business dashboards',
+      'Native mobile apps (iOS & Android)',
+      'API integrations with third-party tools',
+      'Admin panels & management systems',
+      'Scalable architecture from day one',
+    ],
+    ideal: 'Service businesses, healthcare providers, logistics, education, hospitality',
+    mockup: <AppMockup />,
   },
   {
     icon:     BarChart2,
     title:    'Data Analytics & BI Dashboards',
-    tagline:  'Turn your data into decisions',
+    tagline:  'Turn your raw data into real decisions',
     color:    '#2C6E49',
-    includes: ['Power BI & custom dashboards', 'Automated reporting', 'Sales & operations analytics', 'KPI tracking systems', 'Data cleaning & structuring', 'Daily business intelligence'],
-    ideal:    'SMBs wanting visibility into sales, operations, or customer behavior',
-    mockup:   <AnalyticsMockup />,
+    number:   '03',
+    includes: [
+      'End-to-end data pipeline setup',
+      'Data cleaning & transformation (Python, Pandas)',
+      'Power BI dashboard development',
+      'Excel & Power Query automation',
+      'SQL database querying & reporting',
+      'Sales, HR & operations analytics',
+      'Automated scheduled reports',
+      'KPI tracking & business intelligence',
+    ],
+    ideal: 'SMBs wanting visibility into sales, operations, HR, or customer behaviour',
+    mockup: <AnalyticsMockup />,
   },
   {
     icon:     Building2,
     title:    'Business Setup',
-    tagline:  'Get your digital foundation right',
+    tagline:  'Get your digital foundation right from day one',
     color:    '#C9A84C',
-    includes: ['Domain registration & DNS', 'Web hosting configuration', 'Google Workspace email setup', 'SSL certificates', 'Business profile setup', 'Basic security hardening'],
-    ideal:    'New businesses or existing ones that need their digital base properly set up',
-    mockup:   <SetupMockup />,
+    number:   '04',
+    includes: [
+      'Domain registration & DNS configuration',
+      'Web hosting setup & management',
+      'SSL certificate installation',
+      'Google Workspace email setup',
+      'Business profile on Google',
+      'Basic security hardening',
+      'Everything handed over with documentation',
+      'Guidance on managing it yourself going forward',
+    ],
+    ideal: 'New businesses or existing ones without a proper digital base',
+    mockup: <SetupMockup />,
   },
   {
     icon:     Wrench,
     title:    'Maintenance & Retainer Plans',
-    tagline:  'We stay after everyone else leaves',
+    tagline:  'We stay long after everyone else has left',
     color:    '#8B5CF6',
-    includes: ['Monthly updates & backups', 'Security monitoring', 'Performance optimization', 'Content updates', 'Bug fixes & patches', 'Priority support'],
-    ideal:    'Businesses that want a long-term digital partner, not a one-time vendor',
-    mockup:   <MaintenanceMockup />,
-  },
-  {
-    icon:     MessageSquare,
-    title:    'Digital Consultation',
-    tagline:  'Clarity before commitment',
-    color:    '#FF6B35',
-    includes: ['Tech stack audit', 'Digital presence review', 'Competitor analysis', 'Roadmap planning', 'Vendor evaluation', 'Strategic recommendations'],
-    ideal:    'Business owners unsure where to start or how to fix what is not working',
-    mockup:   <ConsultationMockup />,
+    number:   '05',
+    includes: [
+      'Monthly website updates & content changes',
+      'Security monitoring & patches',
+      'Daily or weekly automated backups',
+      'Performance monitoring & optimisation',
+      'Bug fixes & technical support',
+      'Priority response within 24 hours',
+      'Monthly health report',
+      'Available for new feature additions',
+    ],
+    ideal: 'Businesses that want a long-term digital partner, not a one-time vendor',
+    mockup: <MaintenanceMockup />,
   },
 ]
 
 /* ============================================
-   SINGLE SERVICE PANEL
+   SINGLE SERVICE PANEL — stacked layout
    ============================================ */
 function ServicePanel({ service, index }: { service: typeof services[0]; index: number }) {
   const [inView,   setInView]   = useState(false)
@@ -384,8 +398,8 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true); else setInView(false) },
-      { threshold: 0.3 }
+      ([entry]) => { if (entry.isIntersecting) setInView(true) },
+      { threshold: 0.15 }
     )
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
@@ -395,37 +409,28 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
     <div
       ref={ref}
       style={{
-        padding:   isMobile ? '60px 24px' : '80px 60px',
-        display:   'grid',
-        gridTemplateColumns: isMobile ? '1fr' : index % 2 === 0 ? '1fr 1fr' : '1fr 1fr',
-        gap:       isMobile ? '40px' : '80px',
-        alignItems: 'center',
-        opacity:   inView ? 1 : 0,
-        transition: 'opacity 0.6s ease',
+        padding:    isMobile ? '60px 24px' : '80px 60px',
+        maxWidth:   '900px',
+        margin:     '0 auto',
+        opacity:    inView ? 1 : 0,
+        transform:  inView ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
       }}
     >
-      {/* ---- Text side ---- */}
-      <div
-        style={{
-          order:     isMobile ? 1 : index % 2 === 0 ? 1 : 2,
-          transform: inView ? 'translateX(0)' : index % 2 === 0 ? 'translateX(-40px)' : 'translateX(40px)',
-          transition: 'transform 0.6s ease, opacity 0.6s ease',
-          opacity:   inView ? 1 : 0,
-        }}
-      >
-        {/* Icon + number */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '24px' }}>
+      {/* ---- Top: Icon + number + title ---- */}
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', marginBottom: '20px' }}>
           <div style={{
-            width:           '52px',
-            height:          '52px',
-            borderRadius:    '12px',
+            width:           '56px',
+            height:          '56px',
+            borderRadius:    '14px',
             backgroundColor: `${service.color}15`,
             border:          `1px solid ${service.color}30`,
             display:         'flex',
             alignItems:      'center',
             justifyContent:  'center',
           }}>
-            <Icon size={24} color={service.color} />
+            <Icon size={26} color={service.color} />
           </div>
           <span style={{
             fontFamily:      'var(--font-heading)',
@@ -434,103 +439,123 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
             backgroundColor: `${service.color}10`,
             border:          `1px solid ${service.color}25`,
             borderRadius:    '100px',
-            padding:         '3px 12px',
+            padding:         '4px 14px',
+            letterSpacing:   '1px',
           }}>
-            {String(index + 1).padStart(2, '0')}
+            {service.number}
           </span>
         </div>
 
         <h2 style={{
           fontFamily:   'var(--font-heading)',
-          fontSize:     isMobile ? '28px' : '40px',
+          fontSize:     isMobile ? '28px' : '44px',
           fontWeight:   700,
           color:        '#ffffff',
           lineHeight:   1.15,
-          marginBottom: '10px',
+          marginBottom: '12px',
         }}>
           {service.title}
         </h2>
 
         <p style={{
-          fontFamily:   'var(--font-body)',
-          fontSize:     '17px',
-          color:        service.color,
-          marginBottom: '28px',
-          fontWeight:   500,
+          fontFamily: 'var(--font-body)',
+          fontSize:   '18px',
+          color:      service.color,
+          fontWeight: 500,
+          marginBottom: '0',
         }}>
           {service.tagline}
         </p>
+      </div>
 
+      {/* ---- Middle: Mockup ---- */}
+      <div style={{
+        borderRadius: '16px',
+        padding:      '2px',
+        background:   `linear-gradient(135deg, ${service.color}40, transparent, ${service.color}20)`,
+        marginBottom: '40px',
+      }}>
+        <div style={{
+          backgroundColor: 'rgba(8,11,20,0.8)',
+          borderRadius:    '14px',
+          padding:         isMobile ? '16px' : '24px',
+        }}>
+          {service.mockup}
+        </div>
+      </div>
+
+      {/* ---- Bottom: Two columns — includes + ideal ---- */}
+      <div style={{
+        display:             'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+        gap:                 '32px',
+      }}>
         {/* What's included */}
-        <div style={{ marginBottom: '24px' }}>
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'rgba(255,255,255,0.4)', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '12px' }}>
+        <div className="card-animated" style={{
+          backgroundColor: 'rgba(13,27,62,0.5)',
+          borderRadius:    '12px',
+          padding:         '24px',
+          border:          '1px solid rgba(255,255,255,0.06)',
+        }}>
+          <p style={{
+            fontFamily:    'var(--font-body)',
+            fontSize:      '11px',
+            color:         'rgba(255,255,255,0.4)',
+            letterSpacing: '1.5px',
+            textTransform: 'uppercase',
+            marginBottom:  '16px',
+          }}>
             What's Included
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {service.includes.map(item => (
-              <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: service.color, flexShrink: 0 }} />
-                <span style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'rgba(255,255,255,0.65)' }}>{item}</span>
+              <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: service.color, flexShrink: 0, marginTop: '6px' }} />
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5 }}>{item}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Ideal for */}
-        <div style={{
-          backgroundColor: 'rgba(255,255,255,0.04)',
-          borderRadius:    '8px',
-          padding:         '12px 16px',
-          border:          '1px solid rgba(255,255,255,0.07)',
-          marginBottom:    '28px',
-        }}>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'rgba(255,255,255,0.35)', letterSpacing: '1px', textTransform: 'uppercase' }}>
-            Ideal For —{' '}
-          </span>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
-            {service.ideal}
-          </span>
-        </div>
-
-        <Link href="/contact" className="cta-pulse" style={{
-          display:         'inline-flex',
-          alignItems:      'center',
-          gap:             '8px',
-          backgroundColor: service.color,
-          color:           '#ffffff',
-          fontFamily:      'var(--font-body)',
-          fontWeight:      500,
-          fontSize:        '15px',
-          padding:         '12px 28px',
-          borderRadius:    '6px',
-          textDecoration:  'none',
-        }}>
-          Get a Quote <ArrowRight size={15} />
-        </Link>
-      </div>
-
-      {/* ---- Mockup side ---- */}
-      <div
-        style={{
-          order:     isMobile ? 2 : index % 2 === 0 ? 2 : 1,
-          transform: inView ? 'translateX(0)' : index % 2 === 0 ? 'translateX(40px)' : 'translateX(-40px)',
-          transition: 'transform 0.6s ease 0.1s, opacity 0.6s ease 0.1s',
-          opacity:   inView ? 1 : 0,
-        }}
-      >
-        {/* Glow border frame */}
-        <div style={{
-          borderRadius: '16px',
-          padding:      '2px',
-          background:   `linear-gradient(135deg, ${service.color}40, transparent, ${service.color}20)`,
-        }}>
-          <div style={{
-            backgroundColor: 'rgba(8,11,20,0.8)',
-            borderRadius:    '14px',
-            padding:         '20px',
+        {/* Ideal for + CTA */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="card-animated" style={{
+            backgroundColor: 'rgba(13,27,62,0.5)',
+            borderRadius:    '12px',
+            padding:         '24px',
+            border:          `1px solid ${service.color}20`,
           }}>
-            {service.mockup}
+            <p style={{
+              fontFamily:    'var(--font-body)',
+              fontSize:      '11px',
+              color:         'rgba(255,255,255,0.4)',
+              letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              marginBottom:  '12px',
+            }}>
+              Ideal For
+            </p>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.7 }}>
+              {service.ideal}
+            </p>
           </div>
+
+          <Link href="/contact" className="cta-pulse" style={{
+            display:         'flex',
+            alignItems:      'center',
+            justifyContent:  'center',
+            gap:             '10px',
+            backgroundColor: service.color,
+            color:           '#ffffff',
+            fontFamily:      'var(--font-body)',
+            fontWeight:      500,
+            fontSize:        '15px',
+            padding:         '14px 28px',
+            borderRadius:    '6px',
+            textDecoration:  'none',
+          }}>
+            Get a Free Quote for This Service <ArrowRight size={15} />
+          </Link>
         </div>
       </div>
     </div>
@@ -538,11 +563,11 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
 }
 
 /* ============================================
-   MAIN SECTION
+   MAIN EXPORT
    ============================================ */
 export default function ServicesShowcase() {
   return (
-    <section style={{ maxWidth: '1200px', margin: '0 auto' }}>
+    <section style={{ width: '100%' }}>
       {services.map((service, i) => (
         <div key={service.title}>
           <ServicePanel service={service} index={i} />

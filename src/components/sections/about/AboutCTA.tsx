@@ -70,7 +70,7 @@ export default function AboutCTA() {
           borderRadius:    '6px',
           textDecoration:  'none',
         }}>
-          Start a Project <ArrowRight size={16} />
+          Let's Build Together <ArrowRight size={16} />
         </Link>
       </div>
     </section>

@@ -346,3 +346,16 @@ html, body {
   overflow-x: hidden;
   max-width: 100vw;
 }
+
+/* ============================================
+   SECONDARY BUTTON HOVER
+   ============================================ */
+.btn-secondary {
+  transition: all 0.2s ease !important;
+}
+
+.btn-secondary:hover {
+  border-color:     rgba(255,255,255,0.4) !important;
+  background-color: rgba(255,255,255,0.05) !important;
+  transform:        scale(1.04) !important;
+}

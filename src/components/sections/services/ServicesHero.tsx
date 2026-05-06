@@ -11,7 +11,6 @@ const serviceNames = [
   'Data Analytics',
   'Business Setup',
   'Maintenance',
-  'Consultation',
 ]
 
 export default function ServicesHero() {
@@ -53,16 +52,16 @@ export default function ServicesHero() {
 
         <h1 style={{
           fontFamily:    'var(--font-heading)',
-          fontSize:      'clamp(36px, 5vw, 68px)',
+          fontSize:      'clamp(28px, 3.5vw, 52px)',
           fontWeight:    700,
           color:         '#ffffff',
-          lineHeight:    1.1,
+          lineHeight:    1.3,
           marginBottom:  '16px',
-          letterSpacing: '-1px',
+          letterSpacing: '-0.5px',
         }}>
-          Six Services.{' '}
-          <span style={{ color: '#FF6B35' }}>One Partner.</span>
-          <br />Zero Compromise.
+          <span style={{ display: 'block' }}>One Partner.</span>
+          <span style={{ display: 'block', color: '#FF6B35' }}>Every Solution.</span>
+          <span style={{ display: 'block' }}>Zero Compromise.</span>
         </h1>
 
         <p style={{
