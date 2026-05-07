@@ -25,253 +25,192 @@ const webSlides = [
 ]
 
 function WebMockup() {
-  const [active, setActive]     = useState(0)
-  const [loaded, setLoaded]     = useState([false, false, false])
   const [isMobile, setIsMobile] = useState(false)
-  const autoRef                 = useRef<ReturnType<typeof setInterval> | null>(null)
-  const touchStartX             = useRef(0)
 
   const sites = [
-    { label: 'Ember & Ash',         subtitle: 'Restaurant Website', url: 'https://ember-ash-zeta.vercel.app/' },
-    { label: 'Meridian Properties', subtitle: 'Real Estate Portal', url: 'https://meridian-properties-eta.vercel.app/' },
-    { label: 'Maison Céleste',      subtitle: 'Luxury Brand',       url: 'https://maison-celeste.vercel.app/' },
+    {
+      label:    'Ember & Ash',
+      subtitle: 'Restaurant Website',
+      url:      'https://ember-ash-zeta.vercel.app/',
+      image:    '/images/projects/ember-ash.png',
+      tag:      'Web Design',
+    },
+    {
+      label:    'Meridian Properties',
+      subtitle: 'Real Estate Portal',
+      url:      'https://meridian-properties-eta.vercel.app/',
+      image:    '/images/projects/meridian.png',
+      tag:      'Web Design',
+    },
+    {
+      label:    'Maison Céleste',
+      subtitle: 'Luxury Brand',
+      url:      'https://maison-celeste.vercel.app/',
+      image:    '/images/projects/maison-celeste.png',
+      tag:      'Web Design',
+    },
   ]
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768)
+    const check = () => setIsMobile(window.innerWidth <= 900)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const startAuto = () => {
-    if (autoRef.current) clearInterval(autoRef.current)
-    autoRef.current = setInterval(() => setActive(p => (p + 1) % sites.length), 4000)
+  return (
+    <div style={{
+      display:             'grid',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+      gap:                 '16px',
+      width:               '100%',
+    }}>
+      {sites.map((site) => (
+        <ProjectCard key={site.url} site={site} />
+      ))}
+    </div>
+  )
+}
+
+/* ---- Hover card component ---- */
+function ProjectCard({ site }: {
+  site: {
+    label: string
+    subtitle: string
+    url: string
+    image: string
+    tag: string
   }
-
-  useEffect(() => { startAuto(); return () => { if (autoRef.current) clearInterval(autoRef.current) } }, [])
-
-  const goTo = (i: number) => { setActive(i); startAuto() }
-  const prev = () => goTo((active - 1 + sites.length) % sites.length)
-  const next = () => goTo((active + 1) % sites.length)
-
-  const getStyle = (i: number): React.CSSProperties => {
-    const offset = ((i - active) + sites.length) % sites.length
-    const pos    = offset === 0 ? 'center' : offset === 1 ? 'right' : 'left'
-
-    const base: React.CSSProperties = {
-      position:   'absolute',
-      top:        '50%',
-      transition: 'all 0.55s cubic-bezier(0.4,0,0.2,1)',
-      borderRadius: '12px',
-      overflow:   'hidden',
-      border:     pos === 'center' ? '1px solid rgba(255,107,53,0.4)' : '1px solid rgba(255,255,255,0.06)',
-      backgroundColor: '#0f0f1a',
-    }
-
-    if (pos === 'center') return {
-      ...base,
-      width:       isMobile ? '85%' : '60%',
-      left:        '50%',
-      transform:   'translateX(-50%) translateY(-50%) scale(1)',
-      zIndex:      3,
-      filter:      'none',
-      boxShadow:   '0 32px 80px rgba(0,0,0,0.7), 0 0 40px rgba(255,107,53,0.08)',
-    }
-
-    if (pos === 'left') return {
-      ...base,
-      width:       isMobile ? '75%' : '55%',
-      left:        isMobile ? '-28%' : '-8%',
-      transform:   'translateY(-50%) scale(0.85) perspective(1200px) rotateY(14deg)',
-      zIndex:      1,
-      filter:      'blur(2px) brightness(0.35)',
-      cursor:      'pointer',
-    }
-
-    return {
-      ...base,
-      width:       isMobile ? '75%' : '55%',
-      right:       isMobile ? '-28%' : '-8%',
-      left:        'auto',
-      transform:   'translateY(-50%) scale(0.85) perspective(1200px) rotateY(-14deg)',
-      zIndex:      1,
-      filter:      'blur(2px) brightness(0.35)',
-      cursor:      'pointer',
-    }
-  }
+}) {
+  const [hovered, setHovered] = useState(false)
 
   return (
-    /* Break out of parent padding with negative margins */
-    <div style={{
-      position: 'relative',
-      margin:   '0 -60px',
-      padding:  '0 0 20px',
-    }}>
-
-      {/* ---- Carousel stage ---- */}
-      <div
+    <a
+      href={site.url}
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:        'block',
+        textDecoration: 'none',
+        borderRadius:   '12px',
+        overflow:       'hidden',
+        position:       'relative',
+        aspectRatio:    '16/10',
+        cursor:         'pointer',
+        border:         hovered
+          ? '1px solid rgba(255,107,53,0.4)'
+          : '1px solid rgba(255,255,255,0.08)',
+        transition:     'border-color 0.3s ease',
+      }}
+    >
+      {/* Screenshot image */}
+      <img
+        src={site.image}
+        alt={site.label}
         style={{
-          position: 'relative',
-          height:   isMobile ? '280px' : '400px',
-          overflow: 'hidden',
+          width:      '100%',
+          height:     '100%',
+          objectFit:  'cover',
+          objectPosition: 'top',
+          display:    'block',
+          transform:  hovered ? 'scale(1.04)' : 'scale(1)',
+          transition: 'transform 0.5s ease',
         }}
-        onTouchStart={e => { touchStartX.current = e.touches[0].clientX; if (autoRef.current) clearInterval(autoRef.current) }}
-        onTouchEnd={e => {
-          const diff = touchStartX.current - e.changedTouches[0].clientX
-          if (Math.abs(diff) > 40) diff > 0 ? next() : prev()
-          else startAuto()
-        }}
-      >
-        {sites.map((site, i) => {
-          const offset = ((i - active) + sites.length) % sites.length
-          const pos    = offset === 0 ? 'center' : offset === 1 ? 'right' : 'left'
+      />
 
-          return (
-            <div
-              key={site.url}
-              style={getStyle(i)}
-              onClick={() => pos !== 'center' && goTo(i)}
-            >
-              {/* Browser bar */}
-              <div style={{
-                backgroundColor: '#0a0a14',
-                padding:         '8px 12px',
-                display:         'flex',
-                alignItems:      'center',
-                gap:             '8px',
-                borderBottom:    '1px solid rgba(255,255,255,0.06)',
-                flexShrink:      0,
-              }}>
-                <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
-                  {['#FF5F57','#FEBC2E','#28C840'].map(c => (
-                    <div key={c} style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: c }} />
-                  ))}
-                </div>
-                <div style={{
-                  flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '3px',
-                  padding: '3px 8px', fontSize: '10px', fontFamily: 'var(--font-body)',
-                  color: 'rgba(255,255,255,0.35)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                }}>
-                  {site.url.replace('https://', '')}
-                </div>
-                {pos === 'center' && (
-                  <a 
-                    href={site.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={e => e.stopPropagation()}
-                    style={{
-                      fontFamily: 'var(--font-body)', fontSize: '10px', color: '#FF6B35',
-                      textDecoration: 'none', border: '1px solid rgba(255,107,53,0.3)',
-                      borderRadius: '3px', padding: '2px 8px', whiteSpace: 'nowrap', flexShrink: 0,
-                    }}
-                  >
-                    Visit ↗
-                  </a>
-                )}
-              </div>
-
-              {/* Iframe — landscape 16:9 */}
-              <div style={{ height: isMobile ? '200px' : '300px', position: 'relative', overflow: 'hidden', backgroundColor: '#080b14' }}>
-                {!loaded[i] && pos === 'center' && (
-                  <div style={{
-                    position: 'absolute', inset: 0, display: 'flex',
-                    alignItems: 'center', justifyContent: 'center', backgroundColor: '#080b14', zIndex: 2,
-                  }}>
-                    <span style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>
-                      Loading preview...
-                    </span>
-                  </div>
-                )}
-                <iframe
-                  src={site.url}
-                  style={{
-                    width: '167%', height: '167%', border: 'none',
-                    transform: 'scale(0.6)', transformOrigin: 'top left',
-                    pointerEvents: 'none',
-                    opacity: loaded[i] ? 1 : 0,
-                    transition: 'opacity 0.5s ease',
-                  }}
-                  onLoad={() => {
-                    const updated = [...loaded]; updated[i] = true; setLoaded(updated)
-                  }}
-                  title={site.label}
-                  sandbox="allow-scripts allow-same-origin"
-                />
-              </div>
-
-              {/* Label — center only */}
-              {pos === 'center' && (
-                <div style={{
-                  padding: '10px 14px', borderTop: '1px solid rgba(255,255,255,0.06)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                }}>
-                  <div>
-                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 500, color: '#ffffff' }}>
-                      {site.label}
-                    </div>
-                    <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginTop: '2px' }}>
-                      {site.subtitle}
-                    </div>
-                  </div>
-                  <span style={{
-                    fontFamily: 'var(--font-body)', fontSize: '10px', color: '#28C840',
-                    backgroundColor: 'rgba(40,200,64,0.08)', border: '1px solid rgba(40,200,64,0.2)',
-                    borderRadius: '100px', padding: '2px 10px',
-                  }}>
-                    ● Live
-                  </span>
-                </div>
-              )}
-            </div>
-          )
-        })}
-
-        {/* Arrow buttons */}
-        {!isMobile && (
-          <>
-            <button onClick={prev} style={{
-              position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
-              zIndex: 10, width: '40px', height: '40px', borderRadius: '50%',
-              backgroundColor: 'rgba(8,11,20,0.9)', border: '1px solid rgba(255,107,53,0.3)',
-              color: '#FF6B35', cursor: 'pointer', fontSize: '20px',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s ease',
-            }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,107,53,0.2)')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(8,11,20,0.9)')}
-            >‹</button>
-            <button onClick={next} style={{
-              position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)',
-              zIndex: 10, width: '40px', height: '40px', borderRadius: '50%',
-              backgroundColor: 'rgba(8,11,20,0.9)', border: '1px solid rgba(255,107,53,0.3)',
-              color: '#FF6B35', cursor: 'pointer', fontSize: '20px',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s ease',
-            }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,107,53,0.2)')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(8,11,20,0.9)')}
-            >›</button>
-          </>
-        )}
+      {/* Hover overlay */}
+      <div style={{
+        position:        'absolute',
+        inset:           0,
+        backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'rgba(8,11,20,0.15)',
+        transition:      'background-color 0.35s ease',
+        display:         'flex',
+        flexDirection:   'column',
+        alignItems:      'center',
+        justifyContent:  'center',
+        gap:             '12px',
+      }}>
+        {/* Visit button — only on hover */}
+        <div style={{
+          opacity:    hovered ? 1 : 0,
+          transform:  hovered ? 'translateY(0)' : 'translateY(10px)',
+          transition: 'opacity 0.3s ease, transform 0.3s ease',
+          display:    'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap:        '10px',
+        }}>
+          <div style={{
+            width:           '48px',
+            height:          '48px',
+            borderRadius:    '50%',
+            backgroundColor: '#FF6B35',
+            display:         'flex',
+            alignItems:      'center',
+            justifyContent:  'center',
+            fontSize:        '20px',
+            color:           '#ffffff',
+            boxShadow:       '0 8px 24px rgba(255,107,53,0.4)',
+          }}>
+            ↗
+          </div>
+          <span style={{
+            fontFamily:  'var(--font-body)',
+            fontSize:    '13px',
+            fontWeight:  500,
+            color:       '#ffffff',
+            letterSpacing: '0.5px',
+          }}>
+            Visit Site
+          </span>
+        </div>
       </div>
 
-      {/* Dots */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '16px' }}>
-        {sites.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} style={{
-            width: active === i ? '24px' : '7px', height: '7px',
-            borderRadius: '4px', backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)',
-            border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s ease',
-          }} />
-        ))}
+      {/* Bottom label — always visible */}
+      <div style={{
+        position:   'absolute',
+        bottom:     0,
+        left:       0,
+        right:      0,
+        padding:    '20px 16px 14px',
+        background: 'linear-gradient(to top, rgba(8,11,20,0.95), transparent)',
+        display:    'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+      }}>
+        <div>
+          <div style={{
+            fontFamily:  'var(--font-body)',
+            fontSize:    '14px',
+            fontWeight:  500,
+            color:       '#ffffff',
+            marginBottom: '2px',
+          }}>
+            {site.label}
+          </div>
+          <div style={{
+            fontFamily: 'var(--font-body)',
+            fontSize:   '11px',
+            color:      'rgba(255,255,255,0.5)',
+          }}>
+            {site.subtitle}
+          </div>
+        </div>
+        <span style={{
+          fontFamily:      'var(--font-body)',
+          fontSize:        '10px',
+          color:           '#FF6B35',
+          backgroundColor: 'rgba(255,107,53,0.1)',
+          border:          '1px solid rgba(255,107,53,0.25)',
+          borderRadius:    '100px',
+          padding:         '2px 10px',
+        }}>
+          {site.tag}
+        </span>
       </div>
-
-      {isMobile && (
-        <p style={{ textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginTop: '10px' }}>
-          ← swipe to explore →
-        </p>
-      )}
-    </div>
+    </a>
   )
 }
 

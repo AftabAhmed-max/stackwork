@@ -7,7 +7,7 @@ import { Syne, DM_Sans } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import CustomCursor from '@/components/ui/CustomCursor'
+
 import PlexusBackground from '@/components/ui/PlexusBackground'
 
 /* ---- Font Definitions ---- */
@@ -50,7 +50,6 @@ export default function RootLayout({
     <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
       <body>
         <PlexusBackground />
-        <CustomCursor />
         <Navbar />
         {children}
         <Footer />

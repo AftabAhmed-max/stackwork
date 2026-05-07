@@ -122,23 +122,6 @@ h4 { font-size: 20px; }
   }
 }
 
-/* ============================================
-   CUSTOM CURSOR — hide default on desktop only
-   ============================================ */
-@media (hover: hover) and (pointer: fine) {
-  *, *::before, *::after {
-    cursor: none !important;
-  }
-}
-
-/* ============================================
-   RESTORE cursor on touch/mobile
-   ============================================ */
-@media (hover: none), (pointer: coarse) {
-  *, *::before, *::after {
-    cursor: auto !important;
-  }
-}
 
 /* ============================================
    CUSTOM SCROLLBAR
@@ -358,4 +341,8 @@ html, body {
   border-color:     rgba(255,255,255,0.4) !important;
   background-color: rgba(255,255,255,0.05) !important;
   transform:        scale(1.04) !important;
+}
+
+* {
+  cursor: auto !important;
 }
