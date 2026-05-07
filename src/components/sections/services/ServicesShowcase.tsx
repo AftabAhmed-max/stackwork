@@ -25,306 +25,163 @@ const webSlides = [
 ]
 
 function WebMockup() {
-  const [active, setActive] = useState(1)
-  const [loaded, setLoaded] = useState([false, false, false])
-  const autoRef             = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [loaded, setLoaded]     = useState([false, false, false])
   const [isMobile, setIsMobile] = useState(false)
-  const touchStartX         = useRef(0)
 
   const sites = [
-    { label: 'Ember & Ash',         subtitle: 'Restaurant Website', url: 'https://ember-ash-zeta.vercel.app/' },
-    { label: 'Meridian Properties', subtitle: 'Real Estate Portal', url: 'https://meridian-properties-eta.vercel.app/' },
-    { label: 'Maison Céleste',      subtitle: 'Luxury Brand',       url: 'https://maison-celeste.vercel.app/' },
+    { label: 'Ember & Ash',         subtitle: 'Restaurant',   url: 'https://ember-ash-zeta.vercel.app/' },
+    { label: 'Meridian Properties', subtitle: 'Real Estate',  url: 'https://meridian-properties-eta.vercel.app/' },
+    { label: 'Maison Céleste',      subtitle: 'Luxury Brand', url: 'https://maison-celeste.vercel.app/' },
   ]
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768)
+    const check = () => setIsMobile(window.innerWidth <= 900)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const startAuto = () => {
-    if (autoRef.current) clearInterval(autoRef.current)
-    autoRef.current = setInterval(() => {
-      setActive(p => (p + 1) % sites.length)
-    }, 4000)
-  }
-
-  useEffect(() => {
-    startAuto()
-    return () => { if (autoRef.current) clearInterval(autoRef.current) }
-  }, [])
-
-  const goTo = (i: number) => {
-    setActive(i)
-    startAuto()
-  }
-
-  const prev = () => goTo((active - 1 + sites.length) % sites.length)
-  const next = () => goTo((active + 1) % sites.length)
-
-  /* ---- Card style per position ---- */
-  const getCardStyle = (i: number): React.CSSProperties => {
-    const offset = i - active
-    const absOff = Math.abs(offset)
-
-    if (absOff > 1) return { display: 'none' }
-
-    const isCenter = offset === 0
-    const isLeft   = offset === -1
-    const isRight  = offset === 1
-
-    return {
-      position:          'absolute',
-      top:               '50%',
-      width:             isMobile ? '85%' : '62%',
-      borderRadius:      '14px',
-      overflow:          'hidden',
-      border:            isCenter
-        ? '1px solid rgba(255,107,53,0.5)'
-        : '1px solid rgba(255,255,255,0.06)',
-      cursor:            isCenter ? 'default' : 'pointer',
-      transition:        'all 0.5s cubic-bezier(0.4,0,0.2,1)',
-      zIndex:            isCenter ? 3 : 1,
-      transform:         isCenter
-        ? 'translateX(-50%) translateY(-50%) scale(1)'
-        : isLeft
-          ? `translateX(${isMobile ? '-85%' : '-78%'}) translateY(-50%) scale(0.82) perspective(1000px) rotateY(12deg)`
-          : `translateX(${isMobile ? '-15%' : '-22%'}) translateY(-50%) scale(0.82) perspective(1000px) rotateY(-12deg)`,
-      left:              '50%',
-      filter:            isCenter ? 'none' : 'blur(1.5px) brightness(0.45)',
-      boxShadow:         isCenter
-        ? '0 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(255,107,53,0.1)'
-        : 'none',
-      backgroundColor:   '#0f0f1a',
-    }
-  }
-
   return (
-    <div style={{ position: 'relative', width: '100%', overflow: 'hidden', padding: '20px 0' }}>
-
-      {/* ---- Carousel container ---- */}
-      <div
-        style={{
-          position:   'relative',
-          width:      '100%',
-          height:     isMobile ? '360px' : '460px',
-          overflow:   'visible',
-        }}
-        onTouchStart={e => { touchStartX.current = e.touches[0].clientX }}
-        onTouchEnd={e => {
-          const diff = touchStartX.current - e.changedTouches[0].clientX
-          if (Math.abs(diff) > 40) diff > 0 ? next() : prev()
-        }}
-      >
-        {sites.map((site, i) => (
-          <div
-            key={site.url}
-            style={getCardStyle(i)}
-            onClick={() => i !== active && goTo(i)}
-          >
-            {/* Browser bar */}
-            <div style={{
-              backgroundColor: '#0a0a14',
-              padding:         '8px 12px',
-              display:         'flex',
-              alignItems:      'center',
-              gap:             '8px',
-              borderBottom:    '1px solid rgba(255,255,255,0.06)',
-            }}>
-              <div style={{ display: 'flex', gap: '4px' }}>
-                {['#FF5F57','#FEBC2E','#28C840'].map(c => (
-                  <div key={c} style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: c }} />
-                ))}
-              </div>
-              <div style={{
-                flex:            1,
-                backgroundColor: 'rgba(255,255,255,0.06)',
-                borderRadius:    '4px',
-                padding:         '3px 8px',
-                fontSize:        '10px',
-                fontFamily:      'var(--font-body)',
-                color:           'rgba(255,255,255,0.4)',
-                overflow:        'hidden',
-                textOverflow:    'ellipsis',
-                whiteSpace:      'nowrap',
-              }}>
-                {site.url.replace('https://', '')}
-              </div>
-              {i === active && (
-              <a  
-                  href={site.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    fontFamily:     'var(--font-body)',
-                    fontSize:       '10px',
-                    color:          '#FF6B35',
-                    textDecoration: 'none',
-                    border:         '1px solid rgba(255,107,53,0.3)',
-                    borderRadius:   '4px',
-                    padding:        '2px 8px',
-                    whiteSpace:     'nowrap',
-                    flexShrink:     0,
-                  }}
-                >
-                  Visit ↗
-                </a>
-              )}
+    <div style={{
+      display:             'grid',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+      gap:                 '12px',
+      width:               '100%',
+    }}>
+      {sites.map((site, i) => (
+        <div key={site.url} style={{
+          backgroundColor: '#0f0f1a',
+          borderRadius:    '10px',
+          overflow:        'hidden',
+          border:          '1px solid rgba(255,255,255,0.08)',
+          display:         'flex',
+          flexDirection:   'column',
+        }}>
+          {/* Browser bar */}
+          <div style={{
+            backgroundColor: '#0a0a14',
+            padding:         '7px 10px',
+            display:         'flex',
+            alignItems:      'center',
+            gap:             '7px',
+            borderBottom:    '1px solid rgba(255,255,255,0.06)',
+            flexShrink:      0,
+          }}>
+            <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+              {['#FF5F57','#FEBC2E','#28C840'].map(c => (
+                <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+              ))}
             </div>
-
-            {/* iframe */}
             <div style={{
-              height:          isMobile ? '240px' : '320px',
-              position:        'relative',
+              flex:            1,
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              borderRadius:    '3px',
+              padding:         '2px 6px',
+              fontSize:        '9px',
+              fontFamily:      'var(--font-body)',
+              color:           'rgba(255,255,255,0.3)',
               overflow:        'hidden',
-              backgroundColor: '#080b14',
+              textOverflow:    'ellipsis',
+              whiteSpace:      'nowrap',
             }}>
-              {!loaded[i] && (
-                <div style={{
-                  position:        'absolute',
-                  inset:           0,
-                  display:         'flex',
-                  alignItems:      'center',
-                  justifyContent:  'center',
-                  backgroundColor: '#080b14',
-                  zIndex:          2,
-                }}>
-                  <span style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>
-                    Loading...
-                  </span>
-                </div>
-              )}
-              <iframe
-                src={site.url}
-                style={{
-                  width:           '167%',
-                  height:          '167%',
-                  border:          'none',
-                  transform:       'scale(0.6)',
-                  transformOrigin: 'top left',
-                  pointerEvents:   'none',
-                  opacity:         loaded[i] ? 1 : 0,
-                  transition:      'opacity 0.5s ease',
-                }}
-                onLoad={() => {
-                  const updated = [...loaded]
-                  updated[i]   = true
-                  setLoaded(updated)
-                }}
-                title={site.label}
-                sandbox="allow-scripts allow-same-origin"
-              />
+              {site.url.replace('https://', '')}
             </div>
+            <a
+              href={site.url}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                fontFamily:     'var(--font-body)',
+                fontSize:       '9px',
+                color:          '#FF6B35',
+                textDecoration: 'none',
+                border:         '1px solid rgba(255,107,53,0.3)',
+                borderRadius:   '3px',
+                padding:        '2px 7px',
+                whiteSpace:     'nowrap',
+                flexShrink:     0,
+              }}
+            >
+              Visit ↗
+            </a>
+          </div>
 
-            {/* Label */}
-            {i === active && (
+          {/* Wide landscape iframe */}
+          <div style={{
+            position:        'relative',
+            width:           '100%',
+            height:          '180px',
+            overflow:        'hidden',
+            backgroundColor: '#080b14',
+            flexShrink:      0,
+          }}>
+            {!loaded[i] && (
               <div style={{
-                padding:        '10px 14px',
-                display:        'flex',
-                alignItems:     'center',
-                justifyContent: 'space-between',
-                borderTop:      '1px solid rgba(255,255,255,0.06)',
+                position:        'absolute',
+                inset:           0,
+                display:         'flex',
+                alignItems:      'center',
+                justifyContent:  'center',
+                backgroundColor: '#080b14',
+                zIndex:          2,
               }}>
-                <div>
-                  <div style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 500, color: '#ffffff' }}>
-                    {site.label}
-                  </div>
-                  <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginTop: '2px' }}>
-                    {site.subtitle}
-                  </div>
-                </div>
-                <span style={{
-                  fontFamily:      'var(--font-body)',
-                  fontSize:        '11px',
-                  color:           '#FF6B35',
-                  backgroundColor: 'rgba(255,107,53,0.08)',
-                  border:          '1px solid rgba(255,107,53,0.2)',
-                  borderRadius:    '100px',
-                  padding:         '2px 10px',
-                }}>
-                  {active + 1} / {sites.length}
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.3)' }}>
+                  Loading preview...
                 </span>
               </div>
             )}
+            <iframe
+              src={site.url}
+              style={{
+                width:           '167%',
+                height:          '167%',
+                border:          'none',
+                transform:       'scale(0.6)',
+                transformOrigin: 'top left',
+                pointerEvents:   'none',
+                opacity:         loaded[i] ? 1 : 0,
+                transition:      'opacity 0.5s ease',
+              }}
+              onLoad={() => {
+                const updated = [...loaded]
+                updated[i]   = true
+                setLoaded(updated)
+              }}
+              title={site.label}
+              sandbox="allow-scripts allow-same-origin"
+            />
           </div>
-        ))}
 
-        {/* ---- Arrow buttons ---- */}
-        {!isMobile && (
-          <>
-            <button onClick={prev} style={{
-              position:        'absolute',
-              left:            '4px',
-              top:             '50%',
-              transform:       'translateY(-50%)',
-              zIndex:          10,
-              width:           '36px',
-              height:          '36px',
-              borderRadius:    '50%',
-              backgroundColor: 'rgba(8,11,20,0.9)',
-              border:          '1px solid rgba(255,107,53,0.3)',
-              color:           '#FF6B35',
-              cursor:          'pointer',
-              fontSize:        '20px',
-              display:         'flex',
-              alignItems:      'center',
-              justifyContent:  'center',
-              transition:      'all 0.2s ease',
-            }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,107,53,0.15)')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(8,11,20,0.9)')}
-            >‹</button>
-
-            <button onClick={next} style={{
-              position:        'absolute',
-              right:           '4px',
-              top:             '50%',
-              transform:       'translateY(-50%)',
-              zIndex:          10,
-              width:           '36px',
-              height:          '36px',
-              borderRadius:    '50%',
-              backgroundColor: 'rgba(8,11,20,0.9)',
-              border:          '1px solid rgba(255,107,53,0.3)',
-              color:           '#FF6B35',
-              cursor:          'pointer',
-              fontSize:        '20px',
-              display:         'flex',
-              alignItems:      'center',
-              justifyContent:  'center',
-              transition:      'all 0.2s ease',
-            }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,107,53,0.15)')}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(8,11,20,0.9)')}
-            >›</button>
-          </>
-        )}
-      </div>
-
-      {/* ---- Dot indicators ---- */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '20px' }}>
-        {sites.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} style={{
-            width:           active === i ? '24px' : '7px',
-            height:          '7px',
-            borderRadius:    '4px',
-            backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)',
-            border:          'none',
-            cursor:          'pointer',
-            padding:         0,
-            transition:      'all 0.3s ease',
-          }} />
-        ))}
-      </div>
-
-      {/* Mobile swipe hint */}
-      {isMobile && (
-        <p style={{ textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginTop: '10px' }}>
-          ← swipe to explore →
-        </p>
-      )}
+          {/* Label */}
+          <div style={{
+            padding:        '8px 12px',
+            borderTop:      '1px solid rgba(255,255,255,0.06)',
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'space-between',
+          }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '12px', fontWeight: 500, color: '#ffffff' }}>
+                {site.label}
+              </div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '10px', color: 'rgba(255,255,255,0.4)', marginTop: '1px' }}>
+                {site.subtitle}
+              </div>
+            </div>
+            <span style={{
+              fontFamily:      'var(--font-body)',
+              fontSize:        '9px',
+              color:           '#28C840',
+              backgroundColor: 'rgba(40,200,64,0.08)',
+              border:          '1px solid rgba(40,200,64,0.2)',
+              borderRadius:    '100px',
+              padding:         '2px 8px',
+            }}>
+              ● Live
+            </span>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
@@ -667,7 +524,7 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
       ref={ref}
       style={{
         padding:    isMobile ? '60px 24px' : '80px 60px',
-        maxWidth:   '900px',
+        maxWidth:   '100%',
         margin:     '0 auto',
         opacity:    inView ? 1 : 0,
         transform:  inView ? 'translateY(0)' : 'translateY(30px)',
