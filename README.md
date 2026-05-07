@@ -2,7 +2,7 @@
 
 > Web design, app development, analytics and more for businesses across India and the Gulf.
 
-🌐 **Live Site:** [stackwork-beta.vercel.app]((https://stackwork-beta.vercel.app/))
+🌐 **Live Site:** [stackwork-beta.vercel.app](https://stackwork-beta.vercel.app/)
 
 ---
 
