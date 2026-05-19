@@ -1,0 +1,106 @@
+STACKWORK BRAND REFERENCE
+Official brand identity document for all design and development work.
+
+COMPANY NAME
+Stackwork
+Written as: Stackwork (not STACKWORK, not stackwork)
+Domain: stackworkhq.com
+Tagline: Digital Solutions
+
+BRAND COLORS
+Primary — Deep Navy
+Hex: #0D1B3E
+Use for: Logo background, main section backgrounds, navigation, headings
+Accent — Electric Orange
+Hex: #FF6B35
+Use for: All CTA buttons, hover effects, links, the word "work" in logo, icon highlights
+Background — Charcoal Black
+Hex: #1C1C2E
+Use for: Main website background, dark section fills, footer
+Success — Forest Green
+Hex: #2C6E49
+Use for: Success messages, completed project badges, positive stats, growth indicators
+Premium — Warm Gold
+Hex: #C9A84C
+Use for: Premium tier highlights, special badges, elevated UI moments — use sparingly
+Secondary — Slate Blue
+Hex: #3A5F8A
+Use for: Secondary buttons, info cards, supporting UI elements, section breaks
+Text on dark backgrounds: #FFFFFF white
+Text on light backgrounds: #0D1B3E deep navy
+Muted / subtext color: #888888
+
+TYPOGRAPHY
+Heading Font: Syne Bold
+Used for: All headings H1 through H4, logo wordmark, hero text
+Source: Google Fonts — fonts.google.com/specimen/Syne
+Weight used: 700 Bold only
+Body Font: DM Sans
+Used for: All body text, paragraphs, buttons, navigation, labels, captions
+Source: Google Fonts — fonts.google.com/specimen/DM+Sans
+Weights used: 400 Regular and 500 Medium
+
+LOGO DETAILS
+Icon: Three horizontal bars stacked vertically, stepping downward-right like a staircase
+Bar 1 top longest: #FF6B35 at 100% opacity
+Bar 2 middle: #FF6B35 at 75% opacity
+Bar 3 bottom shortest: #FF6B35 at 50% opacity on dark backgrounds, #0D1B3E at 50% opacity on light backgrounds
+All bars have slightly rounded corners rx 3 to 3.5
+Wordmark: Stack in white on dark backgrounds, Stack in #0D1B3E on light backgrounds, work always in #FF6B35
+Tagline below wordmark: DIGITAL SOLUTIONS in uppercase, letter-spaced, muted gray
+Primary logo version: icon and wordmark on dark charcoal background #1C1C2E
+Inverted logo version: icon and wordmark on white background with navy text
+
+BUTTON STYLES
+Primary button: Background #FF6B35, text white, border-radius 6px
+Secondary button: Transparent background, border #3A5F8A, text white, border-radius 6px
+Hover state on primary: slight darkening of orange, smooth transition
+
+SPACING AND RADIUS
+Border radius standard: 8px for components, 12px for cards
+Font sizes: H1 48px, H2 36px, H3 24px, H4 20px, Body 16px, Small 13px, Label 11px
+
+LOGO SVG CODE
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 620" width="460" height="620">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap');
+      .label { font-family: 'Courier New', monospace; font-size: 11px; fill: #888; letter-spacing: 2px; }
+      .wordmark-stack { font-family: 'Syne', 'Arial Black', sans-serif; font-weight: 700; font-size: 36px; }
+      .tagline { font-family: 'Syne', 'Arial Black', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 3px; }
+      .icon-only-label { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 2px; }
+    </style>
+  </defs>
+  <!-- VERSION 1: DARK BACKGROUND PRIMARY -->
+<text x="30" y="22" class="label">VERSION 1 — DARK BG PRIMARY</text>
+<rect x="30" y="32" width="400" height="120" rx="6" fill="#1C1C2E"/>
+<rect x="58" y="67" width="52" height="14" rx="3" fill="#FF6B35"/>
+<rect x="65" y="86" width="40" height="14" rx="3" fill="#FF6B35" opacity="0.75"/>
+<rect x="72" y="105" width="28" height="14" rx="3" fill="#ffffff" opacity="0.50"/>
+<text x="122" y="101" class="wordmark-stack">
+<tspan fill="#ffffff">Stack</tspan><tspan fill="#FF6B35">work</tspan>
+</text>
+<text x="123" y="118" class="tagline" fill="#6B7280">DIGITAL SOLUTIONS</text>
+  <!-- VERSION 2: LIGHT BACKGROUND INVERTED -->
+<text x="30" y="182" class="label">VERSION 2 — LIGHT BG INVERTED</text>
+<rect x="30" y="192" width="400" height="120" rx="6" fill="#ffffff" stroke="#E5E7EB" stroke-width="1"/>
+<rect x="58" y="227" width="52" height="14" rx="3" fill="#FF6B35"/>
+<rect x="65" y="246" width="40" height="14" rx="3" fill="#FF6B35" opacity="0.75"/>
+<rect x="72" y="265" width="28" height="14" rx="3" fill="#0D1B3E" opacity="0.50"/>
+<text x="122" y="261" class="wordmark-stack">
+<tspan fill="#0D1B3E">Stack</tspan><tspan fill="#FF6B35">work</tspan>
+</text>
+<text x="123" y="278" class="tagline" fill="#9CA3AF">DIGITAL SOLUTIONS</text>
+  <!-- VERSION 3: ICON ONLY DARK -->
+<text x="30" y="342" class="label">VERSION 3 — ICON ONLY DARK</text>
+<rect x="30" y="352" width="400" height="120" rx="6" fill="#1C1C2E"/>
+<rect x="201" y="387" width="62" height="16" rx="3.5" fill="#FF6B35"/>
+<rect x="209" y="408" width="48" height="16" rx="3.5" fill="#FF6B35" opacity="0.75"/>
+<rect x="217" y="429" width="34" height="16" rx="3.5" fill="#ffffff" opacity="0.50"/>
+  <!-- VERSION 4: ICON ONLY LIGHT -->
+<text x="30" y="502" class="label">VERSION 4 — ICON ONLY LIGHT</text>
+<rect x="30" y="512" width="400" height="120" rx="6" fill="#ffffff" stroke="#E5E7EB" stroke-width="1"/>
+<rect x="201" y="547" width="62" height="16" rx="3.5" fill="#FF6B35"/>
+<rect x="209" y="568" width="48" height="16" rx="3.5" fill="#FF6B35" opacity="0.75"/>
+<rect x="217" y="589" width="34" height="16" rx="3.5" fill="#0D1B3E" opacity="0.50"/>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 620" width="460" height="620">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700&amp;display=swap');
+      .label {
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        fill: #888;
+        letter-spacing: 2px;
+      }
+      .wordmark-stack {
+        font-family: 'Syne', 'Arial Black', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+      }
+      .tagline {
+        font-family: 'Syne', 'Arial Black', sans-serif;
+        font-weight: 700;
+        font-size: 10px;
+        letter-spacing: 3px;
+      }
+      .icon-only-label {
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        letter-spacing: 2px;
+      }
+    </style>
+  </defs>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- VERSION 1: DARK BACKGROUND PRIMARY              -->
+  <!-- ════════════════════════════════════════════════ -->
+
+  <!-- Label -->
+  <text x="30" y="22" class="label">VERSION 1 — DARK BG PRIMARY</text>
+
+  <!-- Dark background card -->
+  <rect x="30" y="32" width="400" height="120" rx="6" fill="#1C1C2E"/>
+
+  <!-- Icon: staircase bars (dark version) -->
+  <!-- Bar 1 (top, full opacity #FF6B35) -->
+  <rect x="58" y="67" width="52" height="14" rx="3" fill="#FF6B35"/>
+  <!-- Bar 2 (middle, 75% opacity #FF6B35) -->
+  <rect x="65" y="86" width="40" height="14" rx="3" fill="#FF6B35" opacity="0.75"/>
+  <!-- Bar 3 (bottom, white 50% opacity) -->
+  <rect x="72" y="105" width="28" height="14" rx="3" fill="#ffffff" opacity="0.50"/>
+
+  <!-- Wordmark -->
+  <text x="122" y="101" class="wordmark-stack">
+    <tspan fill="#ffffff">Stack</tspan><tspan fill="#FF6B35">work</tspan>
+  </text>
+  <!-- Tagline -->
+  <text x="123" y="118" class="tagline" fill="#6B7280">DIGITAL SOLUTIONS</text>
+
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- VERSION 2: LIGHT BACKGROUND INVERTED            -->
+  <!-- ════════════════════════════════════════════════ -->
+
+  <!-- Label -->
+  <text x="30" y="182" class="label">VERSION 2 — LIGHT BG INVERTED</text>
+
+  <!-- Light background card -->
+  <rect x="30" y="192" width="400" height="120" rx="6" fill="#ffffff" stroke="#E5E7EB" stroke-width="1"/>
+
+  <!-- Icon: staircase bars (light version) -->
+  <!-- Bar 1 (top, full opacity #FF6B35) -->
+  <rect x="58" y="227" width="52" height="14" rx="3" fill="#FF6B35"/>
+  <!-- Bar 2 (middle, 75% opacity #FF6B35) -->
+  <rect x="65" y="246" width="40" height="14" rx="3" fill="#FF6B35" opacity="0.75"/>
+  <!-- Bar 3 (bottom, #0D1B3E at 50% opacity) -->
+  <rect x="72" y="265" width="28" height="14" rx="3" fill="#0D1B3E" opacity="0.50"/>
+
+  <!-- Wordmark -->
+  <text x="122" y="261" class="wordmark-stack">
+    <tspan fill="#0D1B3E">Stack</tspan><tspan fill="#FF6B35">work</tspan>
+  </text>
+  <!-- Tagline -->
+  <text x="123" y="278" class="tagline" fill="#9CA3AF">DIGITAL SOLUTIONS</text>
+
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- VERSION 3: ICON ONLY — DARK                     -->
+  <!-- ════════════════════════════════════════════════ -->
+
+  <!-- Label -->
+  <text x="30" y="342" class="label">VERSION 3 — ICON ONLY DARK</text>
+
+  <!-- Dark background card -->
+  <rect x="30" y="352" width="400" height="120" rx="6" fill="#1C1C2E"/>
+
+  <!-- Icon centered -->
+  <!-- Bar 1 -->
+  <rect x="201" y="387" width="62" height="16" rx="3.5" fill="#FF6B35"/>
+  <!-- Bar 2 -->
+  <rect x="209" y="408" width="48" height="16" rx="3.5" fill="#FF6B35" opacity="0.75"/>
+  <!-- Bar 3 -->
+  <rect x="217" y="429" width="34" height="16" rx="3.5" fill="#ffffff" opacity="0.50"/>
+
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- VERSION 4: ICON ONLY — LIGHT                    -->
+  <!-- ════════════════════════════════════════════════ -->
+
+  <!-- Label -->
+  <text x="30" y="502" class="label">VERSION 4 — ICON ONLY LIGHT</text>
+
+  <!-- Light background card -->
+  <rect x="30" y="512" width="400" height="120" rx="6" fill="#ffffff" stroke="#E5E7EB" stroke-width="1"/>
+
+  <!-- Icon centered -->
+  <!-- Bar 1 -->
+  <rect x="201" y="547" width="62" height="16" rx="3.5" fill="#FF6B35"/>
+  <!-- Bar 2 -->
+  <rect x="209" y="568" width="48" height="16" rx="3.5" fill="#FF6B35" opacity="0.75"/>
+  <!-- Bar 3 -->
+  <rect x="217" y="589" width="34" height="16" rx="3.5" fill="#0D1B3E" opacity="0.50"/>
+
+</svg>
