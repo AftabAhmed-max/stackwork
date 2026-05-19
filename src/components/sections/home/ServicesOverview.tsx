@@ -264,16 +264,19 @@ function SetupMockup() {
 /* ---- 5. Maintenance: Uptime monitor ---- */
 function MaintenanceMockup() {
   const [tick, setTick] = useState(0)
+  const [bars, setBars] = useState<{ up: boolean; height: number }[]>([])
+
+  useEffect(() => {
+    setBars(Array.from({ length: 24 }, () => ({
+      up:     Math.random() > 0.08,
+      height: 60 + Math.random() * 40,
+    })))
+  }, [])
 
   useEffect(() => {
     const t = setInterval(() => setTick(p => p + 1), 1000)
     return () => clearInterval(t)
   }, [])
-
-  const bars = Array.from({ length: 24 }, (_, i) => ({
-    up: Math.random() > 0.08,
-    height: 60 + Math.random() * 40,
-  }))
 
   const services = [
     { name: 'Website',    status: 'Operational', ms: '142ms' },

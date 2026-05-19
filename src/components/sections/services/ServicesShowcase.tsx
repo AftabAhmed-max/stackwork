@@ -8,6 +8,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   Globe, Smartphone, BarChart2,
@@ -17,12 +18,6 @@ import {
 /* ============================================
    MOCKUP COMPONENTS
    ============================================ */
-
-const webSlides = [
-  { label: 'Restaurant Website',  color: '#1a1a2e', accent: '#FF6B35' },
-  { label: 'Real Estate Portal',  color: '#0d2137', accent: '#3A5F8A' },
-  { label: 'E-Commerce Store',    color: '#1a0d2e', accent: '#C9A84C' },
-]
 
 function WebMockup() {
   const [isMobile, setIsMobile] = useState(false)
@@ -106,17 +101,16 @@ function ProjectCard({ site }: {
       }}
     >
       {/* Screenshot image */}
-      <img
+      <Image
         src={site.image}
         alt={site.label}
+        fill
+        sizes="(max-width: 900px) 100vw, 33vw"
         style={{
-          width:      '100%',
-          height:     '100%',
-          objectFit:  'cover',
+          objectFit:      'cover',
           objectPosition: 'top',
-          display:    'block',
-          transform:  hovered ? 'scale(1.04)' : 'scale(1)',
-          transition: 'transform 0.5s ease',
+          transform:      hovered ? 'scale(1.04)' : 'scale(1)',
+          transition:     'transform 0.5s ease',
         }}
       />
 

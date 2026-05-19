@@ -230,7 +230,7 @@ export default function ContactForm() {
             </label>
             <textarea
               name="business_description"
-              value={(form as any).business_description || ''}
+              value={form.business_description}
               onChange={handleChange}
               placeholder="e.g. We run a chain of 3 restaurants in Dubai and need a website with online ordering and table reservations..."
               rows={2}

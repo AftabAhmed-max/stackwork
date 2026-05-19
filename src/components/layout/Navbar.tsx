@@ -145,7 +145,7 @@ export default function Navbar() {
           borderTop:       '1px solid rgba(255,255,255,0.08)',
         }}>
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} style={{
+            <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)} style={{
               display: 'block', padding: '16px 0',
               fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 700,
               textDecoration: 'none',
@@ -156,7 +156,7 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <Link href="/contact" className="cta-pulse" style={{
+          <Link href="/contact" className="cta-pulse" onClick={() => setMenuOpen(false)} style={{
             display: 'block', marginTop: '28px',
             backgroundColor: '#FF6B35', color: '#ffffff',
             fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: '16px',
