@@ -167,7 +167,7 @@ export default function Navbar() {
           </Link>
 
           <p style={{ marginTop: 'auto', paddingTop: '32px', fontFamily: 'var(--font-body)', fontSize: '13px', color: '#888888', textAlign: 'center' }}>
-            hello@stackworkhq.com
+            stackworkhq@gmail.com
           </p>
         </div>
       )}

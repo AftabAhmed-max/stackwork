@@ -6,15 +6,23 @@
 import { useEffect, useState } from 'react'
 
 export default function ContactHero() {
-  const [visible, setVisible] = useState(false)
+  const [visible,  setVisible]  = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100)
     return () => clearTimeout(t)
   }, [])
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   return (
-    <section style={{ padding: '80px 60px 40px', textAlign: 'center' }}>
+    <section style={{ padding: isMobile ? '60px 60px 40px' : '80px 60px 40px', textAlign: 'center' }}>
       <div style={{
         maxWidth:   '700px',
         margin:     '0 auto',

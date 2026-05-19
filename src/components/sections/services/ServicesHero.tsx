@@ -17,6 +17,7 @@ export default function ServicesHero() {
   const [visible,     setVisible]     = useState(false)
   const [wordIndex,   setWordIndex]   = useState(0)
   const [wordVisible, setWordVisible] = useState(true)
+  const [isMobile,    setIsMobile]    = useState(false)
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100)
@@ -34,8 +35,15 @@ export default function ServicesHero() {
     return () => clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   return (
-    <section style={{ padding: '80px 60px 60px', textAlign: 'center' }}>
+    <section style={{ padding: isMobile ? '60px 60px 60px' : '80px 60px 60px', textAlign: 'center' }}>
       <div style={{
         maxWidth:   '860px',
         margin:     '0 auto',

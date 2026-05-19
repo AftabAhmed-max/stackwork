@@ -100,7 +100,7 @@ export default function Hero() {
             opacity:    wordVisible ? 1 : 0,
             transform:  wordVisible ? 'translateY(0)' : 'translateY(10px)',
             transition: 'opacity 0.4s ease, transform 0.4s ease',
-            minWidth:   '320px',
+            minWidth:   'min(320px, 80vw)',
           }}>
             {cycleWords[wordIndex]}
           </span>
