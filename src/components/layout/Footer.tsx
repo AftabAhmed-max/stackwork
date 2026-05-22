@@ -20,9 +20,8 @@ const footerNav = [
 /* ---- Services List ---- */
 const footerServices = [
   'Web Design & Development',
-  'Mobile & Web App Development',
-  'Data Analytics & BI Dashboards',
-  'Business Setup',
+  'Web Apps & Portals',
+  'Data Analysis & Reporting',
   'Maintenance & Retainer Plans',
 ]
 

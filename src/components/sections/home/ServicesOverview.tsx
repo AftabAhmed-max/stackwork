@@ -9,8 +9,8 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import {
-  Globe, Smartphone, BarChart2,
-  Building2, Wrench, ArrowRight,
+  Globe, Monitor, BarChart2,
+  Wrench, ArrowRight,
 } from 'lucide-react'
 
 /* ============================================
@@ -370,11 +370,10 @@ function ConsultationMockup() {
    SERVICE DATA
    ============================================ */
 const services = [
-  { icon: Globe,         title: 'Web Design & Development',       description: 'Business websites, landing pages, portfolios, and e-commerce stores built to convert.',                          mockup: <WebMockup /> },
-  { icon: Smartphone,    title: 'Mobile & Web App Development',   description: 'Custom tools, booking systems, CRMs, and web apps tailored to your workflow.',                                   mockup: <AppMockup /> },
-  { icon: BarChart2,     title: 'Data Analytics & BI Dashboards', description: 'Automated reports and live dashboards that turn your business data into clear decisions.',                       mockup: <AnalyticsMockup /> },
-  { icon: Building2,     title: 'Business Setup',                 description: 'Domain, hosting, and Google Workspace email — everything configured and ready to go.',                           mockup: <SetupMockup /> },
-  { icon: Wrench,        title: 'Maintenance & Retainer Plans',   description: 'Monthly support so your digital products stay fast, secure, and up to date.',                                    mockup: <MaintenanceMockup /> },
+  { icon: Globe,      title: 'Web Design & Development',  description: 'Business websites, landing pages, portfolios, and e-commerce stores built to convert.',                        mockup: <WebMockup /> },
+  { icon: Monitor,    title: 'Web Apps & Portals',        description: 'Booking systems, client portals, and internal tools — browser-based and built for your workflow.',             mockup: <AppMockup /> },
+  { icon: BarChart2,  title: 'Data Analysis & Reporting', description: 'Excel, Power Pivot, and Power Query reports that give business owners clear numbers to act on.',              mockup: <AnalyticsMockup /> },
+  { icon: Wrench,     title: 'Maintenance & Retainer Plans', description: 'Monthly support so your digital products stay fast, secure, and up to date.',                              mockup: <MaintenanceMockup /> },
 ]
 
 /* ============================================

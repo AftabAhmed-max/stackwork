@@ -7,9 +7,8 @@ import { useEffect, useState } from 'react'
 
 const serviceNames = [
   'Web Design',
-  'App Development',
-  'Data Analytics',
-  'Business Setup',
+  'Web Apps & Portals',
+  'Data Analysis',
   'Maintenance',
 ]
 

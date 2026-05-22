@@ -11,8 +11,8 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  Globe, Smartphone, BarChart2,
-  Building2, Wrench, ArrowRight,
+  Globe, Monitor, BarChart2,
+  Wrench, ArrowRight,
 } from 'lucide-react'
 
 /* ============================================
@@ -29,6 +29,7 @@ function WebMockup() {
       url:      'https://ember-ash-zeta.vercel.app/',
       image:    '/images/projects/ember-ash.png',
       tag:      'Web Design',
+      info:     { label: 'Restaurant Website', color: '#FF6B35', desc: 'Table reservations, menu showcase & brand identity' },
     },
     {
       label:    'Meridian Properties',
@@ -36,13 +37,7 @@ function WebMockup() {
       url:      'https://meridian-properties-eta.vercel.app/',
       image:    '/images/projects/meridian.png',
       tag:      'Web Design',
-    },
-    {
-      label:    'Maison Céleste',
-      subtitle: 'Luxury Brand',
-      url:      'https://maison-celeste.vercel.app/',
-      image:    '/images/projects/maison-celeste.png',
-      tag:      'Web Design',
+      info:     { label: 'Real Estate Portal', color: '#C9A84C', desc: 'Property listings, search filters & lead capture' },
     },
   ]
 
@@ -60,24 +55,157 @@ function WebMockup() {
       gap:                 '16px',
       width:               '100%',
     }}>
-      {sites.map((site) => (
-        <ProjectCard key={site.url} site={site} />
-      ))}
+      {[...sites.map((site) => (
+        <div key={site.url} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <ProjectCard site={site} />
+          <div style={{
+            backgroundColor: 'rgba(13,27,62,0.5)',
+            borderRadius:    '10px',
+            padding:         '12px 14px',
+            border:          `1px solid ${site.info.color}20`,
+          }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: site.info.color, fontWeight: 700, marginBottom: '5px' }}>
+              {site.info.label}
+            </div>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
+              {site.info.desc}
+            </div>
+          </div>
+        </div>
+      )), (
+        <div key="dummy" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <DummyWebCard />
+          <div style={{
+            backgroundColor: 'rgba(13,27,62,0.5)',
+            borderRadius:    '10px',
+            padding:         '12px 14px',
+            border:          '1px solid rgba(255,107,53,0.1)',
+          }}>
+            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: 'rgba(255,107,53,0.4)', fontWeight: 700, marginBottom: '5px' }}>
+              New Website
+            </div>
+            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.2)', lineHeight: 1.5 }}>
+              Next project coming soon
+            </div>
+          </div>
+        </div>
+      )]}
     </div>
   )
 }
 
+function DummyWebCard() {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:         'flex',
+        flexDirection:   'column',
+        borderRadius:    '12px',
+        overflow:        'hidden',
+        aspectRatio:     '16/10',
+        border:          hovered ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(255,255,255,0.06)',
+        backgroundColor: 'rgba(13,17,28,0.7)',
+        transition:      'border-color 0.3s ease',
+        cursor:          'default',
+      }}
+    >
+      {/* Browser bar */}
+      <div style={{
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.6)',
+        padding:         '7px 10px',
+        display:         'flex',
+        alignItems:      'center',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.05)',
+      }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['rgba(255,95,87,0.3)','rgba(254,188,46,0.3)','rgba(40,200,64,0.3)'].map((c, i) => (
+            <div key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.04)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
+          fontSize:        '10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.18)',
+        }}>
+          coming soon...
+        </div>
+      </div>
+
+      {/* Content area */}
+      <div style={{
+        flex:           1,
+        display:        'flex',
+        flexDirection:  'column',
+        alignItems:     'center',
+        justifyContent: 'center',
+        gap:            '12px',
+        position:       'relative',
+      }}>
+        <div style={{
+          width:           '40px',
+          height:          '40px',
+          borderRadius:    '10px',
+          backgroundColor: 'rgba(255,107,53,0.08)',
+          border:          '1px solid rgba(255,107,53,0.15)',
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          fontSize:        '18px',
+          opacity:         0.5,
+        }}>🌐</div>
+        <div style={{ textAlign: 'center', padding: '0 20px' }}>
+          <div style={{
+            fontFamily:   'var(--font-heading)',
+            fontSize:     '13px',
+            color:        'rgba(255,107,53,0.5)',
+            fontWeight:   700,
+            marginBottom: '5px',
+          }}>New Project</div>
+          <div style={{
+            fontFamily: 'var(--font-body)',
+            fontSize:   '11px',
+            color:      'rgba(255,255,255,0.2)',
+            lineHeight: 1.5,
+          }}>Next website coming soon</div>
+        </div>
+        <div style={{
+          fontFamily:    'var(--font-body)',
+          fontSize:      '9px',
+          color:         'rgba(255,255,255,0.2)',
+          border:        '1px solid rgba(255,255,255,0.08)',
+          borderRadius:  '100px',
+          padding:       '3px 12px',
+          letterSpacing: '1px',
+          textTransform: 'uppercase' as const,
+        }}>Coming Soon</div>
+      </div>
+    </div>
+  )
+}
+
+
 /* ---- Hover card component ---- */
 function ProjectCard({ site }: {
   site: {
-    label: string
+    label:    string
     subtitle: string
-    url: string
-    image: string
-    tag: string
+    url:      string
+    image:    string
+    tag:      string
   }
 }) {
   const [hovered, setHovered] = useState(false)
+  const displayUrl = site.url.replace('https://', '').replace(/\/$/, '')
 
   return (
     <a
@@ -87,176 +215,655 @@ function ProjectCard({ site }: {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        display:        'block',
+        display:        'flex',
+        flexDirection:  'column',
         textDecoration: 'none',
         borderRadius:   '12px',
         overflow:       'hidden',
-        position:       'relative',
         aspectRatio:    '16/10',
         cursor:         'pointer',
-        border:         hovered
-          ? '1px solid rgba(255,107,53,0.4)'
-          : '1px solid rgba(255,255,255,0.08)',
+        border:         hovered ? '1px solid rgba(255,107,53,0.45)' : '1px solid rgba(255,255,255,0.08)',
         transition:     'border-color 0.3s ease',
       }}
     >
-      {/* Screenshot image */}
-      <Image
-        src={site.image}
-        alt={site.label}
-        fill
-        sizes="(max-width: 900px) 100vw, 33vw"
-        style={{
-          objectFit:      'cover',
-          objectPosition: 'top',
-          transform:      hovered ? 'scale(1.04)' : 'scale(1)',
-          transition:     'transform 0.5s ease',
-        }}
-      />
-
-      {/* Hover overlay */}
+      {/* Browser bar */}
       <div style={{
-        position:        'absolute',
-        inset:           0,
-        backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'rgba(8,11,20,0.15)',
-        transition:      'background-color 0.35s ease',
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.9)',
+        padding:         '7px 10px',
         display:         'flex',
-        flexDirection:   'column',
         alignItems:      'center',
-        justifyContent:  'center',
-        gap:             '12px',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.06)',
+        zIndex:          3,
       }}>
-        {/* Visit button — only on hover */}
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['#FF5F57','#FEBC2E','#28C840'].map(c => (
+            <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
         <div style={{
-          opacity:    hovered ? 1 : 0,
-          transform:  hovered ? 'translateY(0)' : 'translateY(10px)',
-          transition: 'opacity 0.3s ease, transform 0.3s ease',
-          display:    'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap:        '10px',
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.07)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
+          fontSize:        '10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.45)',
+        }}>
+          {displayUrl}
+        </div>
+        <ArrowRight size={11} color="rgba(255,107,53,0.6)" />
+      </div>
+
+      {/* Image area — starts below browser bar */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <Image
+          src={site.image}
+          alt={site.label}
+          fill
+          sizes="(max-width: 900px) 100vw, 33vw"
+          style={{
+            objectFit:      'cover',
+            objectPosition: 'top',
+            transform:      hovered ? 'scale(1.04)' : 'scale(1)',
+            transition:     'transform 0.5s ease',
+          }}
+        />
+
+        {/* Bottom gradient */}
+        <div style={{
+          position:      'absolute',
+          inset:         0,
+          background:    'linear-gradient(to bottom, transparent 40%, rgba(8,11,20,0.88) 72%, rgba(8,11,20,1) 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Hover overlay */}
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'transparent',
+          transition:      'background-color 0.35s ease',
+          display:         'flex',
+          flexDirection:   'column',
+          alignItems:      'center',
+          justifyContent:  'center',
+          gap:             '12px',
+          zIndex:          2,
         }}>
           <div style={{
-            width:           '48px',
-            height:          '48px',
-            borderRadius:    '50%',
-            backgroundColor: '#FF6B35',
-            display:         'flex',
-            alignItems:      'center',
-            justifyContent:  'center',
-            fontSize:        '20px',
-            color:           '#ffffff',
-            boxShadow:       '0 8px 24px rgba(255,107,53,0.4)',
+            opacity:       hovered ? 1 : 0,
+            transform:     hovered ? 'translateY(0)' : 'translateY(10px)',
+            transition:    'opacity 0.3s ease, transform 0.3s ease',
+            display:       'flex',
+            flexDirection: 'column',
+            alignItems:    'center',
+            gap:           '10px',
           }}>
-            ↗
+            <div style={{
+              width:           '48px',
+              height:          '48px',
+              borderRadius:    '50%',
+              backgroundColor: '#FF6B35',
+              display:         'flex',
+              alignItems:      'center',
+              justifyContent:  'center',
+              fontSize:        '20px',
+              color:           '#ffffff',
+              boxShadow:       '0 8px 24px rgba(255,107,53,0.4)',
+            }}>↗</div>
+            <span style={{
+              fontFamily:    'var(--font-body)',
+              fontSize:      '13px',
+              fontWeight:    500,
+              color:         '#ffffff',
+              letterSpacing: '0.5px',
+            }}>Visit Site</span>
           </div>
-          <span style={{
-            fontFamily:  'var(--font-body)',
-            fontSize:    '13px',
-            fontWeight:  500,
-            color:       '#ffffff',
-            letterSpacing: '0.5px',
+        </div>
+
+        {/* Project info — bottom */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          padding:  '12px 14px',
+          zIndex:   3,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div>
+              <div style={{
+                fontFamily:   'var(--font-heading)',
+                fontSize:     '15px',
+                fontWeight:   700,
+                color:        '#ffffff',
+                lineHeight:   1.2,
+                marginBottom: '3px',
+              }}>
+                {site.label}
+              </div>
+              <div style={{
+                fontFamily:    'var(--font-body)',
+                fontSize:      '9px',
+                color:         'rgba(255,255,255,0.45)',
+                letterSpacing: '1.2px',
+                textTransform: 'uppercase' as const,
+              }}>
+                {site.subtitle}
+              </div>
+            </div>
+            <div style={{
+              fontSize:        '10px',
+              fontFamily:      'var(--font-body)',
+              color:           '#FF6B35',
+              border:          '1px solid rgba(255,107,53,0.35)',
+              borderRadius:    '100px',
+              padding:         '3px 10px',
+              backgroundColor: 'rgba(255,107,53,0.08)',
+              whiteSpace:      'nowrap' as const,
+              flexShrink:      0,
+            }}>
+              {site.tag}
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  )
+}
+
+function SevresCard() {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <a
+      href="https://sevres.vercel.app"
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:        'flex',
+        flexDirection:  'column',
+        textDecoration: 'none',
+        borderRadius:   '12px',
+        overflow:       'hidden',
+        aspectRatio:    '16/10',
+        cursor:         'pointer',
+        border:         hovered ? '1px solid rgba(0,212,255,0.45)' : '1px solid rgba(255,255,255,0.08)',
+        transition:     'border-color 0.3s ease',
+      }}
+    >
+      {/* Browser bar */}
+      <div style={{
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.9)',
+        padding:         '7px 10px',
+        display:         'flex',
+        alignItems:      'center',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.06)',
+        zIndex:          3,
+      }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['#FF5F57','#FEBC2E','#28C840'].map(c => (
+            <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.07)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
+          fontSize:        '10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.45)',
+        }}>
+          sevres.vercel.app
+        </div>
+        <ArrowRight size={11} color="rgba(0,212,255,0.6)" />
+      </div>
+
+      {/* Image area */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <Image
+          src="/images/projects/sevres.png"
+          alt="Sèvres & Co."
+          fill
+          sizes="(max-width: 900px) 100vw, 33vw"
+          style={{
+            objectFit:      'cover',
+            objectPosition: 'top',
+            transform:      hovered ? 'scale(1.04)' : 'scale(1)',
+            transition:     'transform 0.5s ease',
+          }}
+        />
+
+        <div style={{
+          position:      'absolute',
+          inset:         0,
+          background:    'linear-gradient(to bottom, transparent 40%, rgba(8,11,20,0.88) 72%, rgba(8,11,20,1) 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Hover overlay */}
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'transparent',
+          transition:      'background-color 0.35s ease',
+          display:         'flex',
+          flexDirection:   'column',
+          alignItems:      'center',
+          justifyContent:  'center',
+          gap:             '12px',
+          zIndex:          2,
+        }}>
+          <div style={{
+            opacity:       hovered ? 1 : 0,
+            transform:     hovered ? 'translateY(0)' : 'translateY(10px)',
+            transition:    'opacity 0.3s ease, transform 0.3s ease',
+            display:       'flex',
+            flexDirection: 'column',
+            alignItems:    'center',
+            gap:           '10px',
           }}>
-            Visit Site
-          </span>
+            <div style={{
+              width:           '48px',
+              height:          '48px',
+              borderRadius:    '50%',
+              backgroundColor: '#00D4FF',
+              display:         'flex',
+              alignItems:      'center',
+              justifyContent:  'center',
+              fontSize:        '20px',
+              color:           '#ffffff',
+              boxShadow:       '0 8px 24px rgba(0,212,255,0.4)',
+            }}>↗</div>
+            <span style={{
+              fontFamily:    'var(--font-body)',
+              fontSize:      '13px',
+              fontWeight:    500,
+              color:         '#ffffff',
+              letterSpacing: '0.5px',
+            }}>Visit App</span>
+          </div>
+        </div>
+
+        {/* Bottom info */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          padding:  '12px 14px',
+          zIndex:   3,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 700, color: '#ffffff', lineHeight: 1.2, marginBottom: '3px' }}>
+                Sèvres <span style={{ color: '#C9A84C' }}>&</span> Co.
+              </div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', color: 'rgba(255,255,255,0.45)', letterSpacing: '1.2px', textTransform: 'uppercase' as const }}>
+                Luxury Salon Booking App · Bandra West, Mumbai
+              </div>
+            </div>
+            <div style={{
+              fontSize: '10px', fontFamily: 'var(--font-body)', color: '#00D4FF',
+              border: '1px solid rgba(0,212,255,0.35)', borderRadius: '100px',
+              padding: '3px 10px', backgroundColor: 'rgba(0,212,255,0.08)',
+              whiteSpace: 'nowrap' as const, flexShrink: 0,
+            }}>Live ↗</div>
+          </div>
+          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' as const }}>
+            {['Service Browsing', 'Specialist Selection', 'Online Booking', 'Auth System'].map(tag => (
+              <span key={tag} style={{
+                fontFamily: 'var(--font-body)', fontSize: '9px',
+                color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px',
+                padding: '2px 7px', backdropFilter: 'blur(4px)',
+              }}>{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </a>
+  )
+}
+
+function DummyAppCard({ index }: { index: number }) {
+  const [hovered, setHovered] = useState(false)
+  const labels  = ['Booking System', 'Internal Portal']
+  const descs   = ['Appointment scheduling & reservations', 'Staff tools, admin panel & CRM']
+  const colors  = ['#8B5CF6', '#C9A84C']
+  const emojis  = ['📅', '🗂️']
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:         'flex',
+        flexDirection:   'column',
+        borderRadius:    '12px',
+        overflow:        'hidden',
+        aspectRatio:     '16/10',
+        border:          hovered ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(255,255,255,0.06)',
+        backgroundColor: 'rgba(13,17,28,0.7)',
+        transition:      'border-color 0.3s ease',
+        cursor:          'default',
+      }}
+    >
+      {/* Browser bar */}
+      <div style={{
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.6)',
+        padding:         '7px 10px',
+        display:         'flex',
+        alignItems:      'center',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.05)',
+      }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['rgba(255,95,87,0.3)','rgba(254,188,46,0.3)','rgba(40,200,64,0.3)'].map((c, i) => (
+            <div key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.04)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
+          fontSize:        '10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.18)',
+        }}>
+          coming soon...
         </div>
       </div>
 
-      {/* Bottom label — always visible */}
+      {/* Content area */}
       <div style={{
-        position:   'absolute',
-        bottom:     0,
-        left:       0,
-        right:      0,
-        padding:    '20px 16px 14px',
-        background: 'linear-gradient(to top, rgba(8,11,20,0.95), transparent)',
-        display:    'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'space-between',
+        flex:           1,
+        display:        'flex',
+        flexDirection:  'column',
+        alignItems:     'center',
+        justifyContent: 'center',
+        gap:            '12px',
+        position:       'relative',
       }}>
-        <div>
+        {/* Hover overlay */}
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          backgroundColor: hovered ? 'rgba(8,11,20,0.4)' : 'transparent',
+          transition:      'background-color 0.35s ease',
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          zIndex:          2,
+          pointerEvents:   'none',
+        }}>
           <div style={{
-            fontFamily:  'var(--font-body)',
-            fontSize:    '14px',
-            fontWeight:  500,
-            color:       '#ffffff',
-            marginBottom: '2px',
-          }}>
-            {site.label}
+            opacity:       hovered ? 1 : 0,
+            transform:     hovered ? 'translateY(0)' : 'translateY(10px)',
+            transition:    'opacity 0.3s ease, transform 0.3s ease',
+            fontFamily:    'var(--font-body)',
+            fontSize:      '11px',
+            color:         'rgba(255,255,255,0.35)',
+            border:        '1px solid rgba(255,255,255,0.1)',
+            borderRadius:  '100px',
+            padding:       '5px 14px',
+            letterSpacing: '1px',
+            textTransform: 'uppercase' as const,
+          }}>Coming Soon</div>
+        </div>
+
+        <div style={{
+          width:           '40px',
+          height:          '40px',
+          borderRadius:    '10px',
+          backgroundColor: `${colors[index]}12`,
+          border:          `1px solid ${colors[index]}25`,
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          fontSize:        '18px',
+          opacity:         0.4,
+        }}>{emojis[index]}</div>
+
+        <div style={{ textAlign: 'center', padding: '0 20px' }}>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', color: `${colors[index]}80`, fontWeight: 700, marginBottom: '5px' }}>
+            {labels[index]}
           </div>
-          <div style={{
-            fontFamily: 'var(--font-body)',
-            fontSize:   '11px',
-            color:      'rgba(255,255,255,0.5)',
-          }}>
-            {site.subtitle}
+          <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.2)', lineHeight: 1.5 }}>
+            {descs[index]}
           </div>
         </div>
-        <span style={{
-          fontFamily:      'var(--font-body)',
+
+        <div style={{
+          fontFamily:    'var(--font-body)',
+          fontSize:      '9px',
+          color:         'rgba(255,255,255,0.2)',
+          border:        '1px solid rgba(255,255,255,0.08)',
+          borderRadius:  '100px',
+          padding:       '3px 12px',
+          letterSpacing: '1px',
+          textTransform: 'uppercase' as const,
+        }}>Project Coming Soon</div>
+      </div>
+    </div>
+  )
+}
+
+function MaisonCard() {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <a
+      href="https://maison-celeste.vercel.app/"
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:        'flex',
+        flexDirection:  'column',
+        textDecoration: 'none',
+        borderRadius:   '12px',
+        overflow:       'hidden',
+        aspectRatio:    '16/10',
+        cursor:         'pointer',
+        border:         hovered ? '1px solid rgba(201,168,76,0.45)' : '1px solid rgba(255,255,255,0.08)',
+        transition:     'border-color 0.3s ease',
+      }}
+    >
+      {/* Browser bar */}
+      <div style={{
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.9)',
+        padding:         '7px 10px',
+        display:         'flex',
+        alignItems:      'center',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.06)',
+        zIndex:          3,
+      }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['#FF5F57','#FEBC2E','#28C840'].map(c => (
+            <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.07)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
           fontSize:        '10px',
-          color:           '#FF6B35',
-          backgroundColor: 'rgba(255,107,53,0.1)',
-          border:          '1px solid rgba(255,107,53,0.25)',
-          borderRadius:    '100px',
-          padding:         '2px 10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.45)',
         }}>
-          {site.tag}
-        </span>
+          maison-celeste.vercel.app
+        </div>
+        <ArrowRight size={11} color="rgba(201,168,76,0.6)" />
+      </div>
+
+      {/* Image area */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <Image
+          src="/images/projects/maison-celeste.png"
+          alt="Maison Céleste"
+          fill
+          sizes="(max-width: 900px) 100vw, 33vw"
+          style={{
+            objectFit:      'cover',
+            objectPosition: 'top',
+            transform:      hovered ? 'scale(1.04)' : 'scale(1)',
+            transition:     'transform 0.5s ease',
+          }}
+        />
+
+        <div style={{
+          position:      'absolute',
+          inset:         0,
+          background:    'linear-gradient(to bottom, transparent 40%, rgba(8,11,20,0.88) 72%, rgba(8,11,20,1) 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Hover overlay */}
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'transparent',
+          transition:      'background-color 0.35s ease',
+          display:         'flex',
+          flexDirection:   'column',
+          alignItems:      'center',
+          justifyContent:  'center',
+          gap:             '12px',
+          zIndex:          2,
+        }}>
+          <div style={{
+            opacity:       hovered ? 1 : 0,
+            transform:     hovered ? 'translateY(0)' : 'translateY(10px)',
+            transition:    'opacity 0.3s ease, transform 0.3s ease',
+            display:       'flex',
+            flexDirection: 'column',
+            alignItems:    'center',
+            gap:           '10px',
+          }}>
+            <div style={{
+              width:           '48px',
+              height:          '48px',
+              borderRadius:    '50%',
+              backgroundColor: '#C9A84C',
+              display:         'flex',
+              alignItems:      'center',
+              justifyContent:  'center',
+              fontSize:        '20px',
+              color:           '#ffffff',
+              boxShadow:       '0 8px 24px rgba(201,168,76,0.4)',
+            }}>↗</div>
+            <span style={{
+              fontFamily:    'var(--font-body)',
+              fontSize:      '13px',
+              fontWeight:    500,
+              color:         '#ffffff',
+              letterSpacing: '0.5px',
+            }}>Visit App</span>
+          </div>
+        </div>
+
+        {/* Bottom info */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          padding:  '12px 14px',
+          zIndex:   3,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 700, color: '#ffffff', lineHeight: 1.2, marginBottom: '3px' }}>
+                Maison Céleste
+              </div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', color: 'rgba(255,255,255,0.45)', letterSpacing: '1.2px', textTransform: 'uppercase' as const }}>
+                Boutique Hotel Reservation System
+              </div>
+            </div>
+            <div style={{
+              fontSize: '10px', fontFamily: 'var(--font-body)', color: '#C9A84C',
+              border: '1px solid rgba(201,168,76,0.35)', borderRadius: '100px',
+              padding: '3px 10px', backgroundColor: 'rgba(201,168,76,0.08)',
+              whiteSpace: 'nowrap' as const, flexShrink: 0,
+            }}>Live ↗</div>
+          </div>
+          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' as const }}>
+            {['Room Booking', 'Availability', 'Reservations', 'Guest Portal'].map(tag => (
+              <span key={tag} style={{
+                fontFamily: 'var(--font-body)', fontSize: '9px',
+                color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px',
+                padding: '2px 7px', backdropFilter: 'blur(4px)',
+              }}>{tag}</span>
+            ))}
+          </div>
+        </div>
       </div>
     </a>
   )
 }
 
 function AppMockup() {
-  const [active, setActive] = useState(0)
-  const slides = [
-    { label: 'Booking System',  bars: [60,80,45,90,55], color: '#FF6B35' },
-    { label: 'Client Portal',   bars: [75,50,85,40,70], color: '#3A5F8A' },
-    { label: 'Custom Web Tool', bars: [40,90,60,75,50], color: '#C9A84C' },
-  ]
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const t = setInterval(() => setActive(p => (p + 1) % slides.length), 2800)
-    return () => clearInterval(t)
+    const check = () => setIsMobile(window.innerWidth <= 900)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
   }, [])
 
-  const slide = slides[active]
+  const infos = [
+    { label: 'Salon Booking App',          color: '#00D4FF', desc: 'Full booking flow, service selection & auth system' },
+    { label: 'Hotel Reservation System',   color: '#C9A84C', desc: 'Room booking, availability & guest portal' },
+    { label: 'Internal Portals',           color: '#8B5CF6', desc: 'Staff tools, admin panels, CRMs' },
+  ]
 
   return (
-    <div>
-      <div style={{ backgroundColor: '#0f0f1a', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-        <div style={{ backgroundColor: '#0a0a14', padding: '10px 14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-          <div style={{ fontSize: '11px', fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.4)' }}>{slide.label}</div>
-          <div style={{ display: 'flex', gap: '5px' }}>
-            {['#FF5F57','#FEBC2E','#28C840'].map(c => <div key={c} style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: c }} />)}
+    <div style={{
+      display:             'grid',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+      gap:                 '16px',
+      width:               '100%',
+    }}>
+      {/* Card + info strip as one unit per column */}
+      {[<SevresCard key="sevres" />, <MaisonCard key="maison" />, <DummyAppCard key="d1" index={1} />].map((card, i) => (
+        <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {card}
+          <div style={{
+            backgroundColor: 'rgba(13,27,62,0.5)',
+            borderRadius:    '10px',
+            padding:         '12px 14px',
+            border:          `1px solid ${infos[i].color}20`,
+          }}>
+            <div style={{
+              fontFamily:   'var(--font-heading)',
+              fontSize:     '12px',
+              color:        infos[i].color,
+              fontWeight:   700,
+              marginBottom: '5px',
+            }}>
+              {infos[i].label}
+            </div>
+            <div style={{
+              fontFamily: 'var(--font-body)',
+              fontSize:   '11px',
+              color:      'rgba(255,255,255,0.4)',
+              lineHeight: 1.5,
+            }}>
+              {infos[i].desc}
+            </div>
           </div>
         </div>
-        <div style={{ height: '260px', backgroundColor: '#0d1117', padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-            <div style={{ width: '90px', height: '9px', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '4px' }} />
-            <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: slide.color, opacity: 0.8, transition: 'background-color 0.4s ease' }} />
-          </div>
-          <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
-            {[1,2,3].map(i => (
-              <div key={i} style={{ flex: 1, backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '10px', padding: '10px', border: `1px solid ${slide.color}30` }}>
-                <div style={{ width: '100%', height: '7px', backgroundColor: slide.color, borderRadius: '3px', opacity: 0.6, marginBottom: '6px', transition: 'background-color 0.4s ease' }} />
-                <div style={{ width: '60%', height: '5px', backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '3px' }} />
-              </div>
-            ))}
-          </div>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: '6px', height: '80px' }}>
-            {slide.bars.map((h, i) => (
-              <div key={i} style={{ flex: 1, height: `${h}%`, backgroundColor: slide.color, borderRadius: '4px 4px 0 0', opacity: 0.7, transition: 'all 0.4s ease' }} />
-            ))}
-          </div>
-        </div>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '14px' }}>
-        {slides.map((_, i) => (
-          <div key={i} onClick={() => setActive(i)} style={{ width: active === i ? '22px' : '6px', height: '6px', borderRadius: '3px', backgroundColor: active === i ? '#FF6B35' : 'rgba(255,255,255,0.2)', cursor: 'pointer', transition: 'all 0.3s ease' }} />
-        ))}
-      </div>
+      ))}
     </div>
   )
 }
@@ -439,68 +1046,49 @@ const services = [
     mockup: <WebMockup />,
   },
   {
-    icon:     Smartphone,
-    title:    'Mobile & Web App Development',
-    tagline:  'Custom tools that run your operations',
+    icon:     Monitor,
+    title:    'Web Apps & Portals',
+    tagline:  'Custom browser-based tools that run your operations',
     color:    '#00D4FF',
     number:   '02',
     includes: [
-      'Custom web applications',
       'Booking & appointment systems',
-      'Client portals & CRM tools',
-      'Internal business dashboards',
-      'Native mobile apps (iOS & Android)',
-      'API integrations with third-party tools',
-      'Admin panels & management systems',
+      'Client portals & customer dashboards',
+      'Internal business tools & admin panels',
+      'CRM and lead management systems',
+      'Multi-role access (staff, admin, customer)',
+      'API integrations with third-party services',
+      'Real-time data & live status tracking',
       'Scalable architecture from day one',
     ],
-    ideal: 'Service businesses, healthcare providers, logistics, education, hospitality',
+    ideal: 'Salons, clinics, hospitality, service businesses, companies needing internal tools',
     mockup: <AppMockup />,
   },
   {
     icon:     BarChart2,
-    title:    'Data Analytics & BI Dashboards',
-    tagline:  'Turn your raw data into real decisions',
+    title:    'Data Analysis & Reporting',
+    tagline:  'Numbers your team can actually act on',
     color:    '#2C6E49',
     number:   '03',
     includes: [
-      'End-to-end data pipeline setup',
-      'Data cleaning & transformation (Python, Pandas)',
-      'Power BI dashboard development',
-      'Excel & Power Query automation',
-      'SQL database querying & reporting',
-      'Sales, HR & operations analytics',
-      'Automated scheduled reports',
-      'KPI tracking & business intelligence',
+      'Excel reports with Power Pivot & Power Query',
+      'Automated data cleaning & transformation',
+      'Sales, operations, and financial reporting',
+      'KPI tracking & monthly business reviews',
+      'Custom dashboards in Excel or Google Sheets',
+      'Data modelling for smarter decision-making',
+      'Scheduled automated report delivery',
+      'Power BI dashboards (on request)',
     ],
-    ideal: 'SMBs wanting visibility into sales, operations, HR, or customer behaviour',
+    ideal: 'SMB owners wanting clear visibility into sales, expenses, operations, or team performance',
     mockup: <AnalyticsMockup />,
-  },
-  {
-    icon:     Building2,
-    title:    'Business Setup',
-    tagline:  'Get your digital foundation right from day one',
-    color:    '#C9A84C',
-    number:   '04',
-    includes: [
-      'Domain registration & DNS configuration',
-      'Web hosting setup & management',
-      'SSL certificate installation',
-      'Google Workspace email setup',
-      'Business profile on Google',
-      'Basic security hardening',
-      'Everything handed over with documentation',
-      'Guidance on managing it yourself going forward',
-    ],
-    ideal: 'New businesses or existing ones without a proper digital base',
-    mockup: <SetupMockup />,
   },
   {
     icon:     Wrench,
     title:    'Maintenance & Retainer Plans',
     tagline:  'We stay long after everyone else has left',
     color:    '#8B5CF6',
-    number:   '05',
+    number:   '04',
     includes: [
       'Monthly website updates & content changes',
       'Security monitoring & patches',
