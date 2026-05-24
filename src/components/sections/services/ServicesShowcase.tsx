@@ -15,6 +15,76 @@ import {
   Wrench, ArrowRight,
 } from 'lucide-react'
 
+function MobileCardScroller({ items, accentColor }: { items: React.ReactNode[], accentColor: string }) {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const isPausedRef  = useRef(false)
+  const touchStartX  = useRef(0)
+  const count        = items.length
+
+  const goTo = (i: number) => {
+    setActiveIndex(Math.max(0, Math.min(i, count - 1)))
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isPausedRef.current) {
+        setActiveIndex(prev => (prev + 1) % count)
+      }
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [count])
+
+  return (
+    <div style={{ marginLeft: '-10px', marginRight: '-10px', overflow: 'hidden' }}>
+
+      {/* Sliding track */}
+      <div
+        style={{
+          display:    'flex',
+          transform:  `translateX(-${activeIndex * 100}%)`,
+          transition: 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+          willChange: 'transform',
+        }}
+        onTouchStart={(e) => {
+          touchStartX.current = e.touches[0].clientX
+          isPausedRef.current = true
+        }}
+        onTouchEnd={(e) => {
+          const diff = touchStartX.current - e.changedTouches[0].clientX
+          if (Math.abs(diff) > 50) {
+            diff > 0 ? goTo(activeIndex + 1) : goTo(activeIndex - 1)
+          }
+          setTimeout(() => { isPausedRef.current = false }, 1500)
+        }}
+      >
+        {items.map((item, i) => (
+          <div key={i} style={{ flexShrink: 0, width: '100%' }}>
+            {item}
+          </div>
+        ))}
+      </div>
+
+      {/* Dot indicators */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '16px' }}>
+        {items.map((_, i) => (
+          <div
+            key={i}
+            onClick={() => goTo(i)}
+            style={{
+              width:           activeIndex === i ? '20px' : '6px',
+              height:          '6px',
+              borderRadius:    '3px',
+              backgroundColor: activeIndex === i ? accentColor : 'rgba(255,255,255,0.2)',
+              transition:      'all 0.3s ease',
+              cursor:          'pointer',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ============================================
    MOCKUP COMPONENTS
    ============================================ */
@@ -28,7 +98,7 @@ function WebMockup() {
       subtitle: 'Restaurant Website',
       url:      'https://ember-ash-zeta.vercel.app/',
       image:    '/images/projects/ember-ash.png',
-      tag:      'Web Design',
+      tag:      'Live ↗',
       info:     { label: 'Restaurant Website', color: '#FF6B35', desc: 'Table reservations, menu showcase & brand identity' },
     },
     {
@@ -36,8 +106,16 @@ function WebMockup() {
       subtitle: 'Real Estate Portal',
       url:      'https://meridian-properties-eta.vercel.app/',
       image:    '/images/projects/meridian.png',
-      tag:      'Web Design',
+      tag:      'Live ↗',
       info:     { label: 'Real Estate Portal', color: '#C9A84C', desc: 'Property listings, search filters & lead capture' },
+    },
+    {
+      label:    'Oliver Wren',
+      subtitle: 'Luxury Fashion Atelier',
+      url:      'https://wren-seven-flax.vercel.app/',
+      image:    '/images/projects/wren.png',
+      tag:      'Live ↗',
+      info:     { label: 'Luxury Fashion Brand', color: '#8B5CF6', desc: 'Bespoke atelier site with collections & appointment booking' },
     },
   ]
 
@@ -48,151 +126,44 @@ function WebMockup() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
+  const cardItems = [
+    ...sites.map((site) => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <ProjectCard site={site} />
+        <div style={{
+          backgroundColor: 'rgba(13,27,62,0.5)',
+          borderRadius:    '10px',
+          padding:         '12px 14px',
+          border:          `1px solid ${site.info.color}20`,
+        }}>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: site.info.color, fontWeight: 700, marginBottom: '5px' }}>
+            {site.info.label}
+          </div>
+          <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
+            {site.info.desc}
+          </div>
+        </div>
+      </div>
+    ))
+  ]
+
+  if (isMobile) {
+    return <MobileCardScroller items={cardItems} accentColor="#FF6B35" />
+  }
+
   return (
     <div style={{
       display:             'grid',
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+      gridTemplateColumns: 'repeat(3, 1fr)',
       gap:                 '16px',
       width:               '100%',
     }}>
-      {[...sites.map((site) => (
-        <div key={site.url} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <ProjectCard site={site} />
-          <div style={{
-            backgroundColor: 'rgba(13,27,62,0.5)',
-            borderRadius:    '10px',
-            padding:         '12px 14px',
-            border:          `1px solid ${site.info.color}20`,
-          }}>
-            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: site.info.color, fontWeight: 700, marginBottom: '5px' }}>
-              {site.info.label}
-            </div>
-            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
-              {site.info.desc}
-            </div>
-          </div>
-        </div>
-      )), (
-        <div key="dummy" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <DummyWebCard />
-          <div style={{
-            backgroundColor: 'rgba(13,27,62,0.5)',
-            borderRadius:    '10px',
-            padding:         '12px 14px',
-            border:          '1px solid rgba(255,107,53,0.1)',
-          }}>
-            <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: 'rgba(255,107,53,0.4)', fontWeight: 700, marginBottom: '5px' }}>
-              New Website
-            </div>
-            <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.2)', lineHeight: 1.5 }}>
-              Next project coming soon
-            </div>
-          </div>
-        </div>
-      )]}
+      {cardItems.map((item, i) => (
+        <div key={i}>{item}</div>
+      ))}
     </div>
   )
 }
-
-function DummyWebCard() {
-  const [hovered, setHovered] = useState(false)
-
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display:         'flex',
-        flexDirection:   'column',
-        borderRadius:    '12px',
-        overflow:        'hidden',
-        aspectRatio:     '16/10',
-        border:          hovered ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(255,255,255,0.06)',
-        backgroundColor: 'rgba(13,17,28,0.7)',
-        transition:      'border-color 0.3s ease',
-        cursor:          'default',
-      }}
-    >
-      {/* Browser bar */}
-      <div style={{
-        flexShrink:      0,
-        backgroundColor: 'rgba(8,11,20,0.6)',
-        padding:         '7px 10px',
-        display:         'flex',
-        alignItems:      'center',
-        gap:             '7px',
-        borderBottom:    '1px solid rgba(255,255,255,0.05)',
-      }}>
-        <div style={{ display: 'flex', gap: '4px' }}>
-          {['rgba(255,95,87,0.3)','rgba(254,188,46,0.3)','rgba(40,200,64,0.3)'].map((c, i) => (
-            <div key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
-          ))}
-        </div>
-        <div style={{
-          flex:            1,
-          backgroundColor: 'rgba(255,255,255,0.04)',
-          borderRadius:    '3px',
-          padding:         '2px 8px',
-          fontSize:        '10px',
-          fontFamily:      'var(--font-body)',
-          color:           'rgba(255,255,255,0.18)',
-        }}>
-          coming soon...
-        </div>
-      </div>
-
-      {/* Content area */}
-      <div style={{
-        flex:           1,
-        display:        'flex',
-        flexDirection:  'column',
-        alignItems:     'center',
-        justifyContent: 'center',
-        gap:            '12px',
-        position:       'relative',
-      }}>
-        <div style={{
-          width:           '40px',
-          height:          '40px',
-          borderRadius:    '10px',
-          backgroundColor: 'rgba(255,107,53,0.08)',
-          border:          '1px solid rgba(255,107,53,0.15)',
-          display:         'flex',
-          alignItems:      'center',
-          justifyContent:  'center',
-          fontSize:        '18px',
-          opacity:         0.5,
-        }}>🌐</div>
-        <div style={{ textAlign: 'center', padding: '0 20px' }}>
-          <div style={{
-            fontFamily:   'var(--font-heading)',
-            fontSize:     '13px',
-            color:        'rgba(255,107,53,0.5)',
-            fontWeight:   700,
-            marginBottom: '5px',
-          }}>New Project</div>
-          <div style={{
-            fontFamily: 'var(--font-body)',
-            fontSize:   '11px',
-            color:      'rgba(255,255,255,0.2)',
-            lineHeight: 1.5,
-          }}>Next website coming soon</div>
-        </div>
-        <div style={{
-          fontFamily:    'var(--font-body)',
-          fontSize:      '9px',
-          color:         'rgba(255,255,255,0.2)',
-          border:        '1px solid rgba(255,255,255,0.08)',
-          borderRadius:  '100px',
-          padding:       '3px 12px',
-          letterSpacing: '1px',
-          textTransform: 'uppercase' as const,
-        }}>Coming Soon</div>
-      </div>
-    </div>
-  )
-}
-
 
 /* ---- Hover card component ---- */
 function ProjectCard({ site }: {
@@ -978,48 +949,46 @@ function AppMockup() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const infos = [
+const infos = [
     { label: 'Salon Booking App',        color: '#00D4FF', desc: 'Full booking flow, service selection & auth system' },
     { label: 'Hotel Reservation System', color: '#C9A84C', desc: 'Room booking, availability & guest portal' },
     { label: 'Sales CRM',                color: '#8B5CF6', desc: 'Pipeline tracking, multi-role access & sales dashboard' },
   ]
 
+  const cards = [<SevresCard key="sevres" />, <MaisonCard key="maison" />, <DealwiseCard key="dealwise" />]
+
+  const cardItems = cards.map((card, i) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      {card}
+      <div style={{
+        backgroundColor: 'rgba(13,27,62,0.5)',
+        borderRadius:    '10px',
+        padding:         '12px 14px',
+        border:          `1px solid ${infos[i].color}20`,
+      }}>
+        <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: infos[i].color, fontWeight: 700, marginBottom: '5px' }}>
+          {infos[i].label}
+        </div>
+        <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
+          {infos[i].desc}
+        </div>
+      </div>
+    </div>
+  ))
+
+  if (isMobile) {
+    return <MobileCardScroller items={cardItems} accentColor="#00D4FF" />
+  }
+
   return (
     <div style={{
       display:             'grid',
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+      gridTemplateColumns: 'repeat(3, 1fr)',
       gap:                 '16px',
       width:               '100%',
     }}>
-      {/* Card + info strip as one unit per column */}
-      {[<SevresCard key="sevres" />, <MaisonCard key="maison" />, <DealwiseCard key="dealwise" />].map((card, i) => (
-        <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          {card}
-          <div style={{
-            backgroundColor: 'rgba(13,27,62,0.5)',
-            borderRadius:    '10px',
-            padding:         '12px 14px',
-            border:          `1px solid ${infos[i].color}20`,
-          }}>
-            <div style={{
-              fontFamily:   'var(--font-heading)',
-              fontSize:     '12px',
-              color:        infos[i].color,
-              fontWeight:   700,
-              marginBottom: '5px',
-            }}>
-              {infos[i].label}
-            </div>
-            <div style={{
-              fontFamily: 'var(--font-body)',
-              fontSize:   '11px',
-              color:      'rgba(255,255,255,0.4)',
-              lineHeight: 1.5,
-            }}>
-              {infos[i].desc}
-            </div>
-          </div>
-        </div>
+      {cardItems.map((item, i) => (
+        <div key={i}>{item}</div>
       ))}
     </div>
   )
@@ -1290,7 +1259,7 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
     <div
       ref={ref}
       style={{
-        padding:    isMobile ? '60px 24px' : '80px 60px',
+        padding:    isMobile ? '60px 0px' : '80px 60px',
         maxWidth:   '100%',
         margin:     '0 auto',
         opacity:    inView ? 1 : 0,
@@ -1431,7 +1400,8 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
             fontFamily:      'var(--font-body)',
             fontWeight:      500,
             fontSize:        '15px',
-            padding:         '14px 28px',
+            padding:         '14px 32px',
+            alignSelf:       'center',
             borderRadius:    '6px',
             textDecoration:  'none',
           }}>

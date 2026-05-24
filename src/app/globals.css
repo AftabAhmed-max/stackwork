@@ -314,7 +314,7 @@ section {
 .cta-pulse:hover {
   transform:    scale(1.07) !important;
   box-shadow:   0 8px 30px rgba(255,107,53,0.4) !important;
-  transition:   transform 0.2s ease, box-shadow 0.2s ease !important;
+  transition:   transform 0.8s ease, box-shadow 0.8s ease !important;
 }
 
 .cta-pulse:active {
@@ -343,3 +343,9 @@ html, body {
   transform:        scale(1.04) !important;
 }
 
+/* ============================================
+   MOBILE CARD SCROLLER
+   ============================================ */
+.mobile-card-scroller::-webkit-scrollbar {
+  display: none;
+}
