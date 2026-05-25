@@ -13,18 +13,19 @@ import Link from 'next/link'
 
 const services = [
   'Web Design & Development',
-  'Mobile & Web App Development',
-  'Data Analytics & BI Dashboards',
-  'Business Setup',
+  'Web Apps & Portals',
+  'Data Analysis & Reporting',
   'Maintenance & Retainer Plans',
   'Not sure yet',
 ]
 
 const budgets = [
-  'Under ₹25,000 / $500',
-  '₹25,000–₹75,000 / $500–$1,500',
-  '₹75,000–₹2,00,000 / $1,500–$4,000',
-  'Above ₹2,00,000 / $4,000+',
+  'Under ₹10,000 / $200',
+  '₹10,000–₹25,000 / $200–$500',
+  '₹25,000–₹50,000 / $500–$1,000',
+  '₹50,000–₹1,00,000 / $1,000–$2,000',
+  '₹1,00,000–₹2,50,000 / $2,000–$5,000',
+  'Above ₹2,50,000 / $5,000+',
   'Let\'s discuss',
 ]
 
