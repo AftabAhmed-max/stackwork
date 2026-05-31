@@ -10,8 +10,8 @@
 import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 
-const cycleWords = ['Websites', 'Apps', 'Dashboards', 'Digital Presence']
-const subText    = 'We build websites, apps, and data tools for small businesses and startups — so you can focus on running your business, not chasing freelancers.'
+const cycleWords = ['Websites', 'Online Stores', 'Booking Systems', 'Digital Presence']
+const subText    = 'Modern websites and digital tools for businesses that want to look serious online — so you can focus on running your business, not chasing freelancers.'
 
 
 

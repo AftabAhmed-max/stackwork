@@ -140,7 +140,7 @@ export default function FounderSection() {
               lineHeight: 1.8,
               marginBottom: '16px',
             }}>
-              I started Stackwork because I kept seeing the same problem — businesses with real potential, held back by bad websites, missing digital tools, and no visibility into their own data. I build the things that fix that.
+              I started Stackwork because I kept seeing the same problem — businesses with real potential, held back by bad websites, clunky systems, and no proper way to sell or take bookings online. I build the things that fix that.
             </p>
 
             <p style={{
@@ -158,7 +158,7 @@ export default function FounderSection() {
             <Badge text="BSc CS — University of Mumbai"   color="#FF6B35" />
             <Badge text="Talent500, Bengaluru"          color="#00D4FF" />
             <Badge text="Kuwait Oil Company"            color="#C9A84C" />
-            <Badge text="Data & Reporting Professional" color="#8B5CF6" />
+            <Badge text="Next.js & Supabase" color="#8B5CF6" />
             <Badge text="Full-Stack Developer"          color="#FF6B35" />
             <Badge text="India & Gulf Markets"          color="#00D4FF" />
           </div>
@@ -172,7 +172,7 @@ export default function FounderSection() {
           }}>
             {[
               { value: '6+',   label: 'Years Experience' },
-              { value: '5',    label: 'Services Offered'  },
+              { value: '4',    label: 'Services Offered'  },
               { value: '24h',    label: 'Response Time'  },
             ].map((stat) => (
               <div key={stat.label} className="card-animated" style={{

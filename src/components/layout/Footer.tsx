@@ -7,7 +7,7 @@
    - Bottom bar with copyright
    ============================================ */
 import Link from 'next/link'
-import { Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { Mail, MapPin, ArrowUpRight, MessageSquare } from 'lucide-react'
 
 /* ---- Footer Nav Links ---- */
 const footerNav = [
@@ -19,10 +19,10 @@ const footerNav = [
 
 /* ---- Services List ---- */
 const footerServices = [
-  'Web Design & Development',
-  'Web Apps & Portals',
-  'Data Analysis & Reporting',
-  'Maintenance & Retainer Plans',
+  'Websites & Landing Pages',
+  'E-commerce Stores',
+  'Booking & Appointment Systems',
+  'Business Systems & Portals',
 ]
 
 /* ---- Reusable link style ---- */
@@ -197,6 +197,19 @@ export default function Footer() {
           >
             <Mail size={14} />
             stackworkhq@gmail.com
+          </a>
+
+          {/* Phone */}
+          <a
+            href="https://wa.me/919905800700"
+            target="_blank"
+            rel="noreferrer"
+            style={{ ...linkStyle, display: 'flex', alignItems: 'center', gap: '8px' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#FF6B35')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#888888')}
+          >
+            <MessageSquare size={14} />
+            +91 99058 00700
           </a>
 
           {/* Locations */}

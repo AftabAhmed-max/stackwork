@@ -9,7 +9,7 @@ const regions = ['India', 'UAE', 'Qatar', 'Bahrain', 'Kuwait', 'Saudi Arabia']
 
 const stats = [
   { value: '4',    label: 'Services Offered' },
-  { value: '6',    label: 'Countries Reached' },
+  { value: '100%', label: 'Ownership' },
   { value: '24h',  label: 'Response Time' },
 ]
 

@@ -11,8 +11,8 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  Globe, Monitor, BarChart2,
-  Wrench, ArrowRight,
+  Globe, ShoppingCart, CalendarCheck,
+  LayoutGrid, ArrowRight,
 } from 'lucide-react'
 
 function MobileCardScroller({ items, accentColor }: { items: React.ReactNode[], accentColor: string }) {
@@ -89,18 +89,61 @@ function MobileCardScroller({ items, accentColor }: { items: React.ReactNode[], 
    MOCKUP COMPONENTS
    ============================================ */
 
-function WebMockup() {
+/* ---- Shared 3-up card grid (desktop) / scroller (mobile) ---- */
+function MockupGrid({ items, accentColor }: {
+  items: { card: React.ReactNode; info?: { label: string; desc: string; color: string } }[]
+  accentColor: string
+}) {
   const [isMobile, setIsMobile] = useState(false)
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 900)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  const cardItems = items.map((it) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      {it.card}
+      {it.info && (
+        <div style={{
+          backgroundColor: 'rgba(13,27,62,0.5)',
+          borderRadius:    '10px',
+          padding:         '12px 14px',
+          border:          `1px solid ${it.info.color}20`,
+        }}>
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: it.info.color, fontWeight: 700, marginBottom: '5px' }}>
+            {it.info.label}
+          </div>
+          <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
+            {it.info.desc}
+          </div>
+        </div>
+      )}
+    </div>
+  ))
+
+  if (isMobile) {
+    return <MobileCardScroller items={cardItems} accentColor={accentColor} />
+  }
+
+  return (
+    <div style={{
+      display:             'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap:                 '16px',
+      width:               '100%',
+    }}>
+      {cardItems.map((item, i) => (
+        <div key={i}>{item}</div>
+      ))}
+    </div>
+  )
+}
+
+function WebMockup() {
   const sites = [
-    {
-      label:    'Ember & Ash',
-      subtitle: 'Restaurant Website',
-      url:      'https://ember-ash-zeta.vercel.app/',
-      image:    '/images/projects/ember-ash.png',
-      tag:      'Live ↗',
-      info:     { label: 'Restaurant Website', color: '#FF6B35', desc: 'Table reservations, menu showcase & brand identity' },
-    },
     {
       label:    'Meridian Properties',
       subtitle: 'Real Estate Portal',
@@ -119,49 +162,14 @@ function WebMockup() {
     },
   ]
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 900)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
-
-  const cardItems = [
-    ...sites.map((site) => (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <ProjectCard site={site} />
-        <div style={{
-          backgroundColor: 'rgba(13,27,62,0.5)',
-          borderRadius:    '10px',
-          padding:         '12px 14px',
-          border:          `1px solid ${site.info.color}20`,
-        }}>
-          <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: site.info.color, fontWeight: 700, marginBottom: '5px' }}>
-            {site.info.label}
-          </div>
-          <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
-            {site.info.desc}
-          </div>
-        </div>
-      </div>
-    ))
-  ]
-
-  if (isMobile) {
-    return <MobileCardScroller items={cardItems} accentColor="#FF6B35" />
-  }
-
   return (
-    <div style={{
-      display:             'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      gap:                 '16px',
-      width:               '100%',
-    }}>
-      {cardItems.map((item, i) => (
-        <div key={i}>{item}</div>
-      ))}
-    </div>
+    <MockupGrid
+      accentColor="#FF6B35"
+      items={[
+        ...sites.map((site) => ({ card: <ProjectCard site={site} />, info: site.info })),
+        { card: <ComingSoonCard label="Your Website" desc="Landing pages, portfolios & business sites" color="#FF6B35" emoji="🌐" /> },
+      ]}
+    />
   )
 }
 
@@ -500,12 +508,8 @@ function SevresCard() {
   )
 }
 
-function DummyAppCard({ index }: { index: number }) {
+function ComingSoonCard({ label, desc, color, emoji }: { label: string; desc: string; color: string; emoji: string }) {
   const [hovered, setHovered] = useState(false)
-  const labels  = ['Booking System', 'Internal Portal']
-  const descs   = ['Appointment scheduling & reservations', 'Staff tools, admin panel & CRM']
-  const colors  = ['#8B5CF6', '#C9A84C']
-  const emojis  = ['📅', '🗂️']
 
   return (
     <div
@@ -592,21 +596,21 @@ function DummyAppCard({ index }: { index: number }) {
           width:           '40px',
           height:          '40px',
           borderRadius:    '10px',
-          backgroundColor: `${colors[index]}12`,
-          border:          `1px solid ${colors[index]}25`,
+          backgroundColor: `${color}12`,
+          border:          `1px solid ${color}25`,
           display:         'flex',
           alignItems:      'center',
           justifyContent:  'center',
           fontSize:        '18px',
           opacity:         0.4,
-        }}>{emojis[index]}</div>
+        }}>{emoji}</div>
 
         <div style={{ textAlign: 'center', padding: '0 20px' }}>
-          <div style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', color: `${colors[index]}80`, fontWeight: 700, marginBottom: '5px' }}>
-            {labels[index]}
+          <div style={{ fontFamily: 'var(--font-heading)', fontSize: '13px', color: `${color}80`, fontWeight: 700, marginBottom: '5px' }}>
+            {label}
           </div>
           <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.2)', lineHeight: 1.5 }}>
-            {descs[index]}
+            {desc}
           </div>
         </div>
 
@@ -939,58 +943,361 @@ function DealwiseCard() {
   )
 }
 
-function AppMockup() {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 900)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
-
-const infos = [
-    { label: 'Salon Booking App',        color: '#00D4FF', desc: 'Full booking flow, service selection & auth system' },
-    { label: 'Hotel Reservation System', color: '#C9A84C', desc: 'Room booking, availability & guest portal' },
-    { label: 'Sales CRM',                color: '#8B5CF6', desc: 'Pipeline tracking, multi-role access & sales dashboard' },
-  ]
-
-  const cards = [<SevresCard key="sevres" />, <MaisonCard key="maison" />, <DealwiseCard key="dealwise" />]
-
-  const cardItems = cards.map((card, i) => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      {card}
-      <div style={{
-        backgroundColor: 'rgba(13,27,62,0.5)',
-        borderRadius:    '10px',
-        padding:         '12px 14px',
-        border:          `1px solid ${infos[i].color}20`,
-      }}>
-        <div style={{ fontFamily: 'var(--font-heading)', fontSize: '12px', color: infos[i].color, fontWeight: 700, marginBottom: '5px' }}>
-          {infos[i].label}
-        </div>
-        <div style={{ fontFamily: 'var(--font-body)', fontSize: '11px', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
-          {infos[i].desc}
-        </div>
-      </div>
-    </div>
-  ))
-
-  if (isMobile) {
-    return <MobileCardScroller items={cardItems} accentColor="#00D4FF" />
-  }
+/* ---- Cozy Crochets — live e-commerce store ---- */
+function CrochetCard() {
+  const [hovered, setHovered] = useState(false)
 
   return (
-    <div style={{
-      display:             'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      gap:                 '16px',
-      width:               '100%',
-    }}>
-      {cardItems.map((item, i) => (
-        <div key={i}>{item}</div>
-      ))}
-    </div>
+    <a
+      href="https://cozycrochets.site"
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:        'flex',
+        flexDirection:  'column',
+        textDecoration: 'none',
+        borderRadius:   '12px',
+        overflow:       'hidden',
+        aspectRatio:    '16/10',
+        cursor:         'pointer',
+        border:         hovered ? '1px solid rgba(44,110,73,0.45)' : '1px solid rgba(255,255,255,0.08)',
+        transition:     'border-color 0.3s ease',
+      }}
+    >
+      {/* Browser bar */}
+      <div style={{
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.9)',
+        padding:         '7px 10px',
+        display:         'flex',
+        alignItems:      'center',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.06)',
+        zIndex:          3,
+      }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['#FF5F57','#FEBC2E','#28C840'].map(c => (
+            <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.07)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
+          fontSize:        '10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.45)',
+        }}>
+          cozycrochets.site
+        </div>
+        <ArrowRight size={11} color="rgba(44,110,73,0.6)" />
+      </div>
+
+      {/* Image area */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <Image
+          src="/images/projects/cozycrochets.png"
+          alt="Cozy Crochets"
+          fill
+          sizes="(max-width: 900px) 100vw, 33vw"
+          style={{
+            objectFit:      'cover',
+            objectPosition: 'top',
+            transform:      hovered ? 'scale(1.04)' : 'scale(1)',
+            transition:     'transform 0.5s ease',
+          }}
+        />
+
+        <div style={{
+          position:      'absolute',
+          inset:         0,
+          background:    'linear-gradient(to bottom, transparent 40%, rgba(8,11,20,0.88) 72%, rgba(8,11,20,1) 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Hover overlay */}
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'transparent',
+          transition:      'background-color 0.35s ease',
+          display:         'flex',
+          flexDirection:   'column',
+          alignItems:      'center',
+          justifyContent:  'center',
+          gap:             '12px',
+          zIndex:          2,
+        }}>
+          <div style={{
+            opacity:       hovered ? 1 : 0,
+            transform:     hovered ? 'translateY(0)' : 'translateY(10px)',
+            transition:    'opacity 0.3s ease, transform 0.3s ease',
+            display:       'flex',
+            flexDirection: 'column',
+            alignItems:    'center',
+            gap:           '10px',
+          }}>
+            <div style={{
+              width:           '48px',
+              height:          '48px',
+              borderRadius:    '50%',
+              backgroundColor: '#2C6E49',
+              display:         'flex',
+              alignItems:      'center',
+              justifyContent:  'center',
+              fontSize:        '20px',
+              color:           '#ffffff',
+              boxShadow:       '0 8px 24px rgba(44,110,73,0.4)',
+            }}>↗</div>
+            <span style={{
+              fontFamily:    'var(--font-body)',
+              fontSize:      '13px',
+              fontWeight:    500,
+              color:         '#ffffff',
+              letterSpacing: '0.5px',
+            }}>Visit Store</span>
+          </div>
+        </div>
+
+        {/* Bottom info */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          padding:  '12px 14px',
+          zIndex:   3,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 700, color: '#ffffff', lineHeight: 1.2, marginBottom: '3px' }}>
+                Cozy Crochets
+              </div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', color: 'rgba(255,255,255,0.45)', letterSpacing: '1.2px', textTransform: 'uppercase' as const }}>
+                Handmade Crochet E-commerce Store
+              </div>
+            </div>
+            <div style={{
+              fontSize: '10px', fontFamily: 'var(--font-body)', color: '#2C6E49',
+              border: '1px solid rgba(44,110,73,0.35)', borderRadius: '100px',
+              padding: '3px 10px', backgroundColor: 'rgba(44,110,73,0.08)',
+              whiteSpace: 'nowrap' as const, flexShrink: 0,
+            }}>Live ↗</div>
+          </div>
+          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' as const }}>
+            {['Product Catalogue', 'Cart & Checkout', 'Razorpay', 'Order Emails'].map(tag => (
+              <span key={tag} style={{
+                fontFamily: 'var(--font-body)', fontSize: '9px',
+                color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px',
+                padding: '2px 7px', backdropFilter: 'blur(4px)',
+              }}>{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </a>
+  )
+}
+
+/* ---- Ember & Ash — restaurant reservations ---- */
+function EmberAshCard() {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <a
+      href="https://ember-ash-zeta.vercel.app/"
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:        'flex',
+        flexDirection:  'column',
+        textDecoration: 'none',
+        borderRadius:   '12px',
+        overflow:       'hidden',
+        aspectRatio:    '16/10',
+        cursor:         'pointer',
+        border:         hovered ? '1px solid rgba(255,107,53,0.45)' : '1px solid rgba(255,255,255,0.08)',
+        transition:     'border-color 0.3s ease',
+      }}
+    >
+      {/* Browser bar */}
+      <div style={{
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.9)',
+        padding:         '7px 10px',
+        display:         'flex',
+        alignItems:      'center',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.06)',
+        zIndex:          3,
+      }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['#FF5F57','#FEBC2E','#28C840'].map(c => (
+            <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.07)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
+          fontSize:        '10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.45)',
+        }}>
+          ember-ash-zeta.vercel.app
+        </div>
+        <ArrowRight size={11} color="rgba(255,107,53,0.6)" />
+      </div>
+
+      {/* Image area */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <Image
+          src="/images/projects/ember-ash.png"
+          alt="Ember & Ash"
+          fill
+          sizes="(max-width: 900px) 100vw, 33vw"
+          style={{
+            objectFit:      'cover',
+            objectPosition: 'top',
+            transform:      hovered ? 'scale(1.04)' : 'scale(1)',
+            transition:     'transform 0.5s ease',
+          }}
+        />
+
+        <div style={{
+          position:      'absolute',
+          inset:         0,
+          background:    'linear-gradient(to bottom, transparent 40%, rgba(8,11,20,0.88) 72%, rgba(8,11,20,1) 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Hover overlay */}
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'transparent',
+          transition:      'background-color 0.35s ease',
+          display:         'flex',
+          flexDirection:   'column',
+          alignItems:      'center',
+          justifyContent:  'center',
+          gap:             '12px',
+          zIndex:          2,
+        }}>
+          <div style={{
+            opacity:       hovered ? 1 : 0,
+            transform:     hovered ? 'translateY(0)' : 'translateY(10px)',
+            transition:    'opacity 0.3s ease, transform 0.3s ease',
+            display:       'flex',
+            flexDirection: 'column',
+            alignItems:    'center',
+            gap:           '10px',
+          }}>
+            <div style={{
+              width:           '48px',
+              height:          '48px',
+              borderRadius:    '50%',
+              backgroundColor: '#FF6B35',
+              display:         'flex',
+              alignItems:      'center',
+              justifyContent:  'center',
+              fontSize:        '20px',
+              color:           '#ffffff',
+              boxShadow:       '0 8px 24px rgba(255,107,53,0.4)',
+            }}>↗</div>
+            <span style={{
+              fontFamily:    'var(--font-body)',
+              fontSize:      '13px',
+              fontWeight:    500,
+              color:         '#ffffff',
+              letterSpacing: '0.5px',
+            }}>Visit Site</span>
+          </div>
+        </div>
+
+        {/* Bottom info */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          padding:  '12px 14px',
+          zIndex:   3,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 700, color: '#ffffff', lineHeight: 1.2, marginBottom: '3px' }}>
+                Ember &amp; Ash
+              </div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', color: 'rgba(255,255,255,0.45)', letterSpacing: '1.2px', textTransform: 'uppercase' as const }}>
+                Restaurant Reservation Site
+              </div>
+            </div>
+            <div style={{
+              fontSize: '10px', fontFamily: 'var(--font-body)', color: '#FF6B35',
+              border: '1px solid rgba(255,107,53,0.35)', borderRadius: '100px',
+              padding: '3px 10px', backgroundColor: 'rgba(255,107,53,0.08)',
+              whiteSpace: 'nowrap' as const, flexShrink: 0,
+            }}>Live ↗</div>
+          </div>
+          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' as const }}>
+            {['Table Reservations', 'Menu Showcase', 'Time Slots', 'Brand Identity'].map(tag => (
+              <span key={tag} style={{
+                fontFamily: 'var(--font-body)', fontSize: '9px',
+                color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px',
+                padding: '2px 7px', backdropFilter: 'blur(4px)',
+              }}>{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </a>
+  )
+}
+
+/* ---- E-commerce: Crochet store + coming soon ---- */
+function EcommerceMockup() {
+  return (
+    <MockupGrid
+      accentColor="#2C6E49"
+      items={[
+        { card: <CrochetCard />, info: { label: 'Crochet E-commerce Store', color: '#2C6E49', desc: 'Product catalogue, cart, secure checkout & order management' } },
+        { card: <ComingSoonCard label="Online Store" desc="Catalogue, cart & secure checkout" color="#2C6E49" emoji="🛍️" /> },
+        { card: <ComingSoonCard label="Online Store" desc="Product management & order tracking" color="#2C6E49" emoji="🛒" /> },
+      ]}
+    />
+  )
+}
+
+/* ---- Booking: Sèvres + Maison + Ember & Ash ---- */
+function BookingMockup() {
+  return (
+    <MockupGrid
+      accentColor="#00D4FF"
+      items={[
+        { card: <SevresCard />, info: { label: 'Salon Booking App', color: '#00D4FF', desc: 'Full booking flow, service selection & auth system' } },
+        { card: <MaisonCard />, info: { label: 'Hotel Reservation System', color: '#C9A84C', desc: 'Room booking, availability & guest portal' } },
+        { card: <EmberAshCard />, info: { label: 'Restaurant Reservations', color: '#FF6B35', desc: 'Table reservations, time slots & menu showcase' } },
+      ]}
+    />
+  )
+}
+
+/* ---- Business Systems: Dealwise CRM + coming soon ---- */
+function BusinessMockup() {
+  return (
+    <MockupGrid
+      accentColor="#8B5CF6"
+      items={[
+        { card: <DealwiseCard />, info: { label: 'Sales CRM', color: '#8B5CF6', desc: 'Pipeline tracking, multi-role access & sales dashboard' } },
+        { card: <ComingSoonCard label="Client Portal" desc="Each client logs in to see their own data" color="#8B5CF6" emoji="🔐" /> },
+        { card: <ComingSoonCard label="Internal Tool" desc="Custom dashboards built around your workflow" color="#8B5CF6" emoji="🗂️" /> },
+      ]}
+    />
   )
 }
 
@@ -1149,87 +1456,98 @@ function MaintenanceMockup() {
 }
 
 /* ============================================
-   SERVICE DATA — 5 services, no consultation
+   SERVICE DATA — 4 services
    ============================================ */
 const services = [
   {
     icon:     Globe,
-    title:    'Web Design & Development',
-    tagline:  'Your digital storefront, built to convert',
+    title:    'Websites & Landing Pages',
+    tagline:  'Your online presence, built to convert',
+    price:    'Starting at ₹10,000',
     color:    '#FF6B35',
     number:   '01',
     includes: [
-      'Custom designed on Next.js, mobile responsive',
-      'Content writing included — we write your copy for you',
-      'Sanity CMS included — update your site without touching code',
-      'Basic on-page SEO, sitemap, Google Search Console setup',
-      'Contact forms with email integration',
-      'E-commerce with Razorpay payment integration',
-      'Two revision rounds included',
-      'Loom video walkthrough on delivery',
-      '30 days free bug fixes post-launch',
+      'Custom Next.js, fully mobile responsive',
+      'Content writing included',
+      'Content management — Sanity or custom dashboard, whichever is easier to operate',
+      'Free clickable wireframe before we build',
+      'Basic on-page SEO (meta tags, sitemap, clean structure — all in code)',
+      'Contact form with email integration',
+      'Up to 5 AI-generated images included',
+      'Two revision rounds',
+      'Loom walkthrough on delivery',
+      '30 days free bug fixes',
       'Full source code ownership after payment',
     ],
-    ideal: 'Restaurants, retail brands, clinics, coaches, real estate agencies, e-commerce businesses, anyone needing a professional online presence',
+    ideal: 'Lawyers, restaurants, property agents, clinics, coaches, portfolios — any business needing a professional online presence. No payments or user logins.',
     mockup: <WebMockup />,
   },
   {
-    icon:     Monitor,
-    title:    'Web Apps & Portals',
-    tagline:  'Custom browser-based tools that run your operations',
-    color:    '#00D4FF',
+    icon:     ShoppingCart,
+    title:    'E-commerce Stores',
+    tagline:  'Sell your products online, beautifully',
+    price:    'Starting at ₹50,000',
+    color:    '#2C6E49',
     number:   '02',
     includes: [
-      'Custom built on Next.js with Supabase backend',
-      'Full authentication system — register, login, password reset',
-      'Admin dashboard for business owner included',
-      'Razorpay payment integration included as standard',
-      'Role-based access — different views for staff, admin, customer',
-      'Real-time data and live status tracking',
-      'Two revision rounds and full documentation',
-      'Loom video walkthrough on delivery',
+      'Built on Next.js + Supabase',
+      'Full product catalogue with cart and secure checkout',
+      'Razorpay payment integration (client\'s own account)',
+      'Admin dashboard to manage orders',
+      'Product management — Sanity or custom dashboard, whichever is easier',
+      'Order confirmation emails',
+      'Free clickable wireframe before we build',
+      'Three revision rounds',
+      'Loom walkthrough on delivery',
+      '30 days free bug fixes',
       'Full source code and database ownership after payment',
     ],
-    ideal: 'Salons, clinics, hospitality businesses, service companies, any business that needs staff or customers to log in and manage something',
-    mockup: <AppMockup />,
+    ideal: 'Any business selling products online — boutiques, supermarkets, specialty stores, supplement brands.',
+    mockup: <EcommerceMockup />,
   },
   {
-    icon:     BarChart2,
-    title:    'Data Analysis & Reporting',
-    tagline:  'Numbers your team can actually act on',
-    color:    '#2C6E49',
+    icon:     CalendarCheck,
+    title:    'Booking & Appointment Systems',
+    tagline:  'Let customers book you directly',
+    price:    'Starting at ₹40,000',
+    color:    '#00D4FF',
     number:   '03',
     includes: [
-      'Raw data cleaned using Excel Power Query and Python Pandas',
-      'Automated folder-based refresh — drop new data, everything updates',
-      'Excel dashboard with Power Pivot charts, slicers, and KPI cards',
-      'Power BI .pbix file — open locally, click refresh, visuals update',
-      'Looker Studio dashboard — free shareable link, updates automatically',
-      'Written insights document — trends, anomalies, and 3 to 5 recommendations',
-      'One Google Meet training session included',
-      'Loom video walkthrough of the full system',
+      'Built on Next.js + Supabase',
+      'Full authentication (register, login, password reset)',
+      'Availability logic — slots, double-booking prevention',
+      'Admin dashboard — calendar, approve/reject bookings',
+      'Booking confirmation and reminder emails',
+      'Razorpay where payments are needed',
+      'Free clickable wireframe before we build',
+      'Three revision rounds',
+      'Loom walkthrough on delivery',
+      '30 days free bug fixes',
+      'Full source code and database ownership after payment',
     ],
-    ideal: 'SMB owners wanting clear visibility into sales, expenses, operations, or team performance without hiring a full-time analyst',
-    mockup: <AnalyticsMockup />,
+    ideal: 'Salons, clinics, restaurants, gyms — any business where customers reserve time or a slot.',
+    mockup: <BookingMockup />,
   },
   {
-    icon:     Wrench,
-    title:    'Maintenance & Retainer Plans',
-    tagline:  'We stay long after everyone else has left',
+    icon:     LayoutGrid,
+    title:    'Business Systems & Portals',
+    tagline:  'Custom tools that run your operations',
+    price:    'Starting at ₹60,000',
     color:    '#8B5CF6',
     number:   '04',
     includes: [
-      'All work carried out on weekends — Saturday and Sunday',
-      'Uptime monitoring, SSL monitoring, broken link checks',
-      'Content updates — text, images, prices, products',
-      'Bug fixes covered under all plans',
-      'Performance monitoring and monthly health report',
-      'Growth plan includes up to 3 hours minor feature additions per month',
-      'No minimum commitment — cancel anytime with 3 to 5 days notice',
-      'Pay-as-you-go hourly option also available',
+      'Built on Next.js + Supabase',
+      'Full authentication and role-based access',
+      'Custom dashboards built around your workflow',
+      'CRM, client portals, or internal business tools',
+      'Real-time data and live status tracking',
+      'Free clickable wireframe before we build',
+      'Three revision rounds',
+      'Loom walkthrough on delivery',
+      'Full documentation and source code ownership after payment',
     ],
-    ideal: 'Businesses that want a long-term digital partner, not a one-time vendor',
-    mockup: <MaintenanceMockup />,
+    ideal: 'Businesses needing a CRM, a client portal where each user logs in to see their own data, or a custom internal tool.',
+    mockup: <BusinessMockup />,
   },
 ]
 
@@ -1319,6 +1637,22 @@ function ServicePanel({ service, index }: { service: typeof services[0]; index: 
         }}>
           {service.tagline}
         </p>
+
+        <div style={{
+          display:         'inline-block',
+          marginTop:       '16px',
+          fontFamily:      'var(--font-heading)',
+          fontSize:        '14px',
+          fontWeight:      700,
+          color:           service.color,
+          backgroundColor: `${service.color}12`,
+          border:          `1px solid ${service.color}30`,
+          borderRadius:    '100px',
+          padding:         '6px 18px',
+          letterSpacing:   '0.5px',
+        }}>
+          {service.price}
+        </div>
       </div>
 
       {/* ---- Middle: Mockup ---- */}

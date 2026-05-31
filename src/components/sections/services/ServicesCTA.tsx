@@ -66,7 +66,7 @@ export default function ServicesCTA() {
             Book Free Consultation <ArrowRight size={16} />
           </Link>
 
-          <a href="https://wa.me/919697980079"
+          <a href="https://wa.me/919905800700"
             target="_blank"
             rel="noreferrer"
             style={{

@@ -66,7 +66,7 @@ export default function AboutHero() {
           maxWidth:   '600px',
           margin:     '0 auto',
         }}>
-          Stackwork is not just a digital agency — it is an initiative to help small and medium businesses build a real digital presence, track their growth, and compete at a higher level.
+          Stackwork is not just a digital agency — it is an initiative to help small and medium businesses build a real digital presence, sell and take bookings online, and compete at a higher level.
         </p>
       </div>
     </section>

@@ -169,6 +169,14 @@ export default function Navbar() {
           <p style={{ marginTop: 'auto', paddingTop: '32px', fontFamily: 'var(--font-body)', fontSize: '13px', color: '#888888', textAlign: 'center' }}>
             stackworkhq@gmail.com
           </p>
+          <a
+            href="https://wa.me/919905800700"
+            target="_blank"
+            rel="noreferrer"
+            style={{ paddingTop: '8px', fontFamily: 'var(--font-body)', fontSize: '13px', color: '#888888', textAlign: 'center', textDecoration: 'none' }}
+          >
+            +91 99058 00700
+          </a>
         </div>
       )}
     </>

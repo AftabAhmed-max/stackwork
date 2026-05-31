@@ -12,10 +12,10 @@ import { Mail, MessageSquare, MapPin, Clock, CheckCircle, ArrowRight } from 'luc
 import Link from 'next/link'
 
 const services = [
-  'Web Design & Development',
-  'Web Apps & Portals',
-  'Data Analysis & Reporting',
-  'Maintenance & Retainer Plans',
+  'Websites & Landing Pages',
+  'E-commerce Stores',
+  'Booking & Appointment Systems',
+  'Business Systems & Portals',
   'Not sure yet',
 ]
 
@@ -326,7 +326,7 @@ export default function ContactForm() {
 
             {[
               { icon: Mail,           text: 'stackworkhq@gmail.com',          href: 'mailto:stackworkhq@gmail.com',       color: '#FF6B35' },
-              { icon: MessageSquare,  text: '+91 96979 80079',                 href: 'https://wa.me/919697980079',         color: '#00D4FF' },
+              { icon: MessageSquare,  text: '+91 99058 00700',                 href: 'https://wa.me/919905800700',         color: '#00D4FF' },
               { icon: MapPin,         text: 'Mumbai, India',                   href: null,                                 color: '#C9A84C' },
               { icon: Clock,          text: 'Response within 24 hours',        href: null,                                 color: '#8B5CF6' },
             ].map(({ icon: Icon, text, href, color }) => (
@@ -414,7 +414,7 @@ export default function ContactForm() {
 
           {/* WhatsApp CTA */}
           <a
-            href="https://wa.me/919697980079"
+            href="https://wa.me/919905800700"
             target="_blank"
             rel="noreferrer"
             className="cta-pulse"

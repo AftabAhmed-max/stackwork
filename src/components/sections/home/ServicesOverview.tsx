@@ -9,8 +9,8 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import {
-  Globe, Monitor, BarChart2,
-  Wrench, ArrowRight,
+  Globe, ShoppingCart, CalendarCheck,
+  LayoutGrid, ArrowRight,
 } from 'lucide-react'
 
 /* ============================================
@@ -370,10 +370,10 @@ function ConsultationMockup() {
    SERVICE DATA
    ============================================ */
 const services = [
-  { icon: Globe,      title: 'Web Design & Development',  description: 'Business websites, landing pages, portfolios, and e-commerce stores built to convert.',                        mockup: <WebMockup /> },
-  { icon: Monitor,    title: 'Web Apps & Portals',        description: 'Booking systems, client portals, and internal tools — browser-based and built for your workflow.',             mockup: <AppMockup /> },
-  { icon: BarChart2,  title: 'Data Analysis & Reporting', description: 'Excel, Power Pivot, and Power Query reports that give business owners clear numbers to act on.',              mockup: <AnalyticsMockup /> },
-  { icon: Wrench,     title: 'Maintenance & Retainer Plans', description: 'Monthly support so your digital products stay fast, secure, and up to date.',                              mockup: <MaintenanceMockup /> },
+  { icon: Globe,         title: 'Websites & Landing Pages',       description: 'Business websites, landing pages, and portfolios built to convert.',                          mockup: <WebMockup /> },
+  { icon: ShoppingCart,  title: 'E-commerce Stores',              description: 'Online stores with secure checkout, product management, and order tracking.',                 mockup: <AppMockup /> },
+  { icon: CalendarCheck, title: 'Booking & Appointment Systems',  description: 'Booking and reservation systems for salons, clinics, restaurants, and services.',             mockup: <SetupMockup /> },
+  { icon: LayoutGrid,    title: 'Business Systems & Portals',     description: 'CRMs, client portals, and custom internal tools for your operations.',                        mockup: <ConsultationMockup /> },
 ]
 
 /* ============================================

@@ -11,30 +11,29 @@ const models = [
   {
     icon:     Zap,
     title:    'One-Time Project',
-    price:    'From ₹5,000',
+    price:    'From ₹10,000',
     color:    '#FF6B35',
-    desc:     'A defined scope, fixed timeline, and clear deliverables. Best for websites, apps, and dashboards with a clear brief. Web Design from ₹7,999 · Web Apps from ₹45,000 · Data Analysis from ₹5,000.',
+    desc:     'A defined scope, fixed timeline, clear deliverables. Websites from ₹10,000 · E-commerce from ₹50,000 · Booking systems from ₹40,000 · Business systems from ₹60,000.',
     features: ['Fixed quote upfront', 'Defined milestones', 'Full handover on completion', '30-day post-launch support'],
     cta:      "Let's Build Together",
   },
   {
-    icon:     RefreshCw,
-    title:    'Monthly Retainer',
-    price:    'From ₹2,500 / mo',
+    icon:     MessageSquare,
+    title:    'Free Discovery Call',
+    price:    'No Cost',
     color:    '#00D4FF',
-    desc:     'Ongoing support, updates, and development hours each month. Best for businesses that need a consistent digital partner.',
-    features: ['Priority support', 'Monthly hours bank', 'Regular updates & backups', 'Performance monitoring'],
-    cta:      'Get a Free Quote',
-    highlight: true,
+    desc:     'The first step. We talk through what you need, what it would cost, and how it works — then send you a clear proposal. No charge, no obligation.',
+    features: ['Understand your goals', 'Honest scope & pricing', 'Leads to a written proposal', 'No obligation to proceed'],
+    cta:      'Book a Free Call',
   },
   {
-    icon:     MessageSquare,
-    title:    'Consultation Only',
-    price:    'Per Session',
+    icon:     RefreshCw,
+    title:    'Hourly Work',
+    price:    '₹699 / hour',
     color:    '#C9A84C',
-    desc:     'Not ready to build yet? Book a strategy session to get clarity on what you need, what it costs, and how to proceed.',
-    features: ['1-2 hour deep dive', 'Written recommendations', 'Tech audit & roadmap', 'No obligation to proceed'],
-    cta:      'Book a Session',
+    desc:     'For changes, fixes, or maintenance that fall outside the scope of a project. Available on request — you only pay for the time actually used.',
+    features: ['No retainer required', 'Pay only for time used', 'Changes & maintenance', 'Available on request'],
+    cta:      'Get a Free Quote',
   },
 ]
 
@@ -78,37 +77,15 @@ export default function EngagementModels() {
             const Icon = model.icon
             return (
               <div key={model.title} className="card-animated" style={{
-                backgroundColor: model.highlight ? 'rgba(0,212,255,0.05)' : 'rgba(13,27,62,0.5)',
+                backgroundColor: 'rgba(13,27,62,0.5)',
                 borderRadius:    '12px',
                 padding:         '36px 28px',
-                border:          model.highlight
-                  ? '1px solid rgba(0,212,255,0.25)'
-                  : '1px solid rgba(255,255,255,0.06)',
+                border:          '1px solid rgba(255,255,255,0.06)',
                 display:         'flex',
                 flexDirection:   'column',
                 gap:             '20px',
                 position:        'relative',
               }}>
-
-                {model.highlight && (
-                  <div style={{
-                    position:        'absolute',
-                    top:             '-3px',
-                    left:            '50%',
-                    transform:       'translateX(-50%)',
-                    backgroundColor: '#00D4FF',
-                    color:           '#080b14',
-                    fontFamily:      'var(--font-body)',
-                    fontSize:        '11px',
-                    fontWeight:      700,
-                    padding:         '3px 14px',
-                    borderRadius:    '100px',
-                    whiteSpace:      'nowrap',
-                    letterSpacing:   '0.5px',
-                  }}>
-                    MOST POPULAR
-                  </div>
-                )}
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                   <div style={{
