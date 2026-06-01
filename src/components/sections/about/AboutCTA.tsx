@@ -54,7 +54,7 @@ export default function AboutCTA() {
           lineHeight: 1.7,
           maxWidth:   '480px',
         }}>
-          Tell us about your business and we will put together a plan that makes sense — no pressure, no jargon.
+          Book a free discovery call and we'll tell you exactly what your business needs — and what it doesn't.
         </p>
 
         <Link href="/contact" className="cta-pulse" style={{
@@ -70,7 +70,7 @@ export default function AboutCTA() {
           borderRadius:    '6px',
           textDecoration:  'none',
         }}>
-          Let's Build Together <ArrowRight size={16} />
+          Book a Free Discovery Call <ArrowRight size={16} />
         </Link>
       </div>
     </section>

@@ -6,10 +6,10 @@
 import { useEffect, useState } from 'react'
 
 const serviceNames = [
-  'Web Design',
-  'Web Apps & Portals',
-  'Data Analysis',
-  'Maintenance',
+  'Websites',
+  'E-commerce',
+  'Booking',
+  'Business Systems',
 ]
 
 export default function ServicesHero() {

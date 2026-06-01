@@ -53,7 +53,7 @@ export default function ServicesCTA() {
           lineHeight: 1.7,
           maxWidth:   '480px',
         }}>
-          Book a free 30-minute consultation and we will tell you exactly what your business needs — and what it does not.
+          Book a free discovery call and we'll tell you exactly what your business needs — and what it doesn't.
         </p>
 
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -63,7 +63,7 @@ export default function ServicesCTA() {
             fontFamily:      'var(--font-body)', fontWeight: 500, fontSize: '16px',
             padding:         '15px 36px', borderRadius: '6px', textDecoration: 'none',
           }}>
-            Book Free Consultation <ArrowRight size={16} />
+            Book a Free Discovery Call <ArrowRight size={16} />
           </Link>
 
           <a href="https://wa.me/919905800700"
@@ -74,7 +74,7 @@ export default function ServicesCTA() {
               alignItems:      'center',
               justifyContent:  'center',
               gap:             '10px',
-              backgroundColor: 'transparent',
+              backgroundColor: '#25D366',
               color:           '#ffffff',
               fontFamily:      'var(--font-body)',
               fontWeight:      500,
@@ -82,17 +82,17 @@ export default function ServicesCTA() {
               padding:         '15px 36px',
               borderRadius:    '6px',
               textDecoration:  'none',
-              border:          '1px solid rgba(58,95,138,0.6)',
+              border:          '1px solid #25D366',
               transition:      'all 0.2s ease',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)'
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'
+              e.currentTarget.style.backgroundColor = '#1EBE5A'
+              e.currentTarget.style.borderColor = '#1EBE5A'
               e.currentTarget.style.transform = 'scale(1.04)'
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.backgroundColor = 'transparent'
-              e.currentTarget.style.borderColor = 'rgba(58,95,138,0.6)'
+              e.currentTarget.style.backgroundColor = '#25D366'
+              e.currentTarget.style.borderColor = '#25D366'
               e.currentTarget.style.transform = 'scale(1)'
             }}
           >

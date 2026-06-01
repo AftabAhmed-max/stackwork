@@ -10,7 +10,7 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import {
   Globe, ShoppingCart, CalendarCheck,
-  LayoutGrid, ArrowRight,
+  LayoutGrid, FileText, CalendarClock, ArrowRight,
 } from 'lucide-react'
 
 /* ============================================
@@ -374,6 +374,8 @@ const services = [
   { icon: ShoppingCart,  title: 'E-commerce Stores',              description: 'Online stores with secure checkout, product management, and order tracking.',                 mockup: <AppMockup /> },
   { icon: CalendarCheck, title: 'Booking & Appointment Systems',  description: 'Booking and reservation systems for salons, clinics, restaurants, and services.',             mockup: <SetupMockup /> },
   { icon: LayoutGrid,    title: 'Business Systems & Portals',     description: 'CRMs, client portals, and custom internal tools for your operations.',                        mockup: <ConsultationMockup /> },
+  { icon: FileText,      title: 'Landing Pages',                  description: 'High-converting single-page sites for campaigns, launches, and lead capture.',               mockup: <WebMockup /> },
+  { icon: CalendarClock, title: 'Reservation Systems',            description: 'Table and slot reservations for restaurants, salons, and clinics with admin control.',        mockup: <AppMockup /> },
 ]
 
 /* ============================================

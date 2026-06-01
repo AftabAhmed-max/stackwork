@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 95" width="320" height="95">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700&amp;display=swap');
+      .wordmark { font-family: 'Syne', 'Arial Black', sans-serif; font-weight: 700; font-size: 36px; }
+      .tag { font-family: 'Syne', 'Arial Black', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 3px; }
+    </style>
+  </defs>
+  <!-- Icon: staircase bars -->
+  <rect x="0"  y="18" width="52" height="14" rx="3" fill="#FF6B35"/>
+  <rect x="7"  y="37" width="40" height="14" rx="3" fill="#FF6B35" opacity="0.75"/>
+  <rect x="14" y="56" width="28" height="14" rx="3" fill="#0D1B3E" opacity="0.50"/>
+  <!-- Wordmark -->
+  <text x="64" y="52" class="wordmark"><tspan fill="#0D1B3E">Stack</tspan><tspan fill="#FF6B35">work</tspan></text>
+  <!-- Tagline -->
+  <text x="65" y="69" class="tag" fill="#9CA3AF">DIGITAL SOLUTIONS</text>
+</svg>
