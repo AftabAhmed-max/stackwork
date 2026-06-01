@@ -37,11 +37,11 @@ const problems = [
   },
   {
     number:  '03',
-    heading: 'No Visibility Into Your Data',
-    body:    'Your business generates data every day but you have no idea what is working, what is not, or where the money is going. Decisions are made on gut feel alone.',
+    heading: 'No Easy Way to Take Bookings or Sell Online',
+    body:    'Customers want to book you or buy from you online, but you are stuck taking it all over calls and DMs. Every missed message is lost business.',
     metric: {
-      label:  'Data Clarity Score',
-      target: 12,
+      label:  'Missed Opportunities',
+      target: 68,
       unit:   '%',
       color:  '#FF5F57',
       status: 'CRITICAL',

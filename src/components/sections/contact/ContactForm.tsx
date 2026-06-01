@@ -325,7 +325,7 @@ export default function ContactForm() {
 
             {[
               { icon: Mail,           text: 'stackworkhq@gmail.com',          href: 'mailto:stackworkhq@gmail.com',       color: '#FF6B35' },
-              { icon: MessageSquare,  text: '+91 99058 00700',                 href: 'https://wa.me/919905800700',         color: '#00D4FF' },
+              { icon: MessageSquare,  text: '+91 99058 00700',                 href: 'https://wa.me/919905800700',         color: '#25D366' },
               { icon: MapPin,         text: 'Mumbai, India',                   href: null,                                 color: '#C9A84C' },
               { icon: Clock,          text: 'Response within 24 hours',        href: null,                                 color: '#8B5CF6' },
             ].map(({ icon: Icon, text, href, color }) => (
