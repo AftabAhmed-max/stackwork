@@ -347,14 +347,15 @@ export default function ProofSection() {
             <div style={{
               display:             'grid',
               gridTemplateColumns: isMobile ? '1fr' : '1fr 1.6fr',
-              gridAutoRows:        isMobile ? 'auto' : '1fr',
+              gridAutoRows:        isMobile ? 'auto' : '110px',
               gap:                 '10px',
             }}>
               {/* Left column — two stacked logos */}
               {logoImages.map((img) => (
                 <div key={img.src} style={{
                   position:        'relative',
-                  aspectRatio:     '1 / 1',
+                  gridColumn:      isMobile ? 'auto' : '1',
+                  height:          '100%',
                   borderRadius:    '10px',
                   overflow:        'hidden',
                   border:          '1px solid rgba(255,255,255,0.08)',
@@ -375,8 +376,9 @@ export default function ProofSection() {
               <div style={{
                 position:        'relative',
                 gridColumn:      isMobile ? 'auto' : '2',
-                gridRow:         isMobile ? 'auto' : 'span 2',
+                gridRow:         isMobile ? 'auto' : '1 / 3',
                 aspectRatio:     isMobile ? '1050 / 600' : undefined,
+                height:          isMobile ? undefined : '100%',
                 borderRadius:    '10px',
                 overflow:        'hidden',
                 border:          '1px solid rgba(255,255,255,0.08)',
