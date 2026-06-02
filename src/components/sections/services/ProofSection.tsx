@@ -359,14 +359,15 @@ export default function ProofSection() {
                   borderRadius:    '10px',
                   overflow:        'hidden',
                   border:          '1px solid rgba(255,255,255,0.08)',
-                  backgroundColor: 'rgba(8,11,20,0.6)',
+                  backgroundColor: 'rgba(13,27,62,0.4)',
+                  padding:         '14px',
                 }}>
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
                     sizes="(max-width: 900px) 50vw, 200px"
-                    style={{ objectFit: 'cover' }}
+                    style={{ objectFit: 'contain' }}
                   />
                 </div>
               ))}
