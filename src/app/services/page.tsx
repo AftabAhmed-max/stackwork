@@ -3,6 +3,7 @@
    ============================================ */
 import ServicesHero      from '@/components/sections/services/ServicesHero'
 import ServicesShowcase  from '@/components/sections/services/ServicesShowcase'
+import ProofSection      from '@/components/sections/services/ProofSection'
 import EngagementModels  from '@/components/sections/services/EngagementModels'
 import ProcessStrip      from '@/components/sections/services/ProcessStrip'
 import ServicesCTA       from '@/components/sections/services/ServicesCTA'
@@ -14,6 +15,10 @@ export default function ServicesPage() {
       <ServicesHero />
       <hr className="section-glow-line" />
       <ServicesShowcase />
+      <hr className="section-glow-line" />
+      <FadeInSection>
+        <ProofSection />
+      </FadeInSection>
       <hr className="section-glow-line" />
       <FadeInSection>
         <EngagementModels />

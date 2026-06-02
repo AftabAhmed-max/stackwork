@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumière Salon — Hair &amp; Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#2b2724;
+    --ink:#3d3833;
+    --taupe:#8c7f72;
+    --blush:#e8d5cf;
+    --blush-soft:#f4eae6;
+    --cream:#faf6f2;
+    --cream-2:#f2ebe4;
+    --gold:#b08d57;
+    --gold-soft:#c9a86f;
+    --line:#e6ddd4;
+    --white:#ffffff;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Jost',-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:84px;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--cream);
+    line-height:1.65;font-weight:300;-webkit-font-smoothing:antialiased;}
+  img{display:block;width:100%;height:100%;object-fit:cover;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.1;color:var(--charcoal);}
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+  .eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:4px;text-transform:uppercase;
+    color:var(--gold);font-weight:500;margin-bottom:14px;}
+  .sec-head{text-align:center;margin-bottom:52px;}
+  .sec-head h2{font-size:46px;}
+  .sec-head p{color:var(--taupe);max-width:520px;margin:14px auto 0;font-size:16px;}
+
+  .btn{display:inline-block;font-family:var(--sans);font-size:13px;letter-spacing:2px;
+    text-transform:uppercase;padding:15px 34px;cursor:pointer;border:1px solid var(--charcoal);
+    transition:.25s;font-weight:400;}
+  .btn.fill{background:var(--charcoal);color:var(--cream);}
+  .btn.fill:hover{background:var(--gold);border-color:var(--gold);color:#fff;}
+  .btn.line{background:transparent;color:var(--charcoal);}
+  .btn.line:hover{background:var(--charcoal);color:var(--cream);}
+  .btn.gold{background:var(--gold);border-color:var(--gold);color:#fff;}
+  .btn.gold:hover{background:var(--charcoal);border-color:var(--charcoal);}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(250,246,242,.92);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:1140px;margin:0 auto;padding:18px 24px;display:flex;
+    align-items:center;justify-content:space-between;}
+  .brand-logo{display:flex;align-items:center;gap:11px;}
+  .brand-logo .mk{display:flex;flex-direction:column;gap:3px;}
+  .brand-logo .mk i{display:block;height:3px;border-radius:2px;background:var(--gold);}
+  .brand-logo .mk i:nth-child(1){width:26px;}
+  .brand-logo .mk i:nth-child(2){width:20px;opacity:.7;}
+  .brand-logo .mk i:nth-child(3){width:13px;opacity:.45;}
+  .brand-logo .name{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--charcoal);
+    letter-spacing:.5px;}
+  .brand-logo .name span{color:var(--gold);}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);
+    font-weight:400;transition:.2s;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-links a.book{padding:11px 26px;background:var(--charcoal);color:var(--cream);}
+  .nav-links a.book:hover{background:var(--gold);color:#fff;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
+  .burger span{width:24px;height:2px;background:var(--charcoal);}
+
+  /* HERO */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;}
+  .hero-bg::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(43,39,36,.72) 0%,rgba(43,39,36,.45) 50%,rgba(43,39,36,.25) 100%);}
+  .hero-bg img{filter:saturate(.85);}
+  .hero-content{position:relative;z-index:2;color:var(--cream);max-width:600px;padding:60px 0;}
+  .hero-content .eyebrow{color:var(--gold-soft);}
+  .hero-content h1{color:#fff;font-size:74px;font-weight:500;letter-spacing:1px;}
+  .hero-content h1 em{font-style:italic;color:var(--blush);font-weight:400;}
+  .hero-content p{font-size:18px;color:#efe6df;margin:22px 0 34px;max-width:480px;font-weight:300;}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
+  .hero .btn.line{color:#fff;border-color:rgba(255,255,255,.6);}
+  .hero .btn.line:hover{background:#fff;color:var(--charcoal);border-color:#fff;}
+
+  /* SERVICES */
+  section.pad{padding:96px 0;}
+  .bg-cream2{background:var(--cream-2);}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .svc-card{background:var(--white);border:1px solid var(--line);overflow:hidden;
+    transition:.3s;display:flex;flex-direction:column;}
+  .svc-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px -24px rgba(43,39,36,.4);}
+  .svc-card .ph{height:210px;overflow:hidden;}
+  .svc-card .ph img{transition:.6s;}
+  .svc-card:hover .ph img{transform:scale(1.06);}
+  .svc-body{padding:26px 24px 28px;flex:1;display:flex;flex-direction:column;}
+  .svc-body h3{font-size:27px;margin-bottom:8px;}
+  .svc-body p{color:var(--taupe);font-size:15px;flex:1;}
+  .svc-meta{display:flex;justify-content:space-between;align-items:center;margin-top:20px;
+    padding-top:18px;border-top:1px solid var(--line);}
+  .svc-meta .dur{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--taupe);}
+  .svc-meta .price{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--gold);}
+
+  /* STYLISTS */
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .stylist{text-align:center;}
+  .stylist .ph{aspect-ratio:3/4;overflow:hidden;margin-bottom:18px;position:relative;}
+  .stylist .ph img{transition:.6s;filter:grayscale(.15);}
+  .stylist:hover .ph img{transform:scale(1.05);filter:grayscale(0);}
+  .stylist h3{font-size:24px;}
+  .stylist .role{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);
+    margin-top:4px;}
+  .stylist .bio{font-size:14px;color:var(--taupe);margin-top:8px;}
+
+  /* BOOKING */
+  .booking{background:var(--charcoal);color:var(--cream);}
+  .booking .sec-head h2{color:#fff;}
+  .booking .sec-head p{color:#c4b8ac;}
+  .booking .eyebrow{color:var(--gold-soft);}
+  .book-wrap{max-width:760px;margin:0 auto;}
+  .stepper{display:flex;justify-content:center;gap:0;margin-bottom:42px;position:relative;}
+  .step-pill{flex:1;text-align:center;cursor:pointer;position:relative;padding-bottom:18px;}
+  .step-pill .n{width:42px;height:42px;line-height:40px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.3);display:inline-block;font-family:var(--serif);
+    font-size:19px;color:#c4b8ac;background:transparent;transition:.3s;}
+  .step-pill .lbl{display:block;margin-top:10px;font-size:12px;letter-spacing:1.5px;
+    text-transform:uppercase;color:#9d9087;transition:.3s;}
+  .step-pill::after{content:'';position:absolute;top:21px;left:50%;width:100%;height:1px;
+    background:rgba(255,255,255,.2);z-index:-0;}
+  .step-pill:last-child::after{display:none;}
+  .step-pill.active .n{background:var(--gold);border-color:var(--gold);color:#fff;}
+  .step-pill.active .lbl{color:#fff;}
+  .step-pill.done .n{background:var(--blush);border-color:var(--blush);color:var(--charcoal);}
+  .step-pill.done .lbl{color:#cfc4ba;}
+
+  .step-panel{background:var(--cream);color:var(--ink);padding:38px;min-height:300px;}
+  .step-panel h4{font-size:30px;margin-bottom:26px;text-align:center;}
+  .opt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .opt{border:1px solid var(--line);background:#fff;cursor:pointer;overflow:hidden;transition:.25s;}
+  .opt:hover{border-color:var(--gold);box-shadow:0 12px 28px -18px rgba(43,39,36,.5);}
+  .opt .ph{height:120px;overflow:hidden;}
+  .opt .ot{padding:14px 14px 16px;}
+  .opt .ot strong{font-family:var(--serif);font-size:19px;font-weight:600;display:block;color:var(--charcoal);}
+  .opt .ot span{font-size:13px;color:var(--gold);letter-spacing:.5px;}
+  .opt.styl{text-align:center;}
+  .opt.styl .ph{height:150px;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:420px;margin:0 auto 24px;}
+  .cal-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:15px;
+    border:1px solid var(--line);background:#fff;cursor:pointer;transition:.2s;color:var(--ink);}
+  .cal-cell.head{border:none;background:none;font-size:12px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--taupe);cursor:default;}
+  .cal-cell.muted{color:#cfc4ba;}
+  .cal-cell:not(.head):hover,.cal-cell.sel{background:var(--gold);color:#fff;border-color:var(--gold);}
+  .slot-label{text-align:center;font-size:13px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--taupe);margin-bottom:14px;}
+  .time-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  .time-slot{font-size:14px;padding:11px 20px;border:1px solid var(--line);background:#fff;
+    cursor:pointer;transition:.2s;letter-spacing:.5px;}
+  .time-slot:hover,.time-slot.sel{background:var(--gold);color:#fff;border-color:var(--gold);}
+  .confirm-line{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--line);
+    font-size:16px;}
+  .confirm-line .k{color:var(--taupe);letter-spacing:1px;text-transform:uppercase;font-size:13px;}
+  .confirm-line .v{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--charcoal);}
+  .confirm-line.total .v{color:var(--gold);font-size:24px;}
+  .step-actions{display:flex;justify-content:space-between;gap:14px;margin-top:30px;}
+  .booked-msg{text-align:center;padding:20px 0;}
+  .booked-msg .tick{width:64px;height:64px;border-radius:50%;background:var(--gold);color:#fff;
+    font-size:30px;line-height:64px;margin:0 auto 18px;}
+  .booked-msg p{color:var(--taupe);margin-top:8px;}
+
+  /* TESTIMONIALS */
+  .tst-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .tst{background:#fff;border:1px solid var(--line);padding:34px 30px;position:relative;}
+  .tst .mark{font-family:var(--serif);font-size:70px;line-height:.6;color:var(--blush);
+    position:absolute;top:24px;right:28px;}
+  .tst .stars{color:var(--gold);letter-spacing:3px;font-size:15px;margin-bottom:16px;}
+  .tst .quote{font-family:var(--serif);font-size:21px;font-style:italic;color:var(--ink);line-height:1.4;}
+  .tst .who{display:flex;align-items:center;gap:14px;margin-top:22px;}
+  .tst .who .av{width:50px;height:50px;border-radius:50%;overflow:hidden;flex-shrink:0;}
+  .tst .who strong{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--charcoal);display:block;}
+  .tst .who span{font-size:13px;color:var(--taupe);letter-spacing:.5px;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:0;border:1px solid var(--line);
+    overflow:hidden;background:#fff;}
+  .contact-map{min-height:480px;}
+  .contact-info{padding:48px;}
+  .contact-info h3{font-size:34px;margin-bottom:6px;}
+  .contact-info .eyebrow{margin-bottom:24px;}
+  .ci-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:22px;}
+  .ci-row .ico{width:38px;height:38px;border:1px solid var(--gold);color:var(--gold);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+  .ci-row .ci-t{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--taupe);}
+  .ci-row .ci-v{font-size:16px;color:var(--ink);}
+  .hours{margin-top:26px;border-top:1px solid var(--line);padding-top:22px;}
+  .hours h4{font-size:22px;margin-bottom:14px;}
+  .hours-row{display:flex;justify-content:space-between;padding:7px 0;font-size:15px;color:var(--ink);}
+  .hours-row span:first-child{color:var(--taupe);}
+  .hours-row .closed{color:var(--gold);}
+
+  /* FOOTER */
+  footer{background:var(--charcoal);color:#c4b8ac;padding:70px 0 30px;}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;}
+  .foot-col h5{font-family:var(--serif);font-size:21px;color:#fff;margin-bottom:18px;font-weight:600;}
+  .foot-col .name{font-family:var(--serif);font-size:30px;font-weight:600;color:#fff;}
+  .foot-col .name span{color:var(--gold-soft);}
+  .foot-col p{font-size:15px;margin-top:14px;max-width:280px;}
+  .foot-col ul{list-style:none;}
+  .foot-col ul li{margin-bottom:11px;}
+  .foot-col ul li a{font-size:15px;color:#c4b8ac;transition:.2s;}
+  .foot-col ul li a:hover{color:var(--gold-soft);}
+  .foot-bottom{max-width:1140px;margin:50px auto 0;padding:24px 24px 0;border-top:1px solid rgba(255,255,255,.12);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;letter-spacing:.5px;color:#9d9087;}
+  .foot-bottom .by span{color:var(--gold-soft);}
+
+  /* RESPONSIVE */
+  @media(max-width:920px){
+    .svc-grid,.tst-grid{grid-template-columns:repeat(2,1fr);}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .contact-map{min-height:300px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .hero-content h1{font-size:56px;}
+  }
+  @media(max-width:680px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;
+      gap:0;background:var(--cream);border-bottom:1px solid var(--line);padding:10px 0;}
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:14px 24px;width:100%;}
+    .nav-links a.book{background:transparent;color:var(--ink);}
+    .burger{display:flex;}
+    .svc-grid,.tst-grid,.team-grid,.opt-grid,.foot-grid{grid-template-columns:1fr;}
+    .sec-head h2{font-size:36px;}
+    .hero-content h1{font-size:46px;}
+    section.pad{padding:64px 0;}
+    .step-panel{padding:24px 18px;}
+    .step-pill .lbl{font-size:10px;letter-spacing:.5px;}
+    .contact-info{padding:32px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="brand-logo">
+      <span class="mk"><i></i><i></i><i></i></span>
+      <span class="name">Lumi<span>è</span>re</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero">Home</a>
+      <a href="#services">Services</a>
+      <a href="#stylists">Stylists</a>
+      <a href="#booking" class="book">Book Now</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="burger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=80" alt="Lumière Salon interior">
+  </div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="eyebrow">Hair · Beauty · Bridal</div>
+      <h1>Where you leave <em>luminous</em>.</h1>
+      <p>A boutique hair &amp; beauty studio in Bandra. Expert stylists, premium products, and a calm space designed entirely around you.</p>
+      <div class="hero-cta">
+        <a href="#booking" class="btn gold">Book Now</a>
+        <a href="#services" class="btn line">View Services</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SERVICES -->
+<section class="pad" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Our Menu</div>
+      <h2>Services &amp; Pricing</h2>
+      <p>Crafted treatments using salon-grade products. Every service includes a consultation.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=700&q=80" alt="Cut & style"></div>
+        <div class="svc-body">
+          <h3>Cut &amp; Blow-Dry</h3>
+          <p>Precision cut tailored to your face shape, finished with a salon blow-dry.</p>
+          <div class="svc-meta"><span class="dur">60 min</span><span class="price">₹1,400</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=700&q=80" alt="Hair colour"></div>
+        <div class="svc-body">
+          <h3>Colour &amp; Highlights</h3>
+          <p>Global colour, balayage, or face-framing highlights with bond protection.</p>
+          <div class="svc-meta"><span class="dur">120 min</span><span class="price">₹4,200</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&w=700&q=80" alt="Keratin treatment"></div>
+        <div class="svc-body">
+          <h3>Keratin Smoothening</h3>
+          <p>Frizz-free, glossy hair for up to four months with our keratin therapy.</p>
+          <div class="svc-meta"><span class="dur">150 min</span><span class="price">₹6,500</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=700&q=80" alt="Facial"></div>
+        <div class="svc-body">
+          <h3>Signature Facial</h3>
+          <p>Deep-cleanse, exfoliation and a hydrating mask for a radiant glow.</p>
+          <div class="svc-meta"><span class="dur">75 min</span><span class="price">₹2,800</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=700&q=80" alt="Manicure"></div>
+        <div class="svc-body">
+          <h3>Gel Manicure</h3>
+          <p>Long-lasting gel polish with cuticle care and a relaxing hand massage.</p>
+          <div class="svc-meta"><span class="dur">45 min</span><span class="price">₹1,100</span></div>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=700&q=80" alt="Bridal makeup"></div>
+        <div class="svc-body">
+          <h3>Bridal Package</h3>
+          <p>Complete bridal hair, HD makeup and draping with a pre-event trial.</p>
+          <div class="svc-meta"><span class="dur">By appt.</span><span class="price">₹18,000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STYLISTS -->
+<section class="pad bg-cream2" id="stylists">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">The Team</div>
+      <h2>Meet Our Stylists</h2>
+      <p>A small, senior team — so you see the same trusted hands every visit.</p>
+    </div>
+    <div class="team-grid">
+      <div class="stylist">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80" alt="Aanya Rao"></div>
+        <h3>Aanya Rao</h3>
+        <div class="role">Creative Director</div>
+        <p class="bio">Colour specialist · 12 yrs</p>
+      </div>
+      <div class="stylist">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=500&q=80" alt="Karan Mehta"></div>
+        <h3>Karan Mehta</h3>
+        <div class="role">Senior Stylist</div>
+        <p class="bio">Precision cuts · 9 yrs</p>
+      </div>
+      <div class="stylist">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=500&q=80" alt="Sara Pinto"></div>
+        <h3>Sara Pinto</h3>
+        <div class="role">Beauty Therapist</div>
+        <p class="bio">Skin &amp; facials · 7 yrs</p>
+      </div>
+      <div class="stylist">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" alt="Dev Sharma"></div>
+        <h3>Dev Sharma</h3>
+        <div class="role">Bridal Specialist</div>
+        <p class="bio">Hair &amp; makeup · 10 yrs</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="pad booking" id="booking">
+  <div class="wrap book-wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Reserve Your Spot</div>
+      <h2>Book an Appointment</h2>
+      <p>Four quick steps. Choose a service, pick your stylist, select a time, and you're set.</p>
+    </div>
+
+    <div class="stepper">
+      <div class="step-pill active" data-step="1" onclick="goStep(1)"><span class="n">1</span><span class="lbl">Service</span></div>
+      <div class="step-pill" data-step="2" onclick="goStep(2)"><span class="n">2</span><span class="lbl">Stylist</span></div>
+      <div class="step-pill" data-step="3" onclick="goStep(3)"><span class="n">3</span><span class="lbl">Date &amp; Time</span></div>
+      <div class="step-pill" data-step="4" onclick="goStep(4)"><span class="n">4</span><span class="lbl">Confirm</span></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step-panel" data-panel="1">
+      <h4>Choose a service</h4>
+      <div class="opt-grid">
+        <div class="opt" onclick="pick('svc','Cut & Blow-Dry','1400');goStep(2)">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=400&q=80" alt=""></div>
+          <div class="ot"><strong>Cut &amp; Blow-Dry</strong><span>₹1,400 · 60 min</span></div>
+        </div>
+        <div class="opt" onclick="pick('svc','Colour & Highlights','4200');goStep(2)">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80" alt=""></div>
+          <div class="ot"><strong>Colour &amp; Highlights</strong><span>₹4,200 · 120 min</span></div>
+        </div>
+        <div class="opt" onclick="pick('svc','Signature Facial','2800');goStep(2)">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=400&q=80" alt=""></div>
+          <div class="ot"><strong>Signature Facial</strong><span>₹2,800 · 75 min</span></div>
+        </div>
+      </div>
+      <div class="step-actions"><span></span><span class="btn gold" onclick="goStep(2)">Next</span></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-panel" data-panel="2" style="display:none;">
+      <h4>Choose your stylist</h4>
+      <div class="opt-grid">
+        <div class="opt styl" onclick="pick('styl','Aanya Rao');goStep(3)">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" alt=""></div>
+          <div class="ot"><strong>Aanya Rao</strong><span>Creative Director</span></div>
+        </div>
+        <div class="opt styl" onclick="pick('styl','Karan Mehta');goStep(3)">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&q=80" alt=""></div>
+          <div class="ot"><strong>Karan Mehta</strong><span>Senior Stylist</span></div>
+        </div>
+        <div class="opt styl" onclick="pick('styl','Sara Pinto');goStep(3)">
+          <div class="ph"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80" alt=""></div>
+          <div class="ot"><strong>Sara Pinto</strong><span>Beauty Therapist</span></div>
+        </div>
+      </div>
+      <div class="step-actions"><span class="btn line" style="color:var(--ink);" onclick="goStep(1)">Back</span><span class="btn gold" onclick="goStep(3)">Next</span></div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-panel" data-panel="3" style="display:none;">
+      <h4>Select a date &amp; time</h4>
+      <div class="cal-grid">
+        <div class="cal-cell head">M</div><div class="cal-cell head">T</div><div class="cal-cell head">W</div><div class="cal-cell head">T</div><div class="cal-cell head">F</div><div class="cal-cell head">S</div><div class="cal-cell head">S</div>
+        <div class="cal-cell muted">28</div><div class="cal-cell muted">29</div><div class="cal-cell muted">30</div><div class="cal-cell" onclick="pickDate(this,'1 Jun')">1</div><div class="cal-cell" onclick="pickDate(this,'2 Jun')">2</div><div class="cal-cell" onclick="pickDate(this,'3 Jun')">3</div><div class="cal-cell" onclick="pickDate(this,'4 Jun')">4</div>
+        <div class="cal-cell" onclick="pickDate(this,'5 Jun')">5</div><div class="cal-cell" onclick="pickDate(this,'6 Jun')">6</div><div class="cal-cell" onclick="pickDate(this,'7 Jun')">7</div><div class="cal-cell" onclick="pickDate(this,'8 Jun')">8</div><div class="cal-cell" onclick="pickDate(this,'9 Jun')">9</div><div class="cal-cell" onclick="pickDate(this,'10 Jun')">10</div><div class="cal-cell" onclick="pickDate(this,'11 Jun')">11</div>
+      </div>
+      <div class="slot-label">Available times</div>
+      <div class="time-row">
+        <span class="time-slot" onclick="pickTime(this,'09:00 AM');goStep(4)">09:00 AM</span>
+        <span class="time-slot" onclick="pickTime(this,'10:30 AM');goStep(4)">10:30 AM</span>
+        <span class="time-slot" onclick="pickTime(this,'12:00 PM');goStep(4)">12:00 PM</span>
+        <span class="time-slot" onclick="pickTime(this,'02:00 PM');goStep(4)">02:00 PM</span>
+        <span class="time-slot" onclick="pickTime(this,'03:30 PM');goStep(4)">03:30 PM</span>
+        <span class="time-slot" onclick="pickTime(this,'05:00 PM');goStep(4)">05:00 PM</span>
+      </div>
+      <div class="step-actions"><span class="btn line" style="color:var(--ink);" onclick="goStep(2)">Back</span><span class="btn gold" onclick="goStep(4)">Next</span></div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-panel" data-panel="4" style="display:none;">
+      <div id="confirmView">
+        <h4>Confirm your booking</h4>
+        <div class="confirm-line"><span class="k">Service</span><span class="v" id="cSvc">Cut &amp; Blow-Dry</span></div>
+        <div class="confirm-line"><span class="k">Stylist</span><span class="v" id="cStyl">Aanya Rao</span></div>
+        <div class="confirm-line"><span class="k">Date</span><span class="v" id="cDate">1 Jun</span></div>
+        <div class="confirm-line"><span class="k">Time</span><span class="v" id="cTime">10:30 AM</span></div>
+        <div class="confirm-line total"><span class="k">Total</span><span class="v" id="cPrice">₹1,400</span></div>
+        <div class="step-actions"><span class="btn line" style="color:var(--ink);" onclick="goStep(3)">Back</span><span class="btn gold" onclick="confirmBooking()">Confirm Booking</span></div>
+      </div>
+      <div class="booked-msg" id="bookedView" style="display:none;">
+        <div class="tick">✓</div>
+        <h4 style="margin-bottom:0;">You're booked!</h4>
+        <p>A confirmation has been sent to your email &amp; phone.<br>We can't wait to see you at Lumière.</p>
+        <div style="margin-top:24px;"><span class="btn gold" onclick="resetFlow()">Book Another</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="pad" id="testimonials">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Kind Words</div>
+      <h2>What Clients Say</h2>
+    </div>
+    <div class="tst-grid">
+      <div class="tst">
+        <div class="mark">”</div>
+        <div class="stars">★★★★★</div>
+        <p class="quote">Aanya completely transformed my balayage. I've never had so many compliments — and the head massage alone is worth the visit.</p>
+        <div class="who"><div class="av"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt=""></div><div><strong>Priya Nair</strong><span>Regular since 2022</span></div></div>
+      </div>
+      <div class="tst">
+        <div class="mark">”</div>
+        <div class="stars">★★★★★</div>
+        <p class="quote">Booked online in two minutes and got the exact slot I wanted. The bridal trial was flawless — my wedding hair held all night.</p>
+        <div class="who"><div class="av"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" alt=""></div><div><strong>Megha Iyer</strong><span>Bridal client</span></div></div>
+      </div>
+      <div class="tst">
+        <div class="mark">”</div>
+        <div class="stars">★★★★★</div>
+        <p class="quote">Calm space, no rush, genuinely skilled team. The keratin treatment changed my mornings — frizz-free for months.</p>
+        <div class="who"><div class="av"><img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=200&q=80" alt=""></div><div><strong>Ritu Shah</strong><span>Verified client</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="pad bg-cream2" id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Visit Us</div>
+      <h2>Find Lumière</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-map">
+        <iframe src="https://www.google.com/maps?q=Bandra+West+Mumbai&output=embed" width="100%" height="100%" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map"></iframe>
+      </div>
+      <div class="contact-info">
+        <div class="eyebrow">Get in Touch</div>
+        <div class="ci-row"><div class="ico">📍</div><div><div class="ci-t">Address</div><div class="ci-v">14 Hill Road, Bandra West, Mumbai 400050</div></div></div>
+        <div class="ci-row"><div class="ico">✆</div><div><div class="ci-t">Phone</div><div class="ci-v">+91 98200 12345</div></div></div>
+        <div class="ci-row"><div class="ico">✉</div><div><div class="ci-t">Email</div><div class="ci-v">hello@lumieresalon.in</div></div></div>
+        <div class="hours">
+          <h4>Opening Hours</h4>
+          <div class="hours-row"><span>Mon – Fri</span><span>10:00 AM – 8:00 PM</span></div>
+          <div class="hours-row"><span>Saturday</span><span>9:00 AM – 9:00 PM</span></div>
+          <div class="hours-row"><span>Sunday</span><span class="closed">Closed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="name">Lumi<span>è</span>re</div>
+        <p>A boutique hair &amp; beauty studio in Bandra, dedicated to making every guest leave luminous.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#stylists">Stylists</a></li>
+          <li><a href="#booking">Book Now</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Hair &amp; Colour</a></li>
+          <li><a href="#services">Facials &amp; Skin</a></li>
+          <li><a href="#services">Nails</a></li>
+          <li><a href="#services">Bridal</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Follow</h5>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Lumière Salon. All rights reserved.</span>
+      <span class="by">Sample by <span>Stackwork</span> · stackworkhq.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}
+  document.querySelectorAll('#navLinks a').forEach(a=>{
+    a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  const sel = {svc:'Cut & Blow-Dry', price:'1400', styl:'Aanya Rao', date:'1 Jun', time:'10:30 AM'};
+  function fmt(n){return '₹'+Number(n).toLocaleString('en-IN');}
+
+  function pick(type,val,price){
+    if(type==='svc'){sel.svc=val; if(price) sel.price=price;}
+    if(type==='styl'){sel.styl=val;}
+    syncConfirm();
+  }
+  function pickDate(el,val){
+    document.querySelectorAll('.cal-cell').forEach(c=>c.classList.remove('sel'));
+    el.classList.add('sel'); sel.date=val; syncConfirm();
+  }
+  function pickTime(el,val){
+    document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('sel'));
+    el.classList.add('sel'); sel.time=val; syncConfirm();
+  }
+  function syncConfirm(){
+    document.getElementById('cSvc').textContent=sel.svc;
+    document.getElementById('cStyl').textContent=sel.styl;
+    document.getElementById('cDate').textContent=sel.date;
+    document.getElementById('cTime').textContent=sel.time;
+    document.getElementById('cPrice').textContent=fmt(sel.price);
+  }
+
+  function goStep(n){
+    document.querySelectorAll('[data-panel]').forEach(p=>{
+      p.style.display=(+p.dataset.panel===n)?'block':'none';
+    });
+    document.querySelectorAll('.step-pill').forEach(p=>{
+      const s=+p.dataset.step; p.classList.remove('active','done');
+      if(s<n)p.classList.add('done'); else if(s===n)p.classList.add('active');
+    });
+    if(n===4){syncConfirm();
+      document.getElementById('confirmView').style.display='block';
+      document.getElementById('bookedView').style.display='none';
+    }
+  }
+  function confirmBooking(){
+    document.getElementById('confirmView').style.display='none';
+    document.getElementById('bookedView').style.display='block';
+  }
+  function resetFlow(){goStep(1);document.getElementById('booking').scrollIntoView({behavior:'smooth'});}
+</script>
+</body>
+</html>
