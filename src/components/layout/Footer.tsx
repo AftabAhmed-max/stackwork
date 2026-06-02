@@ -7,7 +7,7 @@
    - Bottom bar with copyright
    ============================================ */
 import Link from 'next/link'
-import { Mail, MapPin, ArrowUpRight, MessageSquare } from 'lucide-react'
+import { Mail, MapPin, ArrowUpRight, MessageSquare, Camera, MessageCircle } from 'lucide-react'
 
 /* ---- Footer Nav Links ---- */
 const footerNav = [
@@ -217,6 +217,45 @@ export default function Footer() {
             <MapPin size={14} style={{ marginTop: '3px', flexShrink: 0 }} />
             <span>India & Gulf Region</span>
           </div>
+
+          {/* Social / contact icons */}
+          <p style={{
+            fontFamily:    'var(--font-body)',
+            fontSize:      '12px',
+            color:         '#6B7280',
+            letterSpacing: '1px',
+            textTransform: 'uppercase' as const,
+            marginTop:     '16px',
+            marginBottom:  '4px',
+          }}>
+            Follow us
+          </p>
+
+          {/* Instagram */}
+          <a
+            href="https://instagram.com/stackwork.digital"
+            target="_blank"
+            rel="noreferrer"
+            style={{ ...linkStyle, display: 'flex', alignItems: 'center', gap: '8px' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#FF6B35')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#888888')}
+          >
+            <Camera size={14} />
+            Instagram
+          </a>
+
+          {/* WhatsApp */}
+          <a
+            href="https://wa.me/919905800700"
+            target="_blank"
+            rel="noreferrer"
+            style={{ ...linkStyle, display: 'flex', alignItems: 'center', gap: '8px' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#FF6B35')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#888888')}
+          >
+            <MessageCircle size={14} />
+            WhatsApp
+          </a>
 
           {/* CTA */}
           <Link
