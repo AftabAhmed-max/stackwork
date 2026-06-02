@@ -71,11 +71,10 @@ export default function ProofSection() {
   }, [])
 
   const kitImages = [
-    { src: '/samples/preview/forge_logo_kit1.png',        alt: 'Forge logo — direction one' },
-    { src: '/samples/preview/forge_card_front_kit1.png',  alt: 'Forge business card — direction one' },
-    { src: '/samples/preview/forge_social_post_kit1.png', alt: 'Forge social post — direction one' },
-    { src: '/samples/preview/forge_logo_kit2.png',        alt: 'Forge logo — direction two' },
-    { src: '/samples/preview/forge_social_post_kit2.png', alt: 'Forge social post — direction two' },
+    { src: '/samples/preview/forge_logo_kit1.png',       alt: 'Forge logo — direction one' },
+    { src: '/samples/preview/forge_card_front_kit1.png', alt: 'Forge business card front' },
+    { src: '/samples/preview/forge_logo_kit2.png',       alt: 'Forge logo — direction two' },
+    { src: '/samples/preview/forge_card_back_kit1.png',  alt: 'Forge business card back' },
   ]
 
   const kitIncludes = [
@@ -349,24 +348,26 @@ export default function ProofSection() {
             </p>
             <div style={{
               display:             'grid',
-              gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr',
+              gridAutoRows:        isMobile ? 'auto' : '1fr',
               gap:                 '10px',
             }}>
               {kitImages.map((img) => (
                 <div key={img.src} style={{
                   position:        'relative',
-                  aspectRatio:     '1 / 1',
+                  aspectRatio:     isMobile ? '1 / 1' : undefined,
+                  minHeight:       isMobile ? undefined : '120px',
                   borderRadius:    '10px',
                   overflow:        'hidden',
                   border:          '1px solid rgba(255,255,255,0.08)',
                   backgroundColor: 'rgba(13,27,62,0.4)',
-                  padding:         '14px',
+                  padding:         '16px',
                 }}>
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
-                    sizes="(max-width: 900px) 50vw, 200px"
+                    sizes="(max-width: 900px) 100vw, 300px"
                     style={{ objectFit: 'contain' }}
                   />
                 </div>
