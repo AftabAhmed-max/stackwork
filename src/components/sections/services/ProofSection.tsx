@@ -70,11 +70,9 @@ export default function ProofSection() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const kitImages = [
-    { src: '/samples/preview/forge_logo_kit1.png',       alt: 'Forge logo — direction one' },
-    { src: '/samples/preview/forge_card_front_kit1.png', alt: 'Forge business card front' },
-    { src: '/samples/preview/forge_logo_kit2.png',       alt: 'Forge logo — direction two' },
-    { src: '/samples/preview/forge_card_back_kit1.png',  alt: 'Forge business card back' },
+  const logoImages = [
+    { src: '/samples/preview/forge_logo_kit1.png', alt: 'Forge logo — direction one' },
+    { src: '/samples/preview/forge_logo_kit2.png', alt: 'Forge logo — direction two' },
   ]
 
   const kitIncludes = [
@@ -348,15 +346,15 @@ export default function ProofSection() {
             </p>
             <div style={{
               display:             'grid',
-              gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr 1.6fr',
               gridAutoRows:        isMobile ? 'auto' : '1fr',
               gap:                 '10px',
             }}>
-              {kitImages.map((img) => (
+              {/* Left column — two stacked logos */}
+              {logoImages.map((img) => (
                 <div key={img.src} style={{
                   position:        'relative',
-                  aspectRatio:     isMobile ? '1 / 1' : undefined,
-                  minHeight:       isMobile ? undefined : '120px',
+                  aspectRatio:     '1 / 1',
                   borderRadius:    '10px',
                   overflow:        'hidden',
                   border:          '1px solid rgba(255,255,255,0.08)',
@@ -367,11 +365,32 @@ export default function ProofSection() {
                     src={img.src}
                     alt={img.alt}
                     fill
-                    sizes="(max-width: 900px) 100vw, 300px"
+                    sizes="(max-width: 900px) 100vw, 180px"
                     style={{ objectFit: 'contain' }}
                   />
                 </div>
               ))}
+
+              {/* Right column — business card spanning both rows */}
+              <div style={{
+                position:        'relative',
+                gridColumn:      isMobile ? 'auto' : '2',
+                gridRow:         isMobile ? 'auto' : 'span 2',
+                aspectRatio:     isMobile ? '1050 / 600' : undefined,
+                borderRadius:    '10px',
+                overflow:        'hidden',
+                border:          '1px solid rgba(255,255,255,0.08)',
+                backgroundColor: 'rgba(13,27,62,0.4)',
+                padding:         '16px',
+              }}>
+                <Image
+                  src="/samples/preview/forge_card_front_kit1.png"
+                  alt="Forge business card front"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 320px"
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
             </div>
           </div>
         </div>
