@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge — Brand Starter Kit 2: Luxury Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --champagne: #E5C282;
+    --champagne-deep: #C9A05C;
+    --obsidian: #0D0A07;
+    --ink: #1C1610;
+    --smoke: #2C2418;
+    --cream: #F5EDD8;
+    --warm-grey: #8A7D6A;
+    --copper: #B87333;
+    --ivory: #FBF6EC;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--obsidian);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--obsidian);
+    border-bottom: 1px solid var(--champagne-deep);
+    padding: 0 48px;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { 
+    font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 8px; 
+    color: var(--champagne); font-weight: 400;
+  }
+  .nav-dir { 
+    font-family: 'Cormorant Garamond', serif; font-size: 13px; 
+    font-style: italic; color: var(--warm-grey); letter-spacing: 2px; 
+  }
+  .nav-badge { 
+    font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px;
+    color: var(--obsidian); background: var(--champagne);
+    padding: 5px 14px; 
+  }
+
+  /* HEADER */
+  .kit-header {
+    background: var(--obsidian);
+    padding: 120px 80px 100px;
+    border-bottom: 1px solid var(--smoke);
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  .kit-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(229,194,130,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-ornament { 
+    font-family: 'Cormorant Garamond', serif; font-size: 13px; 
+    color: var(--champagne); letter-spacing: 8px; 
+    text-transform: uppercase; margin-bottom: 32px; 
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+  }
+  .header-ornament::before, .header-ornament::after {
+    content: ''; flex: 1; max-width: 100px;
+    height: 1px; background: linear-gradient(90deg, transparent, var(--champagne));
+  }
+  .header-ornament::after { background: linear-gradient(90deg, var(--champagne), transparent); }
+  .header-wordmark { 
+    font-family: 'Playfair Display', serif; font-size: 120px; 
+    font-weight: 900; letter-spacing: 20px; color: var(--champagne);
+    line-height: 1; text-transform: uppercase;
+  }
+  .header-rule { 
+    width: 80px; height: 1px; background: var(--champagne); 
+    margin: 28px auto; 
+  }
+  .header-tagline { 
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 22px; color: var(--warm-grey); letter-spacing: 4px; 
+  }
+  .header-direction { 
+    margin-top: 40px;
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 6px;
+    color: var(--champagne-deep); text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  section { 
+    padding: 80px 80px; 
+    border-bottom: 1px solid var(--smoke); 
+    max-width: 1200px; margin: 0 auto; 
+  }
+  .section-label { 
+    font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 6px; 
+    text-transform: uppercase; color: var(--champagne-deep); margin-bottom: 10px; 
+  }
+  .section-title { 
+    font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700;
+    color: var(--champagne); margin-bottom: 48px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .section-title::after { 
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--champagne-deep), transparent); 
+  }
+
+  /* SWATCHES */
+  .swatches { display: flex; gap: 2px; }
+  .swatch {
+    flex: 1; height: 140px; cursor: pointer;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 14px; position: relative;
+    transition: transform 0.2s ease;
+  }
+  .swatch:hover { transform: translateY(-6px); }
+  .swatch span { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 1px; }
+  .swatch .hex { font-size: 11px; opacity: 0.6; margin-top: 3px; font-family: monospace; }
+  .swatch .copied { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(13,10,7,0.9); color: var(--champagne); font-size: 11px; padding: 6px 12px; opacity: 0; transition: opacity 0.2s; pointer-events: none; font-family: 'Cinzel', serif; letter-spacing: 3px; }
+  .swatch.flash .copied { opacity: 1; }
+
+  /* TYPOGRAPHY */
+  .font-block { margin-bottom: 32px; }
+  .font-card { background: var(--ink); padding: 48px; border: 1px solid var(--smoke); }
+  .font-meta { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 5px; text-transform: uppercase; color: var(--champagne); margin-bottom: 20px; }
+  .heading-sample { font-family: 'Playfair Display', serif; font-size: 68px; font-weight: 700; font-style: italic; color: var(--champagne); line-height: 1; }
+  .body-sample { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--cream); line-height: 1.8; max-width: 560px; }
+  table.type-scale { width: 100%; border-collapse: collapse; margin-top: 40px; }
+  table.type-scale th { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--champagne); padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--smoke); }
+  table.type-scale td { padding: 14px 16px; border-bottom: 1px solid var(--smoke); font-size: 13px; color: var(--warm-grey); font-family: 'Cormorant Garamond', serif; }
+  table.type-scale td:first-child { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--cream); font-style: italic; }
+
+  /* FAVICON */
+  .favicon-row { display: flex; gap: 56px; align-items: flex-end; margin-bottom: 40px; }
+  .favicon-item { text-align: center; }
+  .fav-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 3px; color: var(--warm-grey); text-transform: uppercase; margin-top: 14px; }
+  .browser-tab { background: var(--ink); border: 1px solid var(--smoke); border-bottom: none; border-radius: 8px 8px 0 0; padding: 9px 18px; display: inline-flex; align-items: center; gap: 10px; margin-top: 32px; }
+  .browser-tab span { font-size: 12px; color: var(--warm-grey); font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+  /* HERO */
+  .hero-mock {
+    background: linear-gradient(160deg, #0D0A07 0%, #1A1208 40%, #100D08 100%);
+    border: 1px solid var(--smoke);
+    padding: 100px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-mock::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(184,115,51,0.08) 0%, transparent 60%);
+  }
+  .hero-pretext { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 7px; text-transform: uppercase; color: var(--champagne-deep); margin-bottom: 28px; }
+  .hero-headline { font-family: 'Playfair Display', serif; font-size: 76px; font-weight: 900; font-style: italic; line-height: 1; color: var(--champagne); margin-bottom: 28px; }
+  .hero-sub { font-size: 17px; font-style: italic; color: var(--warm-grey); max-width: 400px; line-height: 1.8; margin-bottom: 44px; }
+  .hero-actions { display: flex; gap: 20px; align-items: center; }
+  .btn-gold { background: linear-gradient(135deg, var(--champagne), var(--champagne-deep)); color: var(--obsidian); font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; padding: 15px 36px; border: none; cursor: pointer; }
+  .btn-ghost { background: transparent; color: var(--champagne); font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; padding: 14px 36px; border: 1px solid var(--champagne-deep); cursor: pointer; }
+  .product-card { background: var(--ink); border: 1px solid var(--smoke); width: 220px; margin-top: 60px; }
+  .product-img-area { height: 200px; background: linear-gradient(160deg, #2A1E0A 0%, #1A1208 100%); display: flex; align-items: center; justify-content: center; }
+  .product-bottle { width: 60px; height: 110px; background: linear-gradient(180deg, var(--champagne) 0%, var(--copper) 100%); border-radius: 30px 30px 6px 6px; display: flex; align-items: center; justify-content: center; }
+  .product-bottle span { font-family: 'Cormorant Garamond', serif; font-size: 9px; letter-spacing: 1px; color: var(--obsidian); writing-mode: vertical-rl; font-style: italic; }
+  .product-details { padding: 20px; border-top: 1px solid var(--smoke); }
+  .product-name { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; color: var(--cream); }
+  .product-sub { font-size: 11px; color: var(--warm-grey); margin-top: 5px; letter-spacing: 1px; }
+  .product-price { font-family: 'Cinzel', serif; font-size: 20px; color: var(--champagne); margin-top: 12px; }
+
+  /* LOGO */
+  .logo-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .logo-card { background: var(--ink); padding: 40px; border: 1px solid var(--smoke); }
+  .logo-card.dont-card { border-color: #6B2A2A; }
+  .logo-label { font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 24px; }
+  .logo-label.ok { color: var(--champagne); }
+  .logo-label.no { color: #C45A5A; }
+  .logo-area { background: var(--obsidian); padding: 36px; display: flex; align-items: center; justify-content: center; min-height: 120px; }
+  .logo-area.on-cream { background: var(--ivory); }
+  .logo-wm { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; letter-spacing: 10px; text-transform: uppercase; }
+  .rule-list { margin-top: 20px; }
+  .rule-list li { list-style: none; padding-left: 20px; position: relative; font-size: 14px; font-style: italic; color: var(--warm-grey); margin-bottom: 8px; line-height: 1.6; }
+  .rule-list li::before { content: '›'; position: absolute; left: 0; color: var(--champagne); }
+  .logo-card.dont-card .rule-list li::before { color: #C45A5A; }
+
+  /* FOOTER */
+  footer {
+    background: var(--obsidian);
+    border-top: 1px solid var(--champagne-deep);
+    padding: 48px 80px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand { font-family: 'Cinzel', serif; font-size: 18px; letter-spacing: 8px; color: var(--champagne); }
+  .footer-by { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--warm-grey); margin-bottom: 6px; }
+  .footer-info { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--warm-grey); text-align: right; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">FORGE</div>
+  <div class="nav-dir">Direction: Luxury Editorial</div>
+  <div class="nav-badge">KIT 02</div>
+</nav>
+
+<div class="kit-header">
+  <div class="header-ornament">Brand Starter Kit · Kit 2 of 3</div>
+  <div class="header-wordmark">FORGE</div>
+  <div class="header-rule"></div>
+  <div class="header-tagline">Built for the modern man.</div>
+  <div class="header-direction">Direction: Luxury Editorial</div>
+</div>
+
+<section>
+  <div class="section-label">Section 01</div>
+  <div class="section-title">Colour Palette</div>
+  <div class="swatches">
+    <div class="swatch" style="background:#E5C282;color:#1C1610" onclick="copyHex(this,'#E5C282')">
+      <span>Champagne</span><span class="hex">#E5C282</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#0D0A07;color:#8A7D6A" onclick="copyHex(this,'#0D0A07')">
+      <span>Obsidian</span><span class="hex">#0D0A07</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#1C1610;color:#8A7D6A" onclick="copyHex(this,'#1C1610')">
+      <span>Ink</span><span class="hex">#1C1610</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#F5EDD8;color:#1C1610" onclick="copyHex(this,'#F5EDD8')">
+      <span>Cream</span><span class="hex">#F5EDD8</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#B87333;color:#FBF6EC" onclick="copyHex(this,'#B87333')">
+      <span>Copper</span><span class="hex">#B87333</span>
+      <div class="copied">Copied</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Section 02</div>
+  <div class="section-title">Typography</div>
+  <div class="font-card" style="margin-bottom:24px">
+    <div class="font-meta">Display — Playfair Display Bold Italic</div>
+    <div class="heading-sample">The Ritual of<br>Refinement</div>
+  </div>
+  <div class="font-card">
+    <div class="font-meta">Body — Cormorant Garamond Light</div>
+    <div class="body-sample">The pursuit of excellence requires discipline, discernment, and the right tools. Forge exists at the intersection of heritage craft and modern precision — for the man who holds himself to a higher standard.</div>
+  </div>
+  <table class="type-scale">
+    <tr><th>Style</th><th>Font</th><th>Size</th><th>Weight</th><th>Use</th></tr>
+    <tr><td>Display XL</td><td>Playfair Display</td><td>96px</td><td>900 Italic</td><td>Hero</td></tr>
+    <tr><td>Display L</td><td>Playfair Display</td><td>60px</td><td>700</td><td>Section headers</td></tr>
+    <tr><td>Serif M</td><td>Playfair Display</td><td>32px</td><td>700 Italic</td><td>Pull quotes</td></tr>
+    <tr><td>Cinzel Label</td><td>Cinzel</td><td>10px</td><td>400</td><td>Eyebrows, nav</td></tr>
+    <tr><td>Body</td><td>Cormorant Garamond</td><td>18px</td><td>300</td><td>Paragraphs</td></tr>
+    <tr><td>Caption</td><td>Cormorant Garamond</td><td>13px</td><td>300 Italic</td><td>Fine print</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Section 03</div>
+  <div class="section-title">Favicon Preview</div>
+  <div class="favicon-row">
+    <div class="favicon-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+        <rect width="64" height="64" fill="#0D0A07"/>
+        <circle cx="32" cy="32" r="29" fill="none" stroke="#E5C282" stroke-width="1.5"/>
+        <text x="32" y="47" font-family="Georgia,serif" font-size="42" font-weight="700" text-anchor="middle" fill="#E5C282" font-style="italic">F</text>
+      </svg>
+      <div class="fav-label">64px</div>
+    </div>
+    <div class="favicon-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+        <rect width="64" height="64" fill="#0D0A07"/>
+        <circle cx="32" cy="32" r="29" fill="none" stroke="#E5C282" stroke-width="1.5"/>
+        <text x="32" y="47" font-family="Georgia,serif" font-size="42" font-weight="700" text-anchor="middle" fill="#E5C282" font-style="italic">F</text>
+      </svg>
+      <div class="fav-label">32px</div>
+    </div>
+    <div class="favicon-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+        <rect width="64" height="64" fill="#0D0A07"/>
+        <circle cx="32" cy="32" r="29" fill="none" stroke="#E5C282" stroke-width="1.5"/>
+        <text x="32" y="47" font-family="Georgia,serif" font-size="42" font-weight="700" text-anchor="middle" fill="#E5C282" font-style="italic">F</text>
+      </svg>
+      <div class="fav-label">16px</div>
+    </div>
+  </div>
+  <div class="browser-tab">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect width="64" height="64" fill="#0D0A07"/>
+      <circle cx="32" cy="32" r="29" fill="none" stroke="#E5C282" stroke-width="1.5"/>
+      <text x="32" y="47" font-family="Georgia,serif" font-size="42" font-weight="700" text-anchor="middle" fill="#E5C282" font-style="italic">F</text>
+    </svg>
+    <span>Forge — Built for the modern man.</span>
+    <span style="margin-left:20px;opacity:0.3">✕</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Section 04</div>
+  <div class="section-title">Brand in Action</div>
+  <div class="hero-mock">
+    <div class="hero-pretext">The Autumn Collection · 2025</div>
+    <div class="hero-headline">Where<br>Precision<br>Meets<br>Legacy</div>
+    <div class="hero-sub">Curated grooming essentials, formulated for the man who understands that true refinement is never accidental.</div>
+    <div class="hero-actions">
+      <button class="btn-gold">Explore Collection</button>
+      <button class="btn-ghost">Our Philosophy</button>
+    </div>
+  </div>
+  <div style="padding:40px;background:var(--ink);border:1px solid var(--smoke);border-top:none;display:flex;gap:40px;align-items:flex-start">
+    <div class="product-card">
+      <div class="product-img-area">
+        <div class="product-bottle"><span>FORGE</span></div>
+      </div>
+      <div class="product-details">
+        <div class="product-name">Élite Beard Oil</div>
+        <div class="product-sub">30ml · Oud & Amber</div>
+        <div class="product-price">₹2,400</div>
+      </div>
+    </div>
+    <div style="padding-top:8px">
+      <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:5px;color:var(--champagne);text-transform:uppercase;margin-bottom:16px">Product Card</div>
+      <p style="font-size:15px;font-style:italic;color:var(--warm-grey);line-height:1.8;max-width:360px">Product cards carry the warm ink surface. Product name in Playfair italic, price in Cinzel for a crisp typographic contrast. Bottle illustration uses the champagne-to-copper gradient.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Section 05</div>
+  <div class="section-title">Logo &amp; Usage Rules</div>
+  <div class="logo-pair">
+    <div class="logo-card">
+      <div class="logo-label ok">✓ &nbsp; Do</div>
+      <div class="logo-area">
+        <div class="logo-wm" style="color:var(--champagne)">FORGE</div>
+      </div>
+      <ul class="rule-list">
+        <li>Champagne wordmark on obsidian — primary lockup</li>
+        <li>Playfair Display is the only permitted font</li>
+        <li>Wide letter-spacing (10px+) is non-negotiable</li>
+        <li>Minimum clear space: 48px all sides</li>
+      </ul>
+    </div>
+    <div class="logo-card">
+      <div class="logo-label ok">✓ &nbsp; Do (Cream BG)</div>
+      <div class="logo-area on-cream">
+        <div class="logo-wm" style="color:var(--ink)">FORGE</div>
+      </div>
+      <ul class="rule-list">
+        <li>Ink-on-cream for packaging and print</li>
+        <li>Never use the champagne color on cream</li>
+        <li>Copper accent line may be added below on print</li>
+        <li>Minimum size: 100px wide for digital</li>
+      </ul>
+    </div>
+    <div class="logo-card dont-card">
+      <div class="logo-label no">✕ &nbsp; Don't</div>
+      <div class="logo-area">
+        <div class="logo-wm" style="color:var(--champagne);transform:scaleX(0.7)">FORGE</div>
+      </div>
+      <ul class="rule-list">
+        <li>Never compress or stretch the wordmark</li>
+        <li>Never alter the tracking — condensed looks cheap</li>
+        <li>Never apply drop shadows or embossing effects</li>
+      </ul>
+    </div>
+    <div class="logo-card dont-card">
+      <div class="logo-label no">✕ &nbsp; Don't</div>
+      <div class="logo-area">
+        <div class="logo-wm" style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--copper);font-size:40px">Forge</div>
+      </div>
+      <ul class="rule-list">
+        <li>Never use the body font for the wordmark</li>
+        <li>Mixed case is not permitted under any application</li>
+        <li>Copper is an accent only — not for the primary mark</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-by">Brand Starter Kit by</div>
+    <div class="footer-brand">STACKWORK</div>
+  </div>
+  <div class="footer-info">
+    Forge Men's Grooming<br>
+    Kit 02 — Luxury Editorial<br>
+    © 2025 Stackwork. All rights reserved.
+  </div>
+</footer>
+
+<script>
+function copyHex(el, hex) {
+  navigator.clipboard.writeText(hex).then(() => {
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 1200);
+  });
+}
+</script>
+</body>
+</html>
+<!-- INJECTED SECTIONS: SOCIAL MEDIA KIT + BUSINESS CARD -->
+<style>
+  .asset-grid2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .asset-card2 { background: var(--ink); border: 1px solid var(--smoke); overflow: hidden; }
+  .asset-card2 img { width: 100%; display: block; }
+  .asset-card2-meta { padding: 16px; border-top: 1px solid var(--smoke); }
+  .asset-card2-name { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--champagne); }
+  .asset-card2-dim { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--warm-grey); margin-top: 4px; }
+  .card-pair2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 0; }
+  .biz-wrap2 img { width: 100%; display: block; border: 1px solid var(--smoke); box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+  .biz-label2 { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--champagne-deep); margin-top: 14px; }
+  .biz-dim2 { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--warm-grey); margin-top: 3px; }
+</style>
+
+<section>
+  <div class="section-label">Section 06</div>
+  <div class="section-title">Social Media Kit</div>
+  <div class="asset-grid2">
+    <div class="asset-card2">
+      <img src="forge_social_profile_kit2.png" alt="Profile Picture">
+      <div class="asset-card2-meta">
+        <div class="asset-card2-name">Profile Picture</div>
+        <div class="asset-card2-dim">800 × 800px · Square</div>
+      </div>
+    </div>
+    <div class="asset-card2">
+      <img src="forge_social_post_kit2.png" alt="Post Template">
+      <div class="asset-card2-meta">
+        <div class="asset-card2-name">Post Template</div>
+        <div class="asset-card2-dim">1080 × 1080px · Square</div>
+      </div>
+    </div>
+    <div class="asset-card2">
+      <img src="forge_social_banner_kit2.png" alt="Banner">
+      <div class="asset-card2-meta">
+        <div class="asset-card2-name">Cover Banner</div>
+        <div class="asset-card2-dim">1500 × 500px</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:20px" class="asset-card2">
+    <img src="forge_social_banner_kit2.png" alt="Banner Full">
+    <div class="asset-card2-meta">
+      <div class="asset-card2-name">Cover Banner — Full Preview</div>
+      <div class="asset-card2-dim">LinkedIn · Twitter · Facebook · 1500 × 500px</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Section 07</div>
+  <div class="section-title">Business Card</div>
+  <div class="card-pair2">
+    <div class="biz-wrap2">
+      <img src="forge_card_front_kit2.png" alt="Business Card Front">
+      <div class="biz-label2">Front</div>
+      <div class="biz-dim2">3.5 × 2 in · 1050 × 600px · 300dpi</div>
+    </div>
+    <div class="biz-wrap2">
+      <img src="forge_card_back_kit2.png" alt="Business Card Back">
+      <div class="biz-label2">Back</div>
+      <div class="biz-dim2">3.5 × 2 in · 1050 × 600px · 300dpi</div>
+    </div>
+  </div>
+</section>

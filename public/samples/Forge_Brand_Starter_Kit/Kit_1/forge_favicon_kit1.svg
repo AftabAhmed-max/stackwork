@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" fill="#1A1A1A"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#C4913C" stroke-width="2"/>
+  <text x="32" y="48" font-family="'Bebas Neue', serif" font-size="46" font-weight="900" 
+        text-anchor="middle" fill="#C4913C" letter-spacing="2">F</text>
+</svg>

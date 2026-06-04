@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge — Brand Starter Kit 1: Industrial Raw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C4913C;
+    --gold-light: #E0B060;
+    --gold-dark: #9A6E2A;
+    --bg: #111111;
+    --bg2: #1A1A1A;
+    --bg3: #222222;
+    --text: #E8E0D4;
+    --muted: #888880;
+    --border: #2E2E2E;
+    --accent: #D64A2A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #0A0A0A;
+    border-bottom: 1px solid var(--gold);
+    padding: 0 40px;
+    height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .brand { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--gold); letter-spacing: 3px; }
+  nav .direction { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: var(--muted); letter-spacing: 4px; text-transform: uppercase; }
+  nav .kit-badge {
+    background: var(--gold); color: #000; font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; padding: 4px 12px; letter-spacing: 2px;
+  }
+
+  /* SECTIONS */
+  section { padding: 80px 60px; border-bottom: 1px solid var(--border); max-width: 1100px; margin: 0 auto; }
+
+  /* KIT HEADER */
+  .kit-header {
+    max-width: 100%;
+    background: var(--bg);
+    padding: 100px 60px 80px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .kit-header::before {
+    content: 'FORGE';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 300px;
+    color: rgba(196,145,60,0.04);
+    top: -40px; left: -20px;
+    letter-spacing: -10px;
+    line-height: 1;
+    user-select: none;
+  }
+  .kit-header .meta { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .kit-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 110px; letter-spacing: 8px; line-height: 0.9; color: var(--text); }
+  .kit-header .tagline { font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 300; color: var(--muted); margin-top: 20px; letter-spacing: 3px; text-transform: uppercase; }
+  .kit-header .direction-pill {
+    display: inline-block; margin-top: 32px;
+    border: 1px solid var(--gold); color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; letter-spacing: 4px;
+    padding: 8px 24px; text-transform: uppercase;
+  }
+
+  /* SECTION HEADERS */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; letter-spacing: 4px;
+    color: var(--text); margin-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+  }
+
+  /* COLOR PALETTE */
+  .swatches { display: flex; gap: 0; }
+  .swatch {
+    flex: 1; height: 120px; cursor: pointer;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 12px; position: relative;
+    transition: transform 0.15s ease;
+  }
+  .swatch:hover { transform: scaleY(1.05); transform-origin: bottom; z-index: 2; }
+  .swatch span { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .swatch .hex { font-size: 10px; opacity: 0.7; margin-top: 2px; }
+  .swatch .copied {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    background: rgba(0,0,0,0.8); color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px;
+    padding: 6px 12px; opacity: 0; transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .swatch.flash .copied { opacity: 1; }
+
+  /* TYPOGRAPHY */
+  .font-specimen {
+    background: var(--bg2); padding: 40px;
+    border-left: 3px solid var(--gold); margin-bottom: 24px;
+  }
+  .font-meta { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .heading-specimen { font-family: 'Bebas Neue', sans-serif; font-size: 72px; letter-spacing: 5px; color: var(--text); line-height: 1; }
+  .body-specimen { font-family: 'Barlow', sans-serif; font-size: 18px; font-weight: 300; color: var(--text); line-height: 1.7; max-width: 560px; }
+  .type-scale { width: 100%; border-collapse: collapse; margin-top: 32px; }
+  .type-scale th { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+  .type-scale td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); }
+  .type-scale td:first-child { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--text); letter-spacing: 2px; }
+
+  /* FAVICON */
+  .favicon-grid { display: flex; gap: 48px; align-items: flex-end; margin-bottom: 40px; }
+  .favicon-item { text-align: center; }
+  .favicon-item .fav-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-top: 12px; }
+  .favicon-svg { display: inline-block; }
+  .tab-preview {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 8px 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 32px;
+  }
+  .tab-preview span { font-size: 12px; color: var(--muted); font-family: 'Barlow', sans-serif; }
+
+  /* BRAND IN ACTION */
+  .hero-mock {
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1208 50%, #0F0B05 100%);
+    border: 1px solid var(--border);
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-mock::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(196,145,60,0.015) 2px, rgba(196,145,60,0.015) 4px);
+    pointer-events: none;
+  }
+  .hero-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: 80px; letter-spacing: 5px; line-height: 0.95; color: var(--text); margin-bottom: 24px; }
+  .hero-subtext { font-size: 15px; color: var(--muted); font-weight: 300; max-width: 420px; line-height: 1.7; margin-bottom: 40px; }
+  .hero-btns { display: flex; gap: 16px; }
+  .btn-primary {
+    background: var(--gold); color: #000;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 14px 32px; border: none; cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent; color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+    letter-spacing: 3px; text-transform: uppercase;
+    padding: 14px 32px; border: 1px solid var(--gold); cursor: pointer;
+  }
+  .product-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    width: 240px; margin-top: 60px;
+    overflow: hidden;
+  }
+  .product-img {
+    height: 200px;
+    background: linear-gradient(160deg, #2A1E0A 0%, #1A1208 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .product-img-inner {
+    width: 80px; height: 120px;
+    background: linear-gradient(180deg, #C4913C 0%, #9A6E2A 100%);
+    border-radius: 4px 4px 40px 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 12px;
+    letter-spacing: 2px; color: #000; writing-mode: vertical-rl;
+  }
+  .product-info { padding: 16px; }
+  .product-name { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
+  .product-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--gold); margin-top: 12px; }
+
+  /* LOGO USAGE */
+  .logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .logo-box {
+    background: var(--bg2); padding: 40px;
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+  }
+  .logo-box.dont { border-color: var(--accent); }
+  .logo-rule-label {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 10px;
+    letter-spacing: 4px; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .logo-rule-label.do { color: var(--gold); }
+  .logo-rule-label.dont { color: var(--accent); }
+  .logo-preview {
+    background: #0A0A0A; padding: 32px; display: flex;
+    align-items: center; justify-content: center; flex: 1; min-height: 120px;
+  }
+  .logo-preview.light-bg { background: #F0EBE0; }
+  .logo-preview.wrong { filter: blur(0); position: relative; }
+  .logo-preview-text { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 4px; }
+  .logo-rules { margin-top: 20px; }
+  .logo-rules li { font-size: 12px; color: var(--muted); margin-bottom: 8px; list-style: none; padding-left: 16px; position: relative; line-height: 1.5; }
+  .logo-rules li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+  .logo-box.dont .logo-rules li::before { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    background: #0A0A0A;
+    border-top: 1px solid var(--gold);
+    padding: 40px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer .stackwork { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 4px; color: var(--gold); }
+  footer .by { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  footer .kit-info { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; text-align: right; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="brand">FORGE</div>
+  <div class="direction">DIRECTION: INDUSTRIAL RAW</div>
+  <div class="kit-badge">KIT 01</div>
+</nav>
+
+<!-- HEADER -->
+<div class="kit-header">
+  <div class="meta">Brand Starter Kit &nbsp;/&nbsp; Kit 1 of 3 &nbsp;/&nbsp; Forge Men's Grooming</div>
+  <h1>FORGE</h1>
+  <div class="tagline">Built for the modern man.</div>
+  <div class="direction-pill">Direction: Industrial Raw</div>
+</div>
+
+<!-- COLOR PALETTE -->
+<section>
+  <div class="section-label">Section 01</div>
+  <div class="section-title">COLOUR PALETTE</div>
+  <div class="swatches">
+    <div class="swatch" style="background:#C4913C;color:#000" onclick="copyHex(this,'#C4913C')">
+      <span>Forge Gold</span><span class="hex">#C4913C</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#1A1A1A;color:#888" onclick="copyHex(this,'#1A1A1A')">
+      <span>Charcoal</span><span class="hex">#1A1A1A</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#2E2E2E;color:#888" onclick="copyHex(this,'#2E2E2E')">
+      <span>Iron</span><span class="hex">#2E2E2E</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#E8E0D4;color:#333" onclick="copyHex(this,'#E8E0D4')">
+      <span>Parchment</span><span class="hex">#E8E0D4</span>
+      <div class="copied">Copied</div>
+    </div>
+    <div class="swatch" style="background:#D64A2A;color:#fff" onclick="copyHex(this,'#D64A2A')">
+      <span>Ember</span><span class="hex">#D64A2A</span>
+      <div class="copied">Copied</div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section>
+  <div class="section-label">Section 02</div>
+  <div class="section-title">TYPOGRAPHY</div>
+
+  <div class="font-specimen">
+    <div class="font-meta">Display / Heading — Bebas Neue</div>
+    <div class="heading-specimen">THE ART OF<br>MASTERY</div>
+  </div>
+
+  <div class="font-specimen">
+    <div class="font-meta">Body / UI — Barlow Light</div>
+    <div class="body-specimen">Forge is not a brand. It is a standard. Every product is built with intention — crafted from ingredients that perform, packaged with an honesty that respects your time and intelligence.</div>
+  </div>
+
+  <table class="type-scale">
+    <tr><th>Style</th><th>Font</th><th>Size</th><th>Weight</th><th>Use</th></tr>
+    <tr><td>Display XL</td><td>Bebas Neue</td><td>96px</td><td>400</td><td>Hero headlines</td></tr>
+    <tr><td>Display L</td><td>Bebas Neue</td><td>64px</td><td>400</td><td>Section titles</td></tr>
+    <tr><td>Display M</td><td>Bebas Neue</td><td>42px</td><td>400</td><td>Card titles</td></tr>
+    <tr><td>Label</td><td>Barlow Condensed</td><td>11px</td><td>600</td><td>Eyebrows, tags</td></tr>
+    <tr><td>Body</td><td>Barlow</td><td>16px</td><td>300</td><td>Paragraphs</td></tr>
+    <tr><td>Caption</td><td>Barlow</td><td>12px</td><td>400</td><td>Fine print</td></tr>
+  </table>
+</section>
+
+<!-- FAVICON -->
+<section>
+  <div class="section-label">Section 03</div>
+  <div class="section-title">FAVICON PREVIEW</div>
+  <div class="favicon-grid">
+    <div class="favicon-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" class="favicon-svg">
+        <rect width="64" height="64" fill="#1A1A1A"/>
+        <rect x="2" y="2" width="60" height="60" fill="none" stroke="#C4913C" stroke-width="2"/>
+        <text x="32" y="48" font-family="serif" font-size="46" font-weight="900" text-anchor="middle" fill="#C4913C" letter-spacing="2">F</text>
+      </svg>
+      <div class="fav-label">64px</div>
+    </div>
+    <div class="favicon-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" class="favicon-svg">
+        <rect width="64" height="64" fill="#1A1A1A"/>
+        <rect x="2" y="2" width="60" height="60" fill="none" stroke="#C4913C" stroke-width="2"/>
+        <text x="32" y="48" font-family="serif" font-size="46" font-weight="900" text-anchor="middle" fill="#C4913C" letter-spacing="2">F</text>
+      </svg>
+      <div class="fav-label">32px</div>
+    </div>
+    <div class="favicon-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16" class="favicon-svg">
+        <rect width="64" height="64" fill="#1A1A1A"/>
+        <rect x="2" y="2" width="60" height="60" fill="none" stroke="#C4913C" stroke-width="2"/>
+        <text x="32" y="48" font-family="serif" font-size="46" font-weight="900" text-anchor="middle" fill="#C4913C" letter-spacing="2">F</text>
+      </svg>
+      <div class="fav-label">16px</div>
+    </div>
+  </div>
+  <div class="tab-preview">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect width="64" height="64" fill="#1A1A1A"/>
+      <rect x="2" y="2" width="60" height="60" fill="none" stroke="#C4913C" stroke-width="2"/>
+      <text x="32" y="48" font-family="serif" font-size="46" font-weight="900" text-anchor="middle" fill="#C4913C">F</text>
+    </svg>
+    <span>Forge — Built for the modern man.</span>
+    <span style="margin-left:20px;opacity:0.4">✕</span>
+  </div>
+</section>
+
+<!-- BRAND IN ACTION -->
+<section>
+  <div class="section-label">Section 04</div>
+  <div class="section-title">BRAND IN ACTION</div>
+  <div class="hero-mock">
+    <div class="hero-eyebrow">New Arrival — Autumn Collection</div>
+    <div class="hero-headline">BUILT<br>NOT BOUGHT</div>
+    <div class="hero-subtext">Precision-engineered beard oil for men who understand that the details define the man. No filler. No compromise.</div>
+    <div class="hero-btns">
+      <button class="btn-primary">Shop Collection</button>
+      <button class="btn-secondary">Learn the Process</button>
+    </div>
+  </div>
+  <div style="padding: 40px; background: var(--bg2); border: 1px solid var(--border); border-top: none; display: flex; gap: 40px; align-items: flex-start;">
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-inner">FORGE OIL</div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">No. 7 Beard Oil</div>
+        <div class="product-sub">30ml &nbsp;·&nbsp; Cedar & Vetiver</div>
+        <div class="product-price">₹1,800</div>
+      </div>
+    </div>
+    <div style="padding-top:8px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:16px">Product Card</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:340px">Product cards use the dark surface tier with single top-border accent in Forge Gold. Name in Barlow Condensed uppercase, price in Bebas Neue for visual weight.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO USAGE -->
+<section>
+  <div class="section-label">Section 05</div>
+  <div class="section-title">LOGO & USAGE RULES</div>
+  <div class="logo-grid">
+    <div class="logo-box">
+      <div class="logo-rule-label do">✓ &nbsp; Do</div>
+      <div class="logo-preview">
+        <div class="logo-preview-text" style="color:#C4913C">FORGE</div>
+      </div>
+      <ul class="logo-rules">
+        <li>Use on dark backgrounds for maximum contrast</li>
+        <li>Maintain minimum 40px clear space on all sides</li>
+        <li>Gold on black is the primary lockup</li>
+        <li>All-caps wordmark only — no lowercase</li>
+      </ul>
+    </div>
+    <div class="logo-box">
+      <div class="logo-rule-label do">✓ &nbsp; Do (Light BG)</div>
+      <div class="logo-preview light-bg">
+        <div class="logo-preview-text" style="color:#1A1A1A">FORGE</div>
+      </div>
+      <ul class="logo-rules">
+        <li>Use charcoal on light backgrounds only</li>
+        <li>Never use gold on white — insufficient contrast</li>
+        <li>Light background version for print collateral only</li>
+        <li>Minimum logo size: 80px wide</li>
+      </ul>
+    </div>
+    <div class="logo-box dont">
+      <div class="logo-rule-label dont">✕ &nbsp; Don't</div>
+      <div class="logo-preview" style="background:#fff">
+        <div class="logo-preview-text" style="color:#C4913C;opacity:0.3">FORGE</div>
+      </div>
+      <ul class="logo-rules">
+        <li>Don't use low-opacity versions of the logo</li>
+        <li>Don't place gold wordmark on white</li>
+        <li>Don't stretch or condense the letterforms</li>
+      </ul>
+    </div>
+    <div class="logo-box dont">
+      <div class="logo-rule-label dont">✕ &nbsp; Don't</div>
+      <div class="logo-preview">
+        <div class="logo-preview-text" style="color:#888;font-style:italic;text-transform:lowercase">forge</div>
+      </div>
+      <ul class="logo-rules">
+        <li>Don't use italic or styled variants</li>
+        <li>Don't change font family under any circumstance</li>
+        <li>Don't use lowercase — defeats brand authority</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="by">Brand Starter Kit by</div>
+    <div class="stackwork">STACKWORK</div>
+  </div>
+  <div class="kit-info">
+    Forge Men's Grooming<br>
+    Kit 01 — Industrial Raw<br>
+    © 2025 Stackwork. All rights reserved.
+  </div>
+</footer>
+
+<script>
+function copyHex(el, hex) {
+  navigator.clipboard.writeText(hex).then(() => {
+    el.classList.add('flash');
+    setTimeout(() => el.classList.remove('flash'), 1200);
+  });
+}
+</script>
+</body>
+</html>
+<!-- INJECTED SECTIONS: SOCIAL MEDIA KIT + BUSINESS CARD -->
+<style>
+  /* SOCIAL MEDIA KIT */
+  .asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .asset-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .asset-card { background: var(--bg2); border: 1px solid var(--border); overflow: hidden; }
+  .asset-card img { width: 100%; display: block; }
+  .asset-card-meta { padding: 16px; border-top: 1px solid var(--border); }
+  .asset-card-name { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
+  .asset-card-dim { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  /* BUSINESS CARD */
+  .card-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .biz-card-wrap { }
+  .biz-card-wrap img { width: 100%; display: block; border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+  .biz-card-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-top: 14px; }
+  .biz-card-dim { font-size: 11px; color: var(--muted); margin-top: 3px; }
+</style>
+
+<section>
+  <div class="section-label">Section 06</div>
+  <div class="section-title">SOCIAL MEDIA KIT</div>
+  <div class="asset-grid three">
+    <div class="asset-card">
+      <img src="forge_social_profile_kit1.png" alt="Profile Picture">
+      <div class="asset-card-meta">
+        <div class="asset-card-name">Profile Picture</div>
+        <div class="asset-card-dim">800 × 800px · Square</div>
+      </div>
+    </div>
+    <div class="asset-card">
+      <img src="forge_social_post_kit1.png" alt="Post Template">
+      <div class="asset-card-meta">
+        <div class="asset-card-name">Post Template</div>
+        <div class="asset-card-dim">1080 × 1080px · Square</div>
+      </div>
+    </div>
+    <div class="asset-card" style="grid-column: span 1;">
+      <img src="forge_social_banner_kit1.png" alt="Banner">
+      <div class="asset-card-meta">
+        <div class="asset-card-name">Cover / Banner</div>
+        <div class="asset-card-dim">1500 × 500px · LinkedIn / Twitter / Facebook</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:24px" class="asset-card">
+    <img src="forge_social_banner_kit1.png" alt="Banner Full Width" style="width:100%">
+    <div class="asset-card-meta">
+      <div class="asset-card-name">Cover Banner — Full Preview</div>
+      <div class="asset-card-dim">1500 × 500px</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Section 07</div>
+  <div class="section-title">BUSINESS CARD</div>
+  <div class="card-pair">
+    <div class="biz-card-wrap">
+      <img src="forge_card_front_kit1.png" alt="Business Card Front">
+      <div class="biz-card-label">Front</div>
+      <div class="biz-card-dim">3.5 × 2 in · 1050 × 600px · 300dpi</div>
+    </div>
+    <div class="biz-card-wrap">
+      <img src="forge_card_back_kit1.png" alt="Business Card Back">
+      <div class="biz-card-label">Back</div>
+      <div class="biz-card-dim">3.5 × 2 in · 1050 × 600px · 300dpi</div>
+    </div>
+  </div>
+</section>
