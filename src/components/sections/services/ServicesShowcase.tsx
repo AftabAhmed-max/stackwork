@@ -160,6 +160,14 @@ function WebMockup() {
       tag:      'Live ↗',
       info:     { label: 'Luxury Fashion Brand', color: '#8B5CF6', desc: 'Bespoke atelier site with collections & appointment booking' },
     },
+    {
+      label:    'Atelier Noir',
+      subtitle: 'Interior & Furniture Studio',
+      url:      'https://atelier-noir-pi.vercel.app/',
+      image:    '/images/projects/atelier-noir.png',
+      tag:      'Live ↗',
+      info:     { label: 'Business Website', color: '#FF6B35', desc: 'Interior & furniture studio site with portfolio & enquiries' },
+    },
   ]
 
   return (
@@ -167,7 +175,6 @@ function WebMockup() {
       accentColor="#FF6B35"
       items={[
         ...sites.map((site) => ({ card: <ProjectCard site={site} />, info: site.info })),
-        { card: <ComingSoonCard label="Your Website" desc="Landing pages, portfolios & business sites" color="#FF6B35" emoji="🌐" /> },
       ]}
     />
   )
