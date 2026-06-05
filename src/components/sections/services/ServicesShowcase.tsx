@@ -1008,6 +1008,7 @@ function PeopleDeskCard() {
         <Image
           src="/images/projects/peopledesk.png"
           alt="PeopleDesk"
+          loading="eager"
           fill
           sizes="(max-width: 900px) 100vw, 33vw"
           style={{
