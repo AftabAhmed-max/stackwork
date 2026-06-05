@@ -950,6 +950,164 @@ function DealwiseCard() {
   )
 }
 
+/* ---- InsightIQ — AI-powered business intelligence dashboard ---- */
+function InsightIQCard() {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <a
+      href="https://insightiq-jet.vercel.app/"
+      target="_blank"
+      rel="noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display:        'flex',
+        flexDirection:  'column',
+        textDecoration: 'none',
+        borderRadius:   '12px',
+        overflow:       'hidden',
+        aspectRatio:    '16/10',
+        cursor:         'pointer',
+        border:         hovered ? '1px solid rgba(139,92,246,0.45)' : '1px solid rgba(255,255,255,0.08)',
+        transition:     'border-color 0.3s ease',
+      }}
+    >
+      {/* Browser bar */}
+      <div style={{
+        flexShrink:      0,
+        backgroundColor: 'rgba(8,11,20,0.9)',
+        padding:         '7px 10px',
+        display:         'flex',
+        alignItems:      'center',
+        gap:             '7px',
+        borderBottom:    '1px solid rgba(255,255,255,0.06)',
+        zIndex:          3,
+      }}>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          {['#FF5F57','#FEBC2E','#28C840'].map(c => (
+            <div key={c} style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex:            1,
+          backgroundColor: 'rgba(255,255,255,0.07)',
+          borderRadius:    '3px',
+          padding:         '2px 8px',
+          fontSize:        '10px',
+          fontFamily:      'var(--font-body)',
+          color:           'rgba(255,255,255,0.45)',
+        }}>
+          insightiq-jet.vercel.app
+        </div>
+        <ArrowRight size={11} color="rgba(139,92,246,0.6)" />
+      </div>
+
+      {/* Image area */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        <Image
+          src="/images/projects/insightiq.png"
+          alt="InsightIQ"
+          fill
+          sizes="(max-width: 900px) 100vw, 33vw"
+          style={{
+            objectFit:      'cover',
+            objectPosition: 'top left',
+            transform:      hovered ? 'scale(1.04)' : 'scale(1)',
+            transition:     'transform 0.5s ease',
+          }}
+        />
+
+        <div style={{
+          position:      'absolute',
+          inset:         0,
+          background:    'linear-gradient(to bottom, transparent 40%, rgba(8,11,20,0.88) 72%, rgba(8,11,20,1) 100%)',
+          pointerEvents: 'none',
+        }} />
+
+        {/* Hover overlay */}
+        <div style={{
+          position:        'absolute',
+          inset:           0,
+          backgroundColor: hovered ? 'rgba(8,11,20,0.75)' : 'transparent',
+          transition:      'background-color 0.35s ease',
+          display:         'flex',
+          flexDirection:   'column',
+          alignItems:      'center',
+          justifyContent:  'center',
+          gap:             '12px',
+          zIndex:          2,
+        }}>
+          <div style={{
+            opacity:       hovered ? 1 : 0,
+            transform:     hovered ? 'translateY(0)' : 'translateY(10px)',
+            transition:    'opacity 0.3s ease, transform 0.3s ease',
+            display:       'flex',
+            flexDirection: 'column',
+            alignItems:    'center',
+            gap:           '10px',
+          }}>
+            <div style={{
+              width:           '48px',
+              height:          '48px',
+              borderRadius:    '50%',
+              backgroundColor: '#8B5CF6',
+              display:         'flex',
+              alignItems:      'center',
+              justifyContent:  'center',
+              fontSize:        '20px',
+              color:           '#ffffff',
+              boxShadow:       '0 8px 24px rgba(139,92,246,0.4)',
+            }}>↗</div>
+            <span style={{
+              fontFamily:    'var(--font-body)',
+              fontSize:      '13px',
+              fontWeight:    500,
+              color:         '#ffffff',
+              letterSpacing: '0.5px',
+            }}>Visit App</span>
+          </div>
+        </div>
+
+        {/* Bottom info */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          padding:  '12px 14px',
+          zIndex:   3,
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+            <div>
+              <div style={{ fontFamily: 'var(--font-heading)', fontSize: '15px', fontWeight: 700, color: '#ffffff', lineHeight: 1.2, marginBottom: '3px' }}>
+                InsightIQ
+              </div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: '9px', color: 'rgba(255,255,255,0.45)', letterSpacing: '1.2px', textTransform: 'uppercase' as const }}>
+                AI-powered business intelligence dashboard
+              </div>
+            </div>
+            <div style={{
+              fontSize: '10px', fontFamily: 'var(--font-body)', color: '#8B5CF6',
+              border: '1px solid rgba(139,92,246,0.35)', borderRadius: '100px',
+              padding: '3px 10px', backgroundColor: 'rgba(139,92,246,0.08)',
+              whiteSpace: 'nowrap' as const, flexShrink: 0,
+            }}>Live ↗</div>
+          </div>
+          <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' as const }}>
+            {['AI Insights', 'Dashboards', 'Analytics', 'Reporting'].map(tag => (
+              <span key={tag} style={{
+                fontFamily: 'var(--font-body)', fontSize: '9px',
+                color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px',
+                padding: '2px 7px', backdropFilter: 'blur(4px)',
+              }}>{tag}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </a>
+  )
+}
+
 /* ---- PeopleDesk — role-based HR self-service portal ---- */
 function PeopleDeskCard() {
   const [hovered, setHovered] = useState(false)
@@ -1777,7 +1935,7 @@ function BusinessMockup() {
       items={[
         { card: <DealwiseCard />, info: { label: 'Sales CRM', color: '#8B5CF6', desc: 'Pipeline tracking, multi-role access & sales dashboard' } },
         { card: <PeopleDeskCard />, info: { label: 'HR Portal', color: '#8B5CF6', desc: 'Role-based HR self-service portal' } },
-        { card: <ComingSoonCard label="Internal Tool" desc="Custom dashboards built around your workflow" color="#8B5CF6" emoji="🗂️" /> },
+        { card: <InsightIQCard />, info: { label: 'BI Dashboard', color: '#8B5CF6', desc: 'AI-powered business intelligence dashboard' } },
       ]}
     />
   )
