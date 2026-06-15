@@ -48,12 +48,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
-      <GoogleAnalytics gaId="G-ENQGC2VQ0V" />
       <body>
         <PlexusBackground />
         <Navbar />
         {children}
         <Footer />
+        <GoogleAnalytics gaId="G-ENQGC2VQ0V" />
       </body>
     </html>
   )
