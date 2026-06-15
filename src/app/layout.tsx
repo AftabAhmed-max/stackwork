@@ -7,6 +7,7 @@ import { Syne, DM_Sans } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import PlexusBackground from '@/components/ui/PlexusBackground'
 
@@ -47,6 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
+      <GoogleAnalytics gaId="G-ENQGC2VQ0V" />
       <body>
         <PlexusBackground />
         <Navbar />
