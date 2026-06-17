@@ -14,19 +14,18 @@
    ============================================ */
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/proxy-session'
+import { SECURITY_HEADERS } from '@/lib/security-headers'
 
 // Public portal paths that do NOT require a session.
 const PUBLIC_PORTAL_PATHS = ['/portal/login']
 
+// Apply the shared security-header suite (incl. the full CSP) to
+// portal responses. The same suite is applied to marketing routes
+// via next.config.ts headers(), so posture is identical everywhere.
 function applySecurityHeaders(res: NextResponse) {
-  res.headers.set('X-Content-Type-Options', 'nosniff')
-  res.headers.set('X-Frame-Options', 'DENY')
-  res.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-  res.headers.set(
-    'Content-Security-Policy',
-    "frame-ancestors 'none'",
-  )
-  res.headers.set('X-Permitted-Cross-Domain-Policies', 'none')
+  for (const { key, value } of SECURITY_HEADERS) {
+    res.headers.set(key, value)
+  }
   return res
 }
 
@@ -45,10 +44,10 @@ export async function proxy(request: NextRequest) {
   // later by the open-redirect guard).
   const isApi = pathname.startsWith('/api/portal')
   if (!userId && !isPublic && !isApi) {
+    // Hardcoded destination only — no `next`/`redirectTo` parameter is
+    // generated or honoured (post-login routing is role-based and
+    // server-resolved), so there is no open-redirect surface. (L-08)
     const loginUrl = new URL('/portal/login', request.url)
-    if (pathname !== '/portal') {
-      loginUrl.searchParams.set('next', pathname)
-    }
     const redirectRes = NextResponse.redirect(loginUrl)
     // Carry refreshed auth cookies onto the redirect response.
     response.cookies.getAll().forEach((c) => redirectRes.cookies.set(c))

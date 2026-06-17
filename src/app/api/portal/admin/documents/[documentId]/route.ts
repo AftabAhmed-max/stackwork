@@ -6,14 +6,18 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { getAuthContext } from '@/lib/auth'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enforceSameOrigin } from '@/lib/origin'
 import { isUuid } from '@/lib/validation'
 
 const BUCKET = 'project-documents'
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   ctx: { params: Promise<{ documentId: string }> },
 ) {
+  const originError = enforceSameOrigin(request) // CSRF: same-origin only (M-04)
+  if (originError) return originError
+
   const auth = await getAuthContext()
   if (!auth) return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
   if (auth.profile.role !== 'admin') {

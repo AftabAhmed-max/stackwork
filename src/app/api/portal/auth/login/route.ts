@@ -11,7 +11,14 @@
    ============================================ */
 import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { rateLimit, clientIpFromHeaders, LOGIN_LIMIT } from '@/lib/rate-limit'
+import {
+  rateLimit,
+  clientIpFromHeaders,
+  LOGIN_LIMIT,
+  isAccountLockedOut,
+  recordAccountFailure,
+  clearAccountFailures,
+} from '@/lib/rate-limit'
 import { isValidEmail, isValidPassword } from '@/lib/validation'
 
 const GENERIC_401 = { error: 'Invalid credentials.' }
@@ -43,6 +50,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(GENERIC_401, { status: 401 })
   }
 
+  // 2b) Account-level cooldown (L-06). Keyed on the submitted email
+  //     whether or not it exists, and returns the SAME generic 401,
+  //     so it never reveals account existence. Self-expiring window
+  //     means admins are never permanently locked out.
+  if (isAccountLockedOut(email)) {
+    return NextResponse.json(GENERIC_401, { status: 401 })
+  }
+
   // 3) Attempt sign-in. The server client writes HttpOnly cookies.
   const supabase = await createClient()
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -51,8 +66,12 @@ export async function POST(request: NextRequest) {
   })
 
   if (error || !data.user) {
+    recordAccountFailure(email)
     return NextResponse.json(GENERIC_401, { status: 401 })
   }
+
+  // Successful auth → reset this account's failure counter.
+  clearAccountFailures(email)
 
   // 4) Resolve role for hardcoded role-based redirect.
   const { data: profile } = await supabase

@@ -10,8 +10,13 @@
    ============================================ */
 import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { enforceSameOrigin } from '@/lib/origin'
 
 export async function POST(request: NextRequest) {
+  // CSRF: same-origin only (M-04). Prevents forced cross-site logout.
+  const originError = enforceSameOrigin(request)
+  if (originError) return originError
+
   const supabase = await createClient()
 
   // Revoke server-side. signOut() also clears cookies via setAll.

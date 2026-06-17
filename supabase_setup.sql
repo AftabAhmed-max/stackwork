@@ -43,16 +43,39 @@ create table if not exists public.projects (
 );
 create index if not exists projects_owner_id_idx on public.projects (owner_id);
 
--- documents: metadata for files in the private storage bucket.
+-- documents: metadata for a project artefact. A row is EITHER an
+-- uploaded FILE (storage_path set, link_url null) OR a Staging Link
+-- (link_url set, storage_path null) — enforced by documents_file_xor_link.
+-- This definition is the CURRENT, complete schema; the supabase_migration_*
+-- files exist only to upgrade pre-existing databases and are NOT required
+-- for a fresh install. (M-03: reconciled with src/lib/validation.ts.)
 create table if not exists public.documents (
   id           uuid primary key default gen_random_uuid(),
   project_id   uuid not null references public.projects (id) on delete cascade,
-  stage_label  text not null check (stage_label in ('Proposal', 'Signed Agreement', 'Staging Link', 'Other')),
-  file_name    text not null,            -- ORIGINAL name, display label only (never used as a path)
-  storage_path text not null,            -- server-generated: <projectId>/<uuid>.<ext>
+  stage_label  text not null check (stage_label in (
+                 'Project Proposal',
+                 'Project Agreement',
+                 'Wireframe',
+                 'Change Order',
+                 'Client Intake Form',
+                 'Discovery Call Script',
+                 'Hourly Work Confirmation',
+                 'Project Handover Checklist',
+                 'Staging Link',
+                 'Invoice',
+                 'End of Service',
+                 'Other'
+               )),
+  file_name    text not null,            -- display label only (never used as a path)
+  storage_path text,                     -- file rows: <projectId>/<uuid>.<ext>; link rows: null
+  link_url     text,                     -- link rows: the URL; file rows: null
   mime_type    text,
   size_bytes   bigint,
-  uploaded_at  timestamptz not null default now()
+  uploaded_at  timestamptz not null default now(),
+  constraint documents_file_xor_link check (
+    (storage_path is not null and link_url is null)
+    or (storage_path is null and link_url is not null)
+  )
 );
 create index if not exists documents_project_id_idx on public.documents (project_id);
 

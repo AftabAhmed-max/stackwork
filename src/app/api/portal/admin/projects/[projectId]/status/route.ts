@@ -8,12 +8,16 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { getAuthContext } from '@/lib/auth'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enforceSameOrigin } from '@/lib/origin'
 import { isProjectStatus, isUuid } from '@/lib/validation'
 
 export async function POST(
   request: NextRequest,
   ctx: { params: Promise<{ projectId: string }> },
 ) {
+  const originError = enforceSameOrigin(request) // CSRF: same-origin only (M-04)
+  if (originError) return originError
+
   const auth = await getAuthContext()
   if (!auth) return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
   if (auth.profile.role !== 'admin') {

@@ -18,6 +18,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { getAuthContext } from '@/lib/auth'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enforceSameOrigin } from '@/lib/origin'
 import { rateLimit, clientIpFromHeaders, CREATE_LIMIT } from '@/lib/rate-limit'
 import { isValidEmail, isValidPassword, cleanRequiredText } from '@/lib/validation'
 
@@ -25,6 +26,10 @@ import { isValidEmail, isValidPassword, cleanRequiredText } from '@/lib/validati
 const inFlight = new Set<string>()
 
 export async function POST(request: NextRequest) {
+  // 0) CSRF: same-origin only (M-04).
+  const originError = enforceSameOrigin(request)
+  if (originError) return originError
+
   // 1) Auth + admin role.
   const ctx = await getAuthContext()
   if (!ctx) return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })

@@ -20,6 +20,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { randomUUID } from 'node:crypto'
 import { getAuthContext } from '@/lib/auth'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enforceSameOrigin } from '@/lib/origin'
 import {
   isStageLabel,
   isUuid,
@@ -34,6 +35,9 @@ import {
 const BUCKET = 'project-documents'
 
 export async function POST(request: NextRequest) {
+  const originError = enforceSameOrigin(request) // CSRF: same-origin only (M-04)
+  if (originError) return originError
+
   const auth = await getAuthContext()
   if (!auth) return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
   if (auth.profile.role !== 'admin') {
